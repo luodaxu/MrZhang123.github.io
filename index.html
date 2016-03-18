@@ -57,15 +57,15 @@
 
 
 
-<meta name="description">
+<meta name="description" content="front-end developer Website">
 <meta property="og:type" content="website">
-<meta property="og:title" content="前端攻城狮">
+<meta property="og:title" content="MrZhang's Blog">
 <meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="前端攻城狮">
-<meta property="og:description">
+<meta property="og:site_name" content="MrZhang's Blog">
+<meta property="og:description" content="front-end developer Website">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="前端攻城狮">
-<meta name="twitter:description">
+<meta name="twitter:title" content="MrZhang's Blog">
+<meta name="twitter:description" content="front-end developer Website">
 
 
 
@@ -83,7 +83,7 @@
   };
 </script>
 
-  <title> 前端攻城狮 </title>
+  <title> MrZhang's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -110,17 +110,17 @@
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-meta ">
+      <div class="header-inner"><div class="site-meta custom-logo">
   
 
   <div class="custom-logo-site-title">
     <a href="/"  class="brand" rel="start">
       <span class="logo-line-before"><i></i></span>
-      <span class="site-title">前端攻城狮</span>
+      <span class="site-title">MrZhang's Blog</span>
       <span class="logo-line-after"><i></i></span>
     </a>
   </div>
-  <p class="site-subtitle"></p>
+  <p class="site-subtitle">Grow up every day</p>
 </div>
 
 <div class="site-nav-toggle">
@@ -148,22 +148,32 @@
         </li>
       
         
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/archives" rel="section">
             
               <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
             
             归档
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/tags" rel="section">
-            
-              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
-            
-            标签
           </a>
         </li>
       
@@ -207,7 +217,7 @@
               
                 
                 <a class="post-title-link" href="/2016/03/18/zhang/" itemprop="url">
-                  第一篇文章
+                  AC2015的一些东西
                 </a>
               
             
@@ -220,7 +230,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-18T15:04:57+08:00" content="2016-03-18">
+            <time itemprop="dateCreated" datetime="2016-03-18T18:53:57+08:00" content="2016-03-18">
               2016-03-18
             </time>
           </span>
@@ -249,7 +259,10 @@
       
         
           
-            
+            <h2 id="局部滚动与全局滚动"><a href="#局部滚动与全局滚动" class="headerlink" title="局部滚动与全局滚动"></a>局部滚动与全局滚动</h2><p>全局滚动：滚动条在boyd节点或更顶层<br>局部滚动：滚动条在body下的某个dom节点上</p>
+<h3 id="1-点击态：给用户明确的点击反馈，提升用户体验"><a href="#1-点击态：给用户明确的点击反馈，提升用户体验" class="headerlink" title="1.点击态：给用户明确的点击反馈，提升用户体验"></a>1.点击态：给用户明确的点击反馈，提升用户体验</h3><h4 id="方案1：使用：active伪类"><a href="#方案1：使用：active伪类" class="headerlink" title="方案1：使用：active伪类"></a>方案1：使用：active伪类</h4><p>缺点：滚动时候也会触发样式</p>
+<h4 id="方案2：给点击状态提前写好样式，然后利用JS加"><a href="#方案2：给点击状态提前写好样式，然后利用JS加" class="headerlink" title="方案2：给点击状态提前写好样式，然后利用JS加"></a>方案2：给点击状态提前写好样式，然后利用JS加</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$el.on(&apos;tap&apos;,function(e)&#123;</span><br><span class="line">    var $target=$(e.target);</span><br><span class="line">    $target.addClass(&apos;active&apos;);</span><br><span class="line">    </span><br><span class="line">    setTimeout(function()&#123;</span><br><span class="line">        $target.removeClass(&apos;active&apos;);</span><br><span class="line">    &#125;,150);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="2-IOS局部滚动使用弹性滚动效果"><a href="#2-IOS局部滚动使用弹性滚动效果" class="headerlink" title="2.IOS局部滚动使用弹性滚动效果"></a>2.IOS局部滚动使用弹性滚动效果</h3>
           
         
       
@@ -404,9 +417,9 @@
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/default_avatar.jpg"
-               alt="枫s的思念" />
-          <p class="site-author-name" itemprop="name">枫s的思念</p>
-          <p class="site-description motion-element" itemprop="description"></p>
+               alt="ZhangYi" />
+          <p class="site-author-name" itemprop="name">ZhangYi</p>
+          <p class="site-description motion-element" itemprop="description">front-end developer Website</p>
         </div>
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
@@ -425,6 +438,32 @@
         
 
         <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/MrZhang123" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/Zhang__Yi" target="_blank">
+                  
+                    <i class="fa fa-twitter"></i> Twitter
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2891858001/profile?rightmod=1&wvr=6&mod=personnumber" target="_blank">
+                  
+                    <i class="fa fa-weibo"></i> Weibo
+                  
+                </a>
+              </span>
+            
           
         </div>
 
@@ -457,7 +496,7 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">枫s的思念</span>
+  <span class="author" itemprop="copyrightHolder">ZhangYi</span>
 </div>
 
 <div class="powered-by">
