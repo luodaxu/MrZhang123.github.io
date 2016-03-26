@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="随记," />
+  <meta name="keywords" content="HTML5," />
 
 
 
@@ -57,18 +57,16 @@
 
 
 
-<meta name="description" content="&amp;emsp;&amp;emsp;今天下班比较早，本来想的要看书呢，结果都走了，所以我也就下班了，回来时候回顾自己的一天，感觉今天什么都没学下，瞬间觉得自己今天没多少收获，本来早晨时候任务很多，但是很多任务都不是很明确，让我很迷茫，不知道该怎么弄，后来问了问陈哥，才发现这些任务好几个都是能完成一半，自己的强迫症瞬间犯了，我不喜欢我的任务栏中有那么多任务，但是又完成不了，着实让我觉得难受啊！">
+<meta name="description" content="&amp;emsp;&amp;emsp;周四下午测试人员提出BUG，说我写的那个类支付宝密码框在按下Tab键时候无法像原生的form表单中的input那样被激活，当时的第一反应是，我的密码框原本就是用div模拟的，怎么可能想form表单一样在Tab键时候激活呢。但是当我打开支付宝官网，按下tab键后，密码框可以被激活，这激起了我的好奇心，也就有了后来对tabindex和document.activeElement">
 <meta property="og:type" content="article">
-<meta property="og:title" content="一些想法">
-<meta property="og:url" content="http://yoursite.com/2016/03/21/article-2/index.html">
+<meta property="og:title" content="H5焦点管理---tabindex与document.activeElement">
+<meta property="og:url" content="http://yoursite.com/2016/03/26/activeElement/index.html">
 <meta property="og:site_name" content="MrZhang's Blog">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;今天下班比较早，本来想的要看书呢，结果都走了，所以我也就下班了，回来时候回顾自己的一天，感觉今天什么都没学下，瞬间觉得自己今天没多少收获，本来早晨时候任务很多，但是很多任务都不是很明确，让我很迷茫，不知道该怎么弄，后来问了问陈哥，才发现这些任务好几个都是能完成一半，自己的强迫症瞬间犯了，我不喜欢我的任务栏中有那么多任务，但是又完成不了，着实让我觉得难受啊！">
-<meta property="og:image" content="http://yoursite.com/img/fight.jpg">
-<meta property="og:updated_time" content="2016-03-25T17:13:41.349Z">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;周四下午测试人员提出BUG，说我写的那个类支付宝密码框在按下Tab键时候无法像原生的form表单中的input那样被激活，当时的第一反应是，我的密码框原本就是用div模拟的，怎么可能想form表单一样在Tab键时候激活呢。但是当我打开支付宝官网，按下tab键后，密码框可以被激活，这激起了我的好奇心，也就有了后来对tabindex和document.activeElement">
+<meta property="og:updated_time" content="2016-03-26T03:40:16.263Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="一些想法">
-<meta name="twitter:description" content="&amp;emsp;&amp;emsp;今天下班比较早，本来想的要看书呢，结果都走了，所以我也就下班了，回来时候回顾自己的一天，感觉今天什么都没学下，瞬间觉得自己今天没多少收获，本来早晨时候任务很多，但是很多任务都不是很明确，让我很迷茫，不知道该怎么弄，后来问了问陈哥，才发现这些任务好几个都是能完成一半，自己的强迫症瞬间犯了，我不喜欢我的任务栏中有那么多任务，但是又完成不了，着实让我觉得难受啊！">
-<meta name="twitter:image" content="http://yoursite.com/img/fight.jpg">
+<meta name="twitter:title" content="H5焦点管理---tabindex与document.activeElement">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;周四下午测试人员提出BUG，说我写的那个类支付宝密码框在按下Tab键时候无法像原生的form表单中的input那样被激活，当时的第一反应是，我的密码框原本就是用div模拟的，怎么可能想form表单一样在Tab键时候激活呢。但是当我打开支付宝官网，按下tab键后，密码框可以被激活，这激起了我的好奇心，也就有了后来对tabindex和document.activeElement">
 
 
 
@@ -86,7 +84,7 @@
   };
 </script>
 
-  <title> 一些想法 | MrZhang's Blog </title>
+  <title> H5焦点管理---tabindex与document.activeElement | MrZhang's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -226,7 +224,7 @@
             
             
               
-                一些想法
+                H5焦点管理---tabindex与document.activeElement
               
             
           </h1>
@@ -238,8 +236,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-21T21:37:42+08:00" content="2016-03-21">
-              2016-03-21
+            <time itemprop="dateCreated" datetime="2016-03-26T10:20:56+08:00" content="2016-03-26">
+              2016-03-26
             </time>
           </span>
 
@@ -252,8 +250,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/随记/" itemprop="url" rel="index">
-                    <span itemprop="name">随记</span>
+                  <a href="/categories/前端技术/" itemprop="url" rel="index">
+                    <span itemprop="name">前端技术</span>
                   </a>
                 </span>
 
@@ -268,8 +266,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/03/21/article-2/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/21/article-2/" itemprop="commentsCount"></span>
+                <a href="/2016/03/26/activeElement/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/26/activeElement/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -291,7 +289,14 @@
       
 
       
-        <p>&emsp;&emsp;今天下班比较早，本来想的要看书呢，结果都走了，所以我也就下班了，回来时候回顾自己的一天，感觉今天什么都没学下，瞬间觉得自己今天没多少收获，本来早晨时候任务很多，但是很多任务都不是很明确，让我很迷茫，不知道该怎么弄，后来问了问陈哥，才发现这些任务好几个都是能完成一半，自己的强迫症瞬间犯了，我不喜欢我的任务栏中有那么多任务，但是又完成不了，着实让我觉得难受啊！<a id="more"></a><br>&emsp;&emsp;回想起自己的工作，来到工作这半年多来，感觉并没多少成长，这里我所说的成长指的是并没有从无到有学会一个自己曾经从没接触过的东西，有时候会觉得每天就是改改样式，改改页面，前端和后台的交互我都不需要写这样好么？说实话，自己也不是说改那些就改的很好，总是很粗心，陈哥说我眼高手低，可能怎得是这样，自己以后一定要改正。去年元旦的时候，给自己定下要在2016年多读书，要每天跑步，要学习掌握前端框架，但是现在都快3月底了，貌似只做到了每天早晨跑步，其他都没有，前几天没事儿干，一直都在看《javascript高级程序设计》，感觉收获蛮多的，讲的javascript非常细。公司的要求支持IE9+，所以我感觉用原生js是可以用的。关于框架，有时候觉得可能是自己知道的太多了，学什么犹犹豫豫的，这样下去不太好，这样犹豫下去什么都学不会，所以要选一个自己感兴趣的去钻研。<br>&emsp;&emsp;晚上回来的时候听说同学跳槽涨工资了，自己觉得可能心里有些不平衡，所以更加心烦，开始考虑到底要不要换工作，什么时候需要换工作，反正各种跟跳槽有关的想法出现在我的脑海中，感觉自己淡定不了了，从小到大一直都是这样，这样真心不好，自己的抗干扰能力太差了，外界一点儿风吹草动自己就淡定不下来，就觉得应该怎么样怎么样，这着实不应该，无论别人如何，自己做好自己就行，干嘛非得想别人怎么样怎么样呢。不过回想起来，确实是自己也出问题了，每到周六日就想到玩儿玩儿玩儿，这么玩儿下去，必然学习的机会少，所以在这一点上以后一定要注意点儿，毕竟公司其实也学不到你想学的东西，全靠自己，关于每天的时间规划，应该要仔细点儿，有时候真是觉得一天不知道干了些什么，反正一天就过去了。心若冰清，天塌不惊，淡定…<br>&emsp;&emsp;本来是弄个博客要记录些技术，成日记本了，不管怎么说，加油吧！<img src="/img/fight.jpg" alt="icon"></p>
+        <p>&emsp;&emsp;周四下午测试人员提出BUG，说我写的那个类支付宝密码框在按下Tab键时候无法像原生的form表单中的input那样被激活，当时的第一反应是，我的密码框原本就是用div模拟的，怎么可能想form表单一样在Tab键时候激活呢。但是当我打开支付宝官网，按下tab键后，密码框可以被激活，这激起了我的好奇心，也就有了后来对tabindex和document.activeElement的发现。废话不多说，进入正题。</p>
+<h3 id="HTML-tabindex属"><a href="#HTML-tabindex属" class="headerlink" title="HTML tabindex属"></a>HTML tabindex属</h3><h4 id="tabindex的设置"><a href="#tabindex的设置" class="headerlink" title="tabindex的设置"></a>tabindex的设置</h4><p>&emsp;&emsp;当Tab键用于导航时，tabindex属性规定元素的tab键控制次序，其中tabindex的值为阿拉伯数字，默认情况下越靠前的元素该值越小，所以我们可以通过人为改变tabindex的值来改变按下Tab键后可以被激活元素的激活顺序，只需要做如下设置：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">tabindex</span>=<span class="string">"1"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">tabindex</span>=<span class="string">"2"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">tabindex</span>=<span class="string">"4"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">tabindex</span>=<span class="string">"3"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>&emsp;&emsp;以上代码在浏览器中按下Tab键激活顺序就是它们在HTML代码中的顺序，但是我在这里设置第三个input的tabindex比第四个的大，所以按下Tab键后，第四个input框的激活在第三个之前。</p>
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a><font color="red">注意</font></h4><p>&emsp;&emsp;1.前面说过tabindex的值越小，越被早激活，但是tabIndex的值要0~32767之间。<br>&emsp;&emsp;2.如果把tabindex值设置为负值（比如设置为tabindex=-1），则按下Tab键不会激活该元素，但是该元素的focus和blur事件仍然启动。<br>&emsp;&emsp;3.如果把tabindex设置为0，则带0值tabIndex的元素根据源代码（或默认页面行为）进行排序。<br>&emsp;&emsp;4.如果页面中出现多个tabindex值相同的元素，则浏览器会把这些元素的tabindex值看做0。</p>
+<h4 id="为div与span设置tabindex"><a href="#为div与span设置tabindex" class="headerlink" title="为div与span设置tabindex"></a>为div与span设置tabindex</h4><p>&emsp;&emsp;默认情况下按下Tab键可以被选中或者激活的有a,area,button,input,object,select,textarea，但是在现代浏览器和IE9+中给div和span设置tabindex属性也可以被选中，在chrome中，被选中的元素会出现淡蓝色的边框。</p>
+<h3 id="H5焦点管理document-activeElement"><a href="#H5焦点管理document-activeElement" class="headerlink" title="H5焦点管理document.activeElement"></a>H5焦点管理document.activeElement</h3><p>&emsp;&emsp;H5添加了辅助管理DOM焦点的document.activeElemnt属性，这个属性始终会引用DOM中当前获得了焦点的元素。元素获取焦点的方式有页面加载，用户输入（通常是通过按Tab键）和代码中调用focus()方法。<br>&emsp;&emsp;默认情况下，文档刚刚加载完，document.activeElement中保存的是document.body元素的引用。文档加载期间，document.activeElement的值为null。另外顺带提一句，判断是否获得焦点可以使用hasFocus()。<br>&emsp;&emsp;利用该属性，就可以知道当前哪个元素被Tab键激活，进而就可以获取到被激活元素的各类属性，比如可以在按下Tab键时候去输出当前被激活元素的class属性。代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> $input=$(<span class="string">'input'</span>);</span><br><span class="line">    $input.on(<span class="string">'keydown'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> event=e||<span class="built_in">window</span>.event;</span><br><span class="line">        <span class="keyword">if</span>(event.keyCode==<span class="number">9</span>)&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="built_in">document</span>.activeElement.attr(<span class="string">'class'</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>&emsp;&emsp;基于以上两点，通过判断当前被激活的元素的class，就实现了让模拟的密码输入框有和原生的input一样在按下Tab键被激活。</p>
 
       
     </div>
@@ -306,7 +311,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/随记/" rel="tag">#随记</a>
+            <a href="/tags/HTML5/" rel="tag">#HTML5</a>
           
         </div>
       
@@ -315,17 +320,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/03/20/article-1/" rel="next" title="第一篇文章">
-                <i class="fa fa-chevron-left"></i> 第一篇文章
+              <a href="/2016/03/22/tec-2/" rel="next" title="H5 Canvas实现图片格式的转换">
+                <i class="fa fa-chevron-left"></i> H5 Canvas实现图片格式的转换
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/03/21/tec-1/" rel="prev" title="jquery插件开发">
-                jquery插件开发 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -351,8 +352,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/03/21/article-2/"
-           data-title="一些想法" data-url="http://yoursite.com/2016/03/21/article-2/">
+      <div class="ds-thread" data-thread-key="2016/03/26/activeElement/"
+           data-title="H5焦点管理---tabindex与document.activeElement" data-url="http://yoursite.com/2016/03/26/activeElement/">
       </div>
     
   </div>
@@ -474,7 +475,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML-tabindex属"><span class="nav-number">1.</span> <span class="nav-text">HTML tabindex属</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#tabindex的设置"><span class="nav-number">1.1.</span> <span class="nav-text">tabindex的设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注意"><span class="nav-number">1.2.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为div与span设置tabindex"><span class="nav-number">1.3.</span> <span class="nav-text">为div与span设置tabindex</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#H5焦点管理document-activeElement"><span class="nav-number">2.</span> <span class="nav-text">H5焦点管理document.activeElement</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
