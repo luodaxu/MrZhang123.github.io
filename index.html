@@ -226,6 +226,126 @@
             
               
                 
+                <a class="post-title-link" href="/2016/03/31/H5File/" itemprop="url">
+                  文件上传（一）---H5 file API，canvas
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-03-31T23:35:12+08:00" content="2016-03-31">
+              2016-03-31
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/前端技术/" itemprop="url" rel="index">
+                    <span itemprop="name">前端技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/03/31/H5File/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/31/H5File/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>&emsp;&emsp;最近公司让调研关于webUploader的图片上传中能否压缩，能否实现图片的格式转换，如果能如何实现，经过调研，这个插件可以实现文件的压缩，但是不能实现图片的格式转换，同时在调研过程中，知道了很多新的东西，H5 file API，canvas，等等，所以有了自己写一个文件上传来熟悉这些东西，所以有了本篇文章。</p>
+<h2 id="一-做好HTML，CSS样式"><a href="#一-做好HTML，CSS样式" class="headerlink" title="一.做好HTML，CSS样式"></a>一.做好HTML，CSS样式</h2><p>这里很简单，就是写一个HTML+CSS的文件，让我们的上传看起来像那么回事儿，这里不细说，代码如下：</p>
+<h3 id="html"><a href="#html" class="headerlink" title="html"></a>html</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>fileUploader<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"stylesheet"</span> <span class="attr">href</span>=<span class="string">"./index.css"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"upbox"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>测试<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">id</span>=<span class="string">"uploader"</span> <span class="attr">type</span>=<span class="string">"file"</span> <span class="attr">multiple</span>=<span class="string">"multiple"</span> <span class="attr">name</span>=<span class="string">"file"</span> <span class="attr">accept</span>=<span class="string">"image/*"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>    </span><br><span class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">id</span>=<span class="string">"test"</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span>点击选择上传图片<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">id</span>=<span class="string">"button"</span>&gt;</span>上传<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"./index.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="index-css"><a href="#index-css" class="headerlink" title="index.css"></a>index.css</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.upbox</span>&#123;<span class="attribute">width</span>: <span class="number">100%</span>;<span class="attribute">height</span>: <span class="number">500px</span>;<span class="attribute">border</span>: <span class="number">3px</span> dashed <span class="number">#000</span>;<span class="attribute">position</span>: relative;&#125;</span><br><span class="line"><span class="selector-id">#uploader</span>&#123;<span class="attribute">display</span>: block;<span class="attribute">width</span>: <span class="number">100%</span>;<span class="attribute">height</span>: <span class="number">100%</span>;<span class="attribute">opacity</span>: <span class="number">0</span>;<span class="attribute">position</span>: absolute;<span class="attribute">left</span>: <span class="number">0</span>;<span class="attribute">top</span>: <span class="number">0</span>;<span class="attribute">cursor</span>: pointer;&#125;</span><br><span class="line"><span class="selector-tag">h1</span>&#123;<span class="attribute">position</span>: absolute;<span class="attribute">left</span>: <span class="number">45%</span>;<span class="attribute">top</span>: <span class="number">40%</span>;&#125;</span><br><span class="line"><span class="selector-tag">button</span>&#123;<span class="attribute">width</span>: <span class="number">100px</span>;<span class="attribute">height</span>: <span class="number">50px</span>;<span class="attribute">float</span>: right;&#125;</span><br><span class="line"><span class="selector-class">.img-content</span>&#123;<span class="attribute">width</span>: <span class="number">120px</span>;<span class="attribute">height</span>: <span class="number">120px</span>;<span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#000</span>;<span class="attribute">margin</span>: <span class="number">20px</span>;<span class="attribute">float</span>: left;<span class="attribute">position</span>: relative; <span class="attribute">z-index</span>: <span class="number">5</span>;&#125;</span><br><span class="line"><span class="selector-class">.img-box</span>&#123;<span class="attribute">width</span>: <span class="number">100%</span>;<span class="attribute">height</span>: <span class="number">100%</span>;&#125;</span><br><span class="line"><span class="selector-class">.img-box</span> <span class="selector-tag">img</span>&#123;<span class="attribute">display</span>: block; <span class="attribute">width</span>: <span class="number">100%</span>;<span class="attribute">height</span>: <span class="number">100%</span>;&#125;</span><br></pre></td></tr></table></figure>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/03/31/H5File/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/03/26/activeElement/" itemprop="url">
                   H5焦点管理---tabindex与document.activeElement
                 </a>
@@ -836,7 +956,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">5</span>
+              <span class="site-state-item-count">6</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -853,7 +973,7 @@
           
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>
