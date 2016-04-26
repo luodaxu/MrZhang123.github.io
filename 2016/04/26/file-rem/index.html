@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="canvas," />
+  <meta name="keywords" content="CSS3," />
 
 
 
@@ -57,19 +57,16 @@
 
 
 
-<meta name="description" content="&amp;emsp;&amp;emsp;今天早上到公司，看到CTO要求调查关于前端如何实现图片格式转换，自己上网找了下关于canvas如何实现图片格式转换，其实还是蛮简单的，但是因为网上的教程着实写的简单，而且都一样，我也是醉了，所以写下这篇博客，以记录今天的调查结果。
-使用Javasript将图片写入画布1234567function convertImageToCanvas(image) &amp;#123;	var">
+<meta name="description" content="做移动端的响应方法有很多，但是我喜欢用CSS3的新单位rem，这个单位非常好用（有个比它还好用的单位vh，不过兼容性太差，不考虑了），根据不同屏幕，设置不同的基准值，从而实现适配各个屏幕尺寸的移动设备。慕课网有一套非常不错的讲关于rem的视频，这里推荐给大家http://www.imooc.com/learn/494。rem—-CSS3中新增的单位，兼容性还不错，常用于移动端实现字体的响应，与em">
 <meta property="og:type" content="article">
-<meta property="og:title" content="H5 Canvas实现图片格式的转换">
-<meta property="og:url" content="http://yoursite.com/2016/03/22/tec-2/index.html">
+<meta property="og:title" content="利用CSS3新单位rem实现响应">
+<meta property="og:url" content="http://yoursite.com/2016/04/26/file-rem/index.html">
 <meta property="og:site_name" content="MrZhang's Blog">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;今天早上到公司，看到CTO要求调查关于前端如何实现图片格式转换，自己上网找了下关于canvas如何实现图片格式转换，其实还是蛮简单的，但是因为网上的教程着实写的简单，而且都一样，我也是醉了，所以写下这篇博客，以记录今天的调查结果。
-使用Javasript将图片写入画布1234567function convertImageToCanvas(image) &amp;#123;	var">
-<meta property="og:updated_time" content="2016-03-25T17:07:38.940Z">
+<meta property="og:description" content="做移动端的响应方法有很多，但是我喜欢用CSS3的新单位rem，这个单位非常好用（有个比它还好用的单位vh，不过兼容性太差，不考虑了），根据不同屏幕，设置不同的基准值，从而实现适配各个屏幕尺寸的移动设备。慕课网有一套非常不错的讲关于rem的视频，这里推荐给大家http://www.imooc.com/learn/494。rem—-CSS3中新增的单位，兼容性还不错，常用于移动端实现字体的响应，与em">
+<meta property="og:updated_time" content="2016-04-26T15:01:45.644Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="H5 Canvas实现图片格式的转换">
-<meta name="twitter:description" content="&amp;emsp;&amp;emsp;今天早上到公司，看到CTO要求调查关于前端如何实现图片格式转换，自己上网找了下关于canvas如何实现图片格式转换，其实还是蛮简单的，但是因为网上的教程着实写的简单，而且都一样，我也是醉了，所以写下这篇博客，以记录今天的调查结果。
-使用Javasript将图片写入画布1234567function convertImageToCanvas(image) &amp;#123;	var">
+<meta name="twitter:title" content="利用CSS3新单位rem实现响应">
+<meta name="twitter:description" content="做移动端的响应方法有很多，但是我喜欢用CSS3的新单位rem，这个单位非常好用（有个比它还好用的单位vh，不过兼容性太差，不考虑了），根据不同屏幕，设置不同的基准值，从而实现适配各个屏幕尺寸的移动设备。慕课网有一套非常不错的讲关于rem的视频，这里推荐给大家http://www.imooc.com/learn/494。rem—-CSS3中新增的单位，兼容性还不错，常用于移动端实现字体的响应，与em">
 
 
 
@@ -87,7 +84,7 @@
   };
 </script>
 
-  <title> H5 Canvas实现图片格式的转换 | MrZhang's Blog </title>
+  <title> 利用CSS3新单位rem实现响应 | MrZhang's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -227,7 +224,7 @@
             
             
               
-                H5 Canvas实现图片格式的转换
+                利用CSS3新单位rem实现响应
               
             
           </h1>
@@ -239,8 +236,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-22T23:46:18+08:00" content="2016-03-22">
-              2016-03-22
+            <time itemprop="dateCreated" datetime="2016-04-26T22:49:25+08:00" content="2016-04-26">
+              2016-04-26
             </time>
           </span>
 
@@ -269,8 +266,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/03/22/tec-2/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/22/tec-2/" itemprop="commentsCount"></span>
+                <a href="/2016/04/26/file-rem/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/04/26/file-rem/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -292,12 +289,24 @@
       
 
       
-        <p>&emsp;&emsp;今天早上到公司，看到CTO要求调查关于前端如何实现图片格式转换，自己上网找了下关于canvas如何实现图片格式转换，其实还是蛮简单的，但是因为网上的教程着实写的简单，而且都一样，我也是醉了，所以写下这篇博客，以记录今天的调查结果。</p>
-<h4 id="使用Javasript将图片写入画布"><a href="#使用Javasript将图片写入画布" class="headerlink" title="使用Javasript将图片写入画布"></a>使用Javasript将图片写入画布</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">convertImageToCanvas</span>(<span class="params">image</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> canvas = <span class="built_in">document</span>.createElement(<span class="string">"canvas"</span>);</span><br><span class="line">	canvas.width = image.width;</span><br><span class="line">	canvas.height = image.height;</span><br><span class="line">	canvas.getContext(<span class="string">"2d"</span>).drawImage(image, <span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">	<span class="keyword">return</span> canvas;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>做移动端的响应方法有很多，但是我喜欢用CSS3的新单位rem，这个单位非常好用（有个比它还好用的单位vh，不过兼容性太差，不考虑了），根据不同屏幕，设置不同的基准值，从而实现适配各个屏幕尺寸的移动设备。慕课网有一套非常不错的讲关于rem的视频，这里推荐给大家<a href="http://www.imooc.com/learn/494" target="_blank" rel="external">http://www.imooc.com/learn/494</a>。<br>rem—-CSS3中新增的单位，兼容性还不错，常用于移动端实现字体的响应，与em不同，rem根据根元素的font-size计算，所以要利用rem实现适配各个屏幕的大小，就需要根据不同的屏幕设置根元素不同的font-size的值。所以我们需要做下面的一些工作。</p>
+<h3 id="1-获取浏览器的宽高（对于移动设备就是设备的宽度）"><a href="#1-获取浏览器的宽高（对于移动设备就是设备的宽度）" class="headerlink" title="1.获取浏览器的宽高（对于移动设备就是设备的宽度）"></a>1.获取浏览器的宽高（对于移动设备就是设备的宽度）</h3><p>代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> pageWidth=<span class="built_in">window</span>.innerWidth;</span><br><span class="line"><span class="keyword">var</span> pageHeight=<span class="built_in">window</span>.innerHeight;</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">typeof</span> pageWidth !==<span class="string">'number'</span>)&#123;</span><br><span class="line">	<span class="keyword">if</span>(<span class="built_in">document</span>.compatMode===<span class="string">'CSS1Compat'</span>)&#123;</span><br><span class="line">		pageWidt=<span class="built_in">document</span>.documentElement.clientWidth;</span><br><span class="line">		pageHeight=<span class="built_in">document</span>.documentElement.clientHeight;</span><br><span class="line">	&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">		pageWidt=<span class="built_in">document</span>.body.clientWidth;</span><br><span class="line">		pageHeight=<span class="built_in">document</span>.body.clientHeight;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <a id="more"></a>
-<h4 id="用JavaScript将画布保持成图片格式"><a href="#用JavaScript将画布保持成图片格式" class="headerlink" title="用JavaScript将画布保持成图片格式"></a>用JavaScript将画布保持成图片格式</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">convertCanvasToImage</span>(<span class="params">canvas</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> image = <span class="keyword">new</span> Image();</span><br><span class="line">    <span class="comment">//这里的image后面可以写png，jpeg，但是不能写jpg，写了不会转换的</span></span><br><span class="line">	image.src = canvas.toDataURL(<span class="string">"image/jpeg"</span>);</span><br><span class="line">	<span class="keyword">return</span> image;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="调用函数实现转换"><a href="#调用函数实现转换" class="headerlink" title="调用函数实现转换"></a>调用函数实现转换</h4><p>&emsp;&emsp;函数convertImageToCanvas需要传入一个image对象，这个对象需要我们手动去获取，例如，可以在html页面中写入img标签并引入图片，然后利用js获取img对象，将img对象传入该函数，即可获得返回的canvas对象，再将该canvas对象传入函数convertCanvasToImage即可获得返回的image，<font color="red" size="2">但是，这里获得的是base64的编码的图片，本身绘制在canvas画布上的图片右键保存还是png图，所以，要想获得转换后的图片，可以利用a标签在href中写入base64编码获得，点击a标签可以跳转到转换后的图片。</font>关于如将base64编码的图片解码成图片，因为今天下午事儿多，没顾上研究，有时间，研究一下。<br>实现代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> img=<span class="built_in">document</span>.getElementById(<span class="string">'img'</span>);</span><br><span class="line"><span class="keyword">var</span> body=<span class="built_in">document</span>.getElementById(<span class="string">'body'</span>);</span><br><span class="line"><span class="keyword">var</span> canvas=convertImageToCanvas(img);</span><br><span class="line">convertCanvasToImage(canvas);</span><br><span class="line"><span class="keyword">var</span> link=<span class="built_in">document</span>.createElement(<span class="string">'a'</span>);</span><br><span class="line">body.appendChild(link);</span><br><span class="line">link.innerHTML(<span class="string">'跳转图片'</span>);</span><br></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;以上代码可以在点击link链接后得到转换后的图片，今天就研究到这些，以后有时间再继续研究完善。</p>
+<h4 id="1-1-window-innerWidth与document-documentElement-clientWidth"><a href="#1-1-window-innerWidth与document-documentElement-clientWidth" class="headerlink" title="1.1 window.innerWidth与document.documentElement.clientWidth"></a>1.1 window.innerWidth与document.documentElement.clientWidth</h4><p>通过测试发现，在IE9+，chrome，firefox下利用window.innerWidth与document.documentElement.clientWidth都可以获取到浏览器的宽高，但是他们有区别：</p>
+<ul>
+<li>window.innerWidth获取到的宽度是把右侧滚动条<font color="red">算在内</font>的宽度</li>
+<li>document.documentElement.clientWidth获取到的宽度是把右侧滚动条的宽度<font color="red">不算在内</font>的宽度</li>
+</ul>
+<p>但是，window.innerWidth支持的是IE9+，到IE8以前就会输出undefined，而document.documentElement.clientWidth可以支持IE7（在IE模拟器中，没有IE6，到IE5就只能输出0了），在《javascript高级程序设计》（第三版）中这样写道：“在 IE6 中，这些属性必须在标准模式下才有效；如果是混杂模式，就必须通过 document.body.clientWidth 和 document.body. clientHeight 取得相同信息。”所以document.body.clientWidth;用于混杂模式，在标准模式下只需要document.documentElement.clientWidth即可。</p>
+<h4 id="1-2-如何判断浏览器处于什么模式？"><a href="#1-2-如何判断浏览器处于什么模式？" class="headerlink" title="1.2 如何判断浏览器处于什么模式？"></a>1.2 如何判断浏览器处于什么模式？</h4><p>Javascript提供了方法<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(<span class="built_in">document</span>.compatMode===<span class="string">'CSS1Compat'</span>)&#123;</span><br><span class="line">    alert(<span class="string">'标准模式'</span>);</span><br><span class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">document</span>.compatMode===<span class="string">'BackCompat'</span>)&#123;</span><br><span class="line">    alert(<span class="string">'混杂模式'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-计算rem基准值"><a href="#2-计算rem基准值" class="headerlink" title="2.计算rem基准值"></a>2.计算rem基准值</h3><p>通过上面代码可以拿到浏览器窗口（也就是document）的宽度，这样就可以计算根元素的基准值了，计算公式如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fontSize=pageWidth / <span class="number">20</span>;</span><br><span class="line"><span class="keyword">var</span> html=<span class="built_in">document</span>.querySelectorAll(<span class="string">'html'</span>)[<span class="number">0</span>];</span><br><span class="line">html.style.fontSize=fontSize;</span><br></pre></td></tr></table></figure></p>
+<p>通过以上代码就实现了给根元素设置基准fontSize。</p>
+<h3 id="3-将PSD中测量出的值换算成rem"><a href="#3-将PSD中测量出的值换算成rem" class="headerlink" title="3.将PSD中测量出的值换算成rem"></a>3.将PSD中测量出的值换算成rem</h3><p>公司设计师给的PSD的基准宽度为720px,所以我在布局的时候常常使用nexus 5作为移动端设备去测试，因为它的宽度是360px，与720px刚好是2倍的关系，根据这个2倍的关系，所以换算步骤如下：</p>
+<ol>
+<li>PSD设计图中测量出来的尺寸为m px，则放在我移动设备中需要写的尺寸为m/2 px</li>
+<li>将px换算为rem，由于在360px的移动设备下，font-size基准值为360 / 20 = 18px，所以px=&gt;rem过程为：rem = m / 2 / 18 = m / 36;</li>
+</ol>
+<p>通过以上计算就将PSD中的px转换为移动设备中的rem，这样就可以实现对各个移动设备的适配。</p>
 
       
     </div>
@@ -312,7 +321,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/canvas/" rel="tag">#canvas</a>
+            <a href="/tags/CSS3/" rel="tag">#CSS3</a>
           
         </div>
       
@@ -321,17 +330,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/03/21/tec-1/" rel="next" title="jquery插件开发">
-                <i class="fa fa-chevron-left"></i> jquery插件开发
+              <a href="/2016/04/14/fileupload2/" rel="next" title="文件上传（二）---新XMLHttpRequest实现带进度条文件上传">
+                <i class="fa fa-chevron-left"></i> 文件上传（二）---新XMLHttpRequest实现带进度条文件上传
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/03/26/activeElement/" rel="prev" title="H5焦点管理---tabindex与document.activeElement">
-                H5焦点管理---tabindex与document.activeElement <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -357,8 +362,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/03/22/tec-2/"
-           data-title="H5 Canvas实现图片格式的转换" data-url="http://yoursite.com/2016/03/22/tec-2/">
+      <div class="ds-thread" data-thread-key="2016/04/26/file-rem/"
+           data-title="利用CSS3新单位rem实现响应" data-url="http://yoursite.com/2016/04/26/file-rem/">
       </div>
     
   </div>
@@ -480,7 +485,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用Javasript将图片写入画布"><span class="nav-number">1.</span> <span class="nav-text">使用Javasript将图片写入画布</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#用JavaScript将画布保持成图片格式"><span class="nav-number">2.</span> <span class="nav-text">用JavaScript将画布保持成图片格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#调用函数实现转换"><span class="nav-number">3.</span> <span class="nav-text">调用函数实现转换</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-获取浏览器的宽高（对于移动设备就是设备的宽度）"><span class="nav-number">1.</span> <span class="nav-text">1.获取浏览器的宽高（对于移动设备就是设备的宽度）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-window-innerWidth与document-documentElement-clientWidth"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 window.innerWidth与document.documentElement.clientWidth</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-如何判断浏览器处于什么模式？"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 如何判断浏览器处于什么模式？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-计算rem基准值"><span class="nav-number">2.</span> <span class="nav-text">2.计算rem基准值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-将PSD中测量出的值换算成rem"><span class="nav-number">3.</span> <span class="nav-text">3.将PSD中测量出的值换算成rem</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
