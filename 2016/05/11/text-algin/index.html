@@ -41,7 +41,7 @@
 <link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="HTML5," />
+  <meta name="keywords" content="CSS," />
 
 
 
@@ -57,16 +57,19 @@
 
 
 
-<meta name="description" content="&amp;emsp;&amp;emsp;周四下午测试人员提出BUG，说我写的那个类支付宝密码框在按下Tab键时候无法像原生的form表单中的input那样被激活，当时的第一反应是，我的密码框原本就是用div模拟的，怎么可能想form表单一样在Tab键时候激活呢。但是当我打开支付宝官网，按下tab键后，密码框可以被激活，这激起了我的好奇心，也就有了后来对tabindex和document.activeElement">
+<meta name="description" content="最近在写页面的时候遇到了一个问题—当行文本双端对齐，大家都知道CSS属性中有一个“text-align:justify”，但是这个属性使用的时候，要求还是挺多的，尤其是要实现单行文本双端对齐。关于两端对齐，大漠和张鑫旭的博客中都有文章讲，非常不错，推荐给大家：display:inline-block/text-align:justify下列表的两端对齐布局Text-align:Justify和RW">
 <meta property="og:type" content="article">
-<meta property="og:title" content="H5焦点管理---tabindex与document.activeElement">
-<meta property="og:url" content="http://yoursite.com/2016/03/26/activeElement/index.html">
+<meta property="og:title" content="text-algin:justify实现文本两端对齐">
+<meta property="og:url" content="http://yoursite.com/2016/05/11/text-algin/index.html">
 <meta property="og:site_name" content="MrZhang's Blog">
-<meta property="og:description" content="&amp;emsp;&amp;emsp;周四下午测试人员提出BUG，说我写的那个类支付宝密码框在按下Tab键时候无法像原生的form表单中的input那样被激活，当时的第一反应是，我的密码框原本就是用div模拟的，怎么可能想form表单一样在Tab键时候激活呢。但是当我打开支付宝官网，按下tab键后，密码框可以被激活，这激起了我的好奇心，也就有了后来对tabindex和document.activeElement">
-<meta property="og:updated_time" content="2016-03-26T03:40:16.263Z">
+<meta property="og:description" content="最近在写页面的时候遇到了一个问题—当行文本双端对齐，大家都知道CSS属性中有一个“text-align:justify”，但是这个属性使用的时候，要求还是挺多的，尤其是要实现单行文本双端对齐。关于两端对齐，大漠和张鑫旭的博客中都有文章讲，非常不错，推荐给大家：display:inline-block/text-align:justify下列表的两端对齐布局Text-align:Justify和RW">
+<meta property="og:image" content="http://yoursite.com/img/text-algin-last.png">
+<meta property="og:image" content="http://yoursite.com/img/result.jpg">
+<meta property="og:updated_time" content="2016-05-10T16:47:02.104Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="H5焦点管理---tabindex与document.activeElement">
-<meta name="twitter:description" content="&amp;emsp;&amp;emsp;周四下午测试人员提出BUG，说我写的那个类支付宝密码框在按下Tab键时候无法像原生的form表单中的input那样被激活，当时的第一反应是，我的密码框原本就是用div模拟的，怎么可能想form表单一样在Tab键时候激活呢。但是当我打开支付宝官网，按下tab键后，密码框可以被激活，这激起了我的好奇心，也就有了后来对tabindex和document.activeElement">
+<meta name="twitter:title" content="text-algin:justify实现文本两端对齐">
+<meta name="twitter:description" content="最近在写页面的时候遇到了一个问题—当行文本双端对齐，大家都知道CSS属性中有一个“text-align:justify”，但是这个属性使用的时候，要求还是挺多的，尤其是要实现单行文本双端对齐。关于两端对齐，大漠和张鑫旭的博客中都有文章讲，非常不错，推荐给大家：display:inline-block/text-align:justify下列表的两端对齐布局Text-align:Justify和RW">
+<meta name="twitter:image" content="http://yoursite.com/img/text-algin-last.png">
 
 
 
@@ -84,7 +87,7 @@
   };
 </script>
 
-  <title> H5焦点管理---tabindex与document.activeElement | MrZhang's Blog </title>
+  <title> text-algin:justify实现文本两端对齐 | MrZhang's Blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -224,7 +227,7 @@
             
             
               
-                H5焦点管理---tabindex与document.activeElement
+                text-algin:justify实现文本两端对齐
               
             
           </h1>
@@ -236,8 +239,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-03-26T10:20:56+08:00" content="2016-03-26">
-              2016-03-26
+            <time itemprop="dateCreated" datetime="2016-05-11T00:25:18+08:00" content="2016-05-11">
+              2016-05-11
             </time>
           </span>
 
@@ -266,8 +269,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/03/26/activeElement/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/26/activeElement/" itemprop="commentsCount"></span>
+                <a href="/2016/05/11/text-algin/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/11/text-algin/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -289,14 +292,12 @@
       
 
       
-        <p>&emsp;&emsp;周四下午测试人员提出BUG，说我写的那个类支付宝密码框在按下Tab键时候无法像原生的form表单中的input那样被激活，当时的第一反应是，我的密码框原本就是用div模拟的，怎么可能想form表单一样在Tab键时候激活呢。但是当我打开支付宝官网，按下tab键后，密码框可以被激活，这激起了我的好奇心，也就有了后来对tabindex和document.activeElement的发现。废话不多说，进入正题。</p>
-<h3 id="HTML-tabindex属"><a href="#HTML-tabindex属" class="headerlink" title="HTML tabindex属"></a>HTML tabindex属</h3><h4 id="tabindex的设置"><a href="#tabindex的设置" class="headerlink" title="tabindex的设置"></a>tabindex的设置</h4><p>&emsp;&emsp;当Tab键用于导航时，tabindex属性规定元素的tab键控制次序，其中tabindex的值为阿拉伯数字，默认情况下越靠前的元素该值越小，所以我们可以通过人为改变tabindex的值来改变按下Tab键后可以被激活元素的激活顺序，只需要做如下设置：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">tabindex</span>=<span class="string">"1"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">tabindex</span>=<span class="string">"2"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">tabindex</span>=<span class="string">"4"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">tabindex</span>=<span class="string">"3"</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<a id="more"></a>
-<p>&emsp;&emsp;以上代码在浏览器中按下Tab键激活顺序就是它们在HTML代码中的顺序，但是我在这里设置第三个input的tabindex比第四个的大，所以按下Tab键后，第四个input框的激活在第三个之前。</p>
-<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a><font color="red">注意</font></h4><p>&emsp;&emsp;1.前面说过tabindex的值越小，越被早激活，但是tabIndex的值要0~32767之间。<br>&emsp;&emsp;2.如果把tabindex值设置为负值（比如设置为tabindex=-1），则按下Tab键不会激活该元素，但是该元素的focus和blur事件仍然启动。<br>&emsp;&emsp;3.如果把tabindex设置为0，则带0值tabIndex的元素根据源代码（或默认页面行为）进行排序。<br>&emsp;&emsp;4.如果页面中出现多个tabindex值相同的元素，则浏览器会把这些元素的tabindex值看做0。</p>
-<h4 id="为div与span设置tabindex"><a href="#为div与span设置tabindex" class="headerlink" title="为div与span设置tabindex"></a>为div与span设置tabindex</h4><p>&emsp;&emsp;默认情况下按下Tab键可以被选中或者激活的有a,area,button,input,object,select,textarea，但是在现代浏览器和IE9+中给div和span设置tabindex属性也可以被选中，在chrome中，被选中的元素会出现淡蓝色的边框。</p>
-<h3 id="H5焦点管理document-activeElement"><a href="#H5焦点管理document-activeElement" class="headerlink" title="H5焦点管理document.activeElement"></a>H5焦点管理document.activeElement</h3><p>&emsp;&emsp;H5添加了辅助管理DOM焦点的document.activeElemnt属性，这个属性始终会引用DOM中当前获得了焦点的元素。元素获取焦点的方式有页面加载，用户输入（通常是通过按Tab键）和代码中调用focus()方法。<br>&emsp;&emsp;默认情况下，文档刚刚加载完，document.activeElement中保存的是document.body元素的引用。文档加载期间，document.activeElement的值为null。另外顺带提一句，判断是否获得焦点可以使用hasFocus()。<br>&emsp;&emsp;利用该属性，就可以知道当前哪个元素被Tab键激活，进而就可以获取到被激活元素的各类属性，比如可以在按下Tab键时候去输出当前被激活元素的class属性。代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> $input=$(<span class="string">'input'</span>);</span><br><span class="line">    $input.on(<span class="string">'keydown'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">e</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> event=e||<span class="built_in">window</span>.event;</span><br><span class="line">        <span class="keyword">if</span>(event.keyCode==<span class="number">9</span>)&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="built_in">document</span>.activeElement.attr(<span class="string">'class'</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>&emsp;&emsp;基于以上两点，通过判断当前被激活的元素的class，就实现了让模拟的密码输入框有和原生的input一样在按下Tab键被激活。</p>
+        <p>最近在写页面的时候遇到了一个问题—当行文本双端对齐，大家都知道CSS属性中有一个“text-align:justify”，但是这个属性使用的时候，要求还是挺多的，尤其是要实现单行文本双端对齐。关于两端对齐，大漠和张鑫旭的博客中都有文章讲，非常不错，推荐给大家：<br><a href="http://www.zhangxinxu.com/wordpress/2011/03/displayinline-blocktext-alignjustify%E4%B8%8B%E5%88%97%E8%A1%A8%E7%9A%84%E4%B8%A4%E7%AB%AF%E5%AF%B9%E9%BD%90%E5%B8%83%E5%B1%80/" target="_blank" rel="external">display:inline-block/text-align:justify下列表的两端对齐布局</a><br><a href="http://www.w3cplus.com/css/text-align-justify-and-rwd.html" target="_blank" rel="external">Text-align:Justify和RWD</a> </p>
+<h2 id="text-align-justify与text-align-last-justify"><a href="#text-align-justify与text-align-last-justify" class="headerlink" title="text-align:justify与text-align-last:justify"></a>text-align:justify与text-align-last:justify</h2><h3 id="1-text-align"><a href="#1-text-align" class="headerlink" title="1.text-align"></a>1.text-align</h3><p>MDN中这样介绍到：“text-align CSS属性定义行内内容（例如文字）如何相对它的块父元素对齐。text-align并不控制块元素自己的对齐，只控制它的行内内容的对齐。”从这里可以看出，控制文本居中对齐直接写text-align:justify就可以。但是这对于多行文本（即有文本换行）除了最后一行都可以实现两端对齐，最后一行依旧左对齐。所以就需要控制最后一行文本对齐方式的CSS属性：text-align-last。<br><a id="more"></a></p>
+<h3 id="2-text-align-last"><a href="#2-text-align-last" class="headerlink" title="2.text-align-last"></a>2.text-align-last</h3><p>text-align-last 属性规定如何对齐文本的最后一行。但是这里注意一点<font color="red">text-align-last 属性只有在 text-align 属性设置为 “justify” 时才起作用。</font>所以，利用这个属性就可以控制最后一行文本的对齐方式。我们可以想象，如果是单行文本，就可以当作最后一行文本处理，直接设置text-align-last:justify来实现当行文本两端对齐，可惜的是，这样的方法兼容性并不好。<br><img src="/img/text-algin-last.png" alt="icon"></p>
+<h2 id="利用CSS实现兼容性较好的两端对齐"><a href="#利用CSS实现兼容性较好的两端对齐" class="headerlink" title="利用CSS实现兼容性较好的两端对齐"></a>利用CSS实现兼容性较好的两端对齐</h2><p>从上面的分析可以知道，如果文本出现换行，则除最后一行的所有文本都会实现两端对齐。这时我们想到利用::after伪类，给元素最后设置一个看不见的内联元素，并设置宽度为100%，就可以让我们可以看到的单行文本让浏览器认为是多行文本，从而实现单行文本的两端对齐。具体实现代码如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>JS Bin<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"line"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"public"</span>&gt;</span>啊啊<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">b</span>&gt;</span>:<span class="tag">&lt;/<span class="name">b</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">b</span>&gt;</span>aaaaaa<span class="tag">&lt;/<span class="name">b</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"line"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"public"</span>&gt;</span>啊啊啊啊啊<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">b</span>&gt;</span>:<span class="tag">&lt;/<span class="name">b</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">b</span>&gt;</span>aaaaaa<span class="tag">&lt;/<span class="name">b</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"line"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"public"</span>&gt;</span>啊啊啊啊<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">b</span>&gt;</span>:<span class="tag">&lt;/<span class="name">b</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">b</span>&gt;</span>aaaaaa<span class="tag">&lt;/<span class="name">b</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.line</span>&#123;</span><br><span class="line">  <span class="attribute">width</span>:<span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>:<span class="number">15px</span>;</span><br><span class="line">  <span class="attribute">margin</span>:<span class="number">5px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#ccc</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.public</span>&#123;</span><br><span class="line">  <span class="attribute">width</span>:<span class="number">80px</span>;</span><br><span class="line">  <span class="attribute">height</span>:<span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">display</span>:inline-block;</span><br><span class="line">  <span class="attribute">text-align</span>: justify;</span><br><span class="line">  <span class="attribute">vertical-align</span>:top;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#aaa</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-class">.public</span><span class="selector-pseudo">::after</span>&#123;</span><br><span class="line">    <span class="attribute">content</span>:<span class="string">""</span>;</span><br><span class="line">    <span class="attribute">display</span>: inline-block;</span><br><span class="line">    <span class="attribute">width</span>:<span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">overflow</span>:hidden;</span><br><span class="line">    <span class="attribute">height</span>:<span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果：<br><img src="/img/result.jpg" alt="icon"></p>
 
       
     </div>
@@ -311,7 +312,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/HTML5/" rel="tag">#HTML5</a>
+            <a href="/tags/CSS/" rel="tag">#CSS</a>
           
         </div>
       
@@ -320,17 +321,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/03/22/tec-2/" rel="next" title="H5 Canvas实现图片格式的转换">
-                <i class="fa fa-chevron-left"></i> H5 Canvas实现图片格式的转换
+              <a href="/2016/04/26/file-rem/" rel="next" title="利用CSS3新单位rem实现响应">
+                <i class="fa fa-chevron-left"></i> 利用CSS3新单位rem实现响应
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/03/31/H5File/" rel="prev" title="文件上传（一）---H5 file API，canvas">
-                文件上传（一）---H5 file API，canvas <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -356,8 +353,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/03/26/activeElement/"
-           data-title="H5焦点管理---tabindex与document.activeElement" data-url="http://yoursite.com/2016/03/26/activeElement/">
+      <div class="ds-thread" data-thread-key="2016/05/11/text-algin/"
+           data-title="text-algin:justify实现文本两端对齐" data-url="http://yoursite.com/2016/05/11/text-algin/">
       </div>
     
   </div>
@@ -479,7 +476,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTML-tabindex属"><span class="nav-number">1.</span> <span class="nav-text">HTML tabindex属</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#tabindex的设置"><span class="nav-number">1.1.</span> <span class="nav-text">tabindex的设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注意"><span class="nav-number">1.2.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为div与span设置tabindex"><span class="nav-number">1.3.</span> <span class="nav-text">为div与span设置tabindex</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#H5焦点管理document-activeElement"><span class="nav-number">2.</span> <span class="nav-text">H5焦点管理document.activeElement</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#text-align-justify与text-align-last-justify"><span class="nav-number">1.</span> <span class="nav-text">text-align:justify与text-align-last:justify</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-text-align"><span class="nav-number">1.1.</span> <span class="nav-text">1.text-align</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-text-align-last"><span class="nav-number">1.2.</span> <span class="nav-text">2.text-align-last</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#利用CSS实现兼容性较好的两端对齐"><span class="nav-number">2.</span> <span class="nav-text">利用CSS实现兼容性较好的两端对齐</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
