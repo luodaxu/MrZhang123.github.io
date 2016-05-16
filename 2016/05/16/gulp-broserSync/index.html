@@ -1,0 +1,792 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="gulp," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="&amp;emsp;&amp;emsp;在写前端代码的时候，我们为了看效果，需要一直按F5进行刷新，这样做很繁琐而且非常浪费时间，在网上搜过后发现很多关于自动刷新的办法，这里我介绍的是基于gulp和broserSync实现浏览器的自动刷新，即只要编辑器保存，浏览器就会自动刷新。&amp;emsp;&amp;emsp;那么gulp，broserSync是什么呢？
+Gulp&amp;emsp;&amp;emsp;Gulp是一个前端自动化工具，基于n">
+<meta property="og:type" content="article">
+<meta property="og:title" content="gulp+broserSync">
+<meta property="og:url" content="http://yoursite.com/2016/05/16/gulp-broserSync/index.html">
+<meta property="og:site_name" content="MrZhang's Blog">
+<meta property="og:description" content="&amp;emsp;&amp;emsp;在写前端代码的时候，我们为了看效果，需要一直按F5进行刷新，这样做很繁琐而且非常浪费时间，在网上搜过后发现很多关于自动刷新的办法，这里我介绍的是基于gulp和broserSync实现浏览器的自动刷新，即只要编辑器保存，浏览器就会自动刷新。&amp;emsp;&amp;emsp;那么gulp，broserSync是什么呢？
+Gulp&amp;emsp;&amp;emsp;Gulp是一个前端自动化工具，基于n">
+<meta property="og:updated_time" content="2016-05-16T14:18:40.033Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="gulp+broserSync">
+<meta name="twitter:description" content="&amp;emsp;&amp;emsp;在写前端代码的时候，我们为了看效果，需要一直按F5进行刷新，这样做很繁琐而且非常浪费时间，在网上搜过后发现很多关于自动刷新的办法，这里我介绍的是基于gulp和broserSync实现浏览器的自动刷新，即只要编辑器保存，浏览器就会自动刷新。&amp;emsp;&amp;emsp;那么gulp，broserSync是什么呢？
+Gulp&amp;emsp;&amp;emsp;Gulp是一个前端自动化工具，基于n">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> gulp+broserSync | MrZhang's Blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?5efd05054ba8c5d775364cdee324e35f";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">MrZhang's Blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Grow up every day</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                gulp+broserSync
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-05-16T22:10:39+08:00" content="2016-05-16">
+              2016-05-16
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/前端技术/" itemprop="url" rel="index">
+                    <span itemprop="name">前端技术</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/05/16/gulp-broserSync/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/05/16/gulp-broserSync/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&emsp;&emsp;在写前端代码的时候，我们为了看效果，需要一直按F5进行刷新，这样做很繁琐而且非常浪费时间，在网上搜过后发现很多关于自动刷新的办法，这里我介绍的是基于gulp和broserSync实现浏览器的自动刷新，即只要编辑器保存，浏览器就会自动刷新。<br>&emsp;&emsp;那么gulp，broserSync是什么呢？</p>
+<h3 id="Gulp"><a href="#Gulp" class="headerlink" title="Gulp"></a>Gulp</h3><p>&emsp;&emsp;Gulp是一个前端自动化工具，基于nodejs，和grunt差不多，但是比grunt语法更加简单，语法更加自然。在gulp的插件中，我们可以找到自动刷新，压缩图片/代码/等等各类工具，方便我们的使用，并且gulp的任务是流（pipe），即一个任务完成后，紧接的另一个任务开始进行。gulp的使用如下：</p>
+<h4 id="1-安装gulp"><a href="#1-安装gulp" class="headerlink" title="1.安装gulp"></a>1.安装gulp</h4><ol>
+<li><p>全局安装gulp：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install --global gulp</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>作为项目的开发依赖（devDependencies）安装：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install --save-dev gulp</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生成package.json</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm init</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<a id="more"></a>
+<p><font color="red">注意：</font><br>&emsp;&emsp;这里官网只是写让这么安装，但是需要注意，两个安装不是第一步第二步，而是第一种方式或者第二种方式，两种方式任选其一。第一种安装方式是全局安装，即安装后，整个电脑无论哪个项目都可以使用。对应的，第二个表示安装到对应项目中，即如果在window的cmd命令行进入对应项目A的目录，则运行npm install –save-dev gulp后，安装的gulp只能在该文件夹下使用，其他文件夹下的其他文件都无法使用。<br>&emsp;&emsp;其实不只是gulp，gulp的插件也是这样，要么全局安装，要么安装在项目中。一般情况下，gulp会全局安装，但是由于每个项目用到的gulp插件不同，所以可能需要局部安装gulp插件。<br>&emsp;&emsp;安装完成gulp之后，会在安装gulp的文件夹下生成node_modules文件夹。此时，在与该文件夹同层创建gulpfile.js这就是用于配置gulp插件的文件。</p>
+<h4 id="2-恢复gulp"><a href="#2-恢复gulp" class="headerlink" title="2.恢复gulp"></a>2.恢复gulp</h4><p>&emsp;&emsp;随着我们gulp插件的改变，package.json会自动变化，同时我们的配置文件gulpfile.js也会对应变化（自己手动配置）。他们可以把我们安装的gulp给备份，如果我们在电脑A中安装完我们的工具，然后换了一台电脑B，我们只需要把电脑A中package.json与gulpfile.js复制到B电脑，然后在安装完gulp后，运行<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install</span><br></pre></td></tr></table></figure></p>
+<p>gulp就会自动把我们在package.json中的所有gulp插件全部安装回来，非常方便。</p>
+<h3 id="broserSync"><a href="#broserSync" class="headerlink" title="broserSync"></a>broserSync</h3><p>&emsp;&emsp;broserSync（以下简称bs）是一款非常优秀的自动刷新工具，本身可以独立使用，也可以配合gulp或者grunt一起使用，非常不错的一款插件。<br>&emsp;&emsp;当你改变代码的时候，BrowserSync会重新加载页面，或者如果是css文件，会直接添加进css中，页面并不需要再次刷新。这项功能在网站是禁止刷新的时候是很有用的。假设你正在开发单页应用的第4页，刷新页面就会导致你回到开始页。BrowserSync会直接将需要修改的地方添加进CSS，就不用再点击回退。同时，BrowserSync也可以在不同浏览器之间同步点击翻页、表单操作、滚动位置。你可以在电脑和iPhone上打开不同的浏览器然后进行操作。所有设备上的链接将会随之变化，当你向下滚动页面时，所有设备上页面都会向下滚动（通常还很流畅！）。当你在表单中输入文本时，每个窗口都会有输入。当你不想要这种行为时，也可以把这个功能关闭。<br>&emsp;&emsp;实际上bs对于gulp并不算是一种插件，因为bs并不像一个插件一样操作文件。然而，npm上的bs模块能在gulp上被直接调用。</p>
+<h4 id="1-安装broserSync"><a href="#1-安装broserSync" class="headerlink" title="1.安装broserSync"></a>1.安装broserSync</h4><p>进入需要使用bs的目录，运行：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install --save-dev broser-sync</span><br></pre></td></tr></table></figure></p>
+<h4 id="2-配置broserSync"><a href="#2-配置broserSync" class="headerlink" title="2.配置broserSync"></a>2.配置broserSync</h4><p>bs本身可以打开本地静态服务器，也可以代理像wamp这样的服务器。</p>
+<h5 id="2-1-代理其他服务器"><a href="#2-1-代理其他服务器" class="headerlink" title="2.1 代理其他服务器"></a>2.1 代理其他服务器</h5><p>打开我们新建的gulpfile.js，配置如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*browserSync*/</span></span><br><span class="line"><span class="keyword">const</span> gulp        = <span class="built_in">require</span>(<span class="string">'gulp'</span>);</span><br><span class="line"><span class="keyword">const</span> browserSync = <span class="built_in">require</span>(<span class="string">'browser-sync'</span>).create();</span><br><span class="line">gulp.task(<span class="string">"watch"</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    browserSync.init(&#123;</span><br><span class="line">        <span class="comment">/*这里的files写的是需要监控的文件的位置*/</span></span><br><span class="line">         files:[             </span><br><span class="line">             <span class="string">"./Home/View/PC/**/*.html"</span>,</span><br><span class="line">             <span class="string">"./public/group/css/*.css"</span>,</span><br><span class="line">             <span class="string">"./public/group/js/*.js"</span></span><br><span class="line">         ],</span><br><span class="line">         logLevel: <span class="string">"debug"</span>,</span><br><span class="line">         logPrefix:<span class="string">"insgeek"</span>,</span><br><span class="line">         <span class="comment">/*这里的proxy写的是需要代理的服务器，我自己的wamp启动的是localhost:80*/</span></span><br><span class="line">         proxy:<span class="string">"localhost:80"</span>,</span><br><span class="line">         ghostMode: &#123;</span><br><span class="line">	        clicks: <span class="literal">true</span>,</span><br><span class="line">	        forms: <span class="literal">true</span>,</span><br><span class="line">	        scroll: <span class="literal">true</span></span><br><span class="line">	     &#125;,</span><br><span class="line">         <span class="comment">/*这里写的是代理后，bs在哪个端口打开*/</span></span><br><span class="line">         port: <span class="number">81</span>,</span><br><span class="line">         <span class="comment">/*这里设置的是bs运行时打开的浏览器名称*/</span></span><br><span class="line">	     browser: <span class="string">"chrome"</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<h5 id="2-2-启动静态服务器"><a href="#2-2-启动静态服务器" class="headerlink" title="2.2 启动静态服务器"></a>2.2 启动静态服务器</h5><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> gulp = <span class="built_in">require</span>(<span class="string">'gulp'</span>);</span><br><span class="line"><span class="keyword">const</span> browserSync = <span class="built_in">require</span>(<span class="string">'browser-sync'</span>).create();</span><br><span class="line"><span class="keyword">const</span> reload = browserSync.reload;</span><br><span class="line"><span class="comment">/*实时监控*/</span></span><br><span class="line">gulp.task(<span class="string">"watch"</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    browserSync.init(&#123;</span><br><span class="line">        files: [</span><br><span class="line">            <span class="string">"./work/*/*.html"</span>,</span><br><span class="line">            <span class="string">"./work/*/*.css"</span>,</span><br><span class="line">            <span class="string">"./work/*/*.js"</span></span><br><span class="line">        ],</span><br><span class="line">        logLevel: <span class="string">"debug"</span>,</span><br><span class="line">        logPrefix: <span class="string">"insgeek"</span>,</span><br><span class="line">        server: &#123;</span><br><span class="line">            <span class="comment">/*这里写的是html文件相对于根目录所在的文件夹*/</span></span><br><span class="line">            baseDir: <span class="string">"./work/statement"</span></span><br><span class="line">            <span class="comment">/*这里如果不写，默认启动的是index.html，如果是其他名字，需要这里写*/</span></span><br><span class="line">            <span class="comment">// index: "insurance_template_statement.html"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        ghostMode: &#123;</span><br><span class="line">            clicks: <span class="literal">true</span>,</span><br><span class="line">            forms: <span class="literal">true</span>,</span><br><span class="line">            scroll: <span class="literal">true</span></span><br><span class="line">        &#125;,</span><br><span class="line">        browser: <span class="string">"chrome"</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>完成上述配置后，可以在cmd命令行切换到工作目录，运行gulp watch启动broserSync。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/gulp/" rel="tag">#gulp</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/05/11/text-algin/" rel="next" title="text-algin:justify实现文本两端对齐">
+                <i class="fa fa-chevron-left"></i> text-algin:justify实现文本两端对齐
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/05/16/gulp-broserSync/"
+           data-title="gulp+broserSync" data-url="http://yoursite.com/2016/05/16/gulp-broserSync/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/default_avatar.jpg"
+               alt="ZhangYi" />
+          <p class="site-author-name" itemprop="name">ZhangYi</p>
+          <p class="site-description motion-element" itemprop="description">front-end developer Website</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/MrZhang123" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/Zhang__Yi" target="_blank">
+                  
+                    <i class="fa fa-twitter"></i> Twitter
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2891858001/profile?rightmod=1&wvr=6&mod=personnumber" target="_blank">
+                  
+                    <i class="fa fa-weibo"></i> Weibo
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Gulp"><span class="nav-number">1.</span> <span class="nav-text">Gulp</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-安装gulp"><span class="nav-number">1.1.</span> <span class="nav-text">1.安装gulp</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-恢复gulp"><span class="nav-number">1.2.</span> <span class="nav-text">2.恢复gulp</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#broserSync"><span class="nav-number">2.</span> <span class="nav-text">broserSync</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-安装broserSync"><span class="nav-number">2.1.</span> <span class="nav-text">1.安装broserSync</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-配置broserSync"><span class="nav-number">2.2.</span> <span class="nav-text">2.配置broserSync</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#2-1-代理其他服务器"><span class="nav-number">2.2.1.</span> <span class="nav-text">2.1 代理其他服务器</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-2-启动静态服务器"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.2 启动静态服务器</span></a></li></ol></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">ZhangYi</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always') {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"mrzhang123"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>
