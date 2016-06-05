@@ -295,7 +295,7 @@
       
         
           <blockquote>
-<p>上一篇我们实现了用webpack打包vue的最基本用法，这篇我们将利用webpack+vue实现组件化</p>
+<p>上一篇<a href="https://segmentfault.com/a/1190000005614864">webpack+vue起步</a>我们实现了用webpack打包vue的最基本用法，这篇我们将利用webpack+vue实现组件化</p>
 </blockquote>
 <p>在vue中实现组件化用到了vue特有的文件格式.vue，在每一个.vue文件就是一个组件，在组件中我们将html，css，js全部写入，然后在webpack中配置vue-loader就可以了。</p>
 <h2 id="建立vue组件"><a href="#建立vue组件" class="headerlink" title="建立vue组件"></a>建立vue组件</h2><p>在src目录下建立<code>components</code>文件夹，并在其中建立app.vue文件，这样我们项目的目录结构如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">--dist             <span class="comment">//webpack打包后生成的文件夹</span></span><br><span class="line">    --build.js</span><br><span class="line">--node_modules     <span class="comment">//项目的依赖所在的文件夹</span></span><br><span class="line">--src              <span class="comment">//文件入口</span></span><br><span class="line">    --components   <span class="comment">//组件存放文件夹</span></span><br><span class="line">        --app.vue  <span class="comment">//组件</span></span><br><span class="line">    --main.js      <span class="comment">//主js文件</span></span><br><span class="line">--index.html       <span class="comment">//主html文件</span></span><br><span class="line">--package.json</span><br><span class="line">--webpack.config.js <span class="comment">//webpack配置文件</span></span><br></pre></td></tr></table></figure></p>
