@@ -59,20 +59,20 @@
 
 <meta name="description" content="最近一段时间忙着工作的一些事情，同时自己也在试着把项目中的一些移动端页面试着用vuejs重写，所以没时间写文章，今天终于有空可以写一下，由于页面并没有写完，所以就将自己这几天做页面的时候遇到的一些问题总结了一下。其实很多在官网都能找到，但是我们只看官网教程不去写，很难理解到底是什么意思，这里我把我用到的列出来。
 
-文章中提到的很多东西都在我的demo中用到，我的demo地址：https://gi">
+文章中提到的很多东西都在我的demo中用到，demo地址">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Vuejs的一些总结">
 <meta property="og:url" content="http://yoursite.com/2016/07/14/summarize-vue/index.html">
 <meta property="og:site_name" content="MrZhang's Blog">
 <meta property="og:description" content="最近一段时间忙着工作的一些事情，同时自己也在试着把项目中的一些移动端页面试着用vuejs重写，所以没时间写文章，今天终于有空可以写一下，由于页面并没有写完，所以就将自己这几天做页面的时候遇到的一些问题总结了一下。其实很多在官网都能找到，但是我们只看官网教程不去写，很难理解到底是什么意思，这里我把我用到的列出来。
 
-文章中提到的很多东西都在我的demo中用到，我的demo地址：https://gi">
-<meta property="og:updated_time" content="2016-07-14T03:56:21.067Z">
+文章中提到的很多东西都在我的demo中用到，demo地址">
+<meta property="og:updated_time" content="2016-07-14T04:00:50.814Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vuejs的一些总结">
 <meta name="twitter:description" content="最近一段时间忙着工作的一些事情，同时自己也在试着把项目中的一些移动端页面试着用vuejs重写，所以没时间写文章，今天终于有空可以写一下，由于页面并没有写完，所以就将自己这几天做页面的时候遇到的一些问题总结了一下。其实很多在官网都能找到，但是我们只看官网教程不去写，很难理解到底是什么意思，这里我把我用到的列出来。
 
-文章中提到的很多东西都在我的demo中用到，我的demo地址：https://gi">
+文章中提到的很多东西都在我的demo中用到，demo地址">
 
 
 
@@ -298,7 +298,7 @@
         <blockquote>
 <p>最近一段时间忙着工作的一些事情，同时自己也在试着把项目中的一些移动端页面试着用vuejs重写，所以没时间写文章，今天终于有空可以写一下，由于页面并没有写完，所以就将自己这几天做页面的时候遇到的一些问题总结了一下。其实很多在官网都能找到，但是我们只看官网教程不去写，很难理解到底是什么意思，这里我把我用到的列出来。</p>
 </blockquote>
-<p>文章中提到的很多东西都在我的demo中用到，我的demo地址：<a href="https://github.com/MrZhang123/Vue_project/tree/master/vue_spa_demo" target="_blank" rel="external">https://github.com/MrZhang123/Vue_project/tree/master/vue_spa_demo</a></p>
+<p>文章中提到的很多东西都在我的demo中用到，<a href="https://github.com/MrZhang123/Vue_project/tree/master/vue_spa_demo" target="_blank" rel="external">demo地址</a><br><a id="more"></a></p>
 <h2 id="1-Vuejs组件"><a href="#1-Vuejs组件" class="headerlink" title="1.Vuejs组件"></a>1.Vuejs组件</h2><p>vuejs构建组件使用<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Vue.component(<span class="string">'componentName'</span>,&#123; <span class="comment">/*component*/</span> &#125;)；</div></pre></td></tr></table></figure></p>
 <p>这里注意一点，组件要先注册再使用，也就是说：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">Vue.component(<span class="string">'mine'</span>,&#123;</div><div class="line">           template:<span class="string">'#mineTpl'</span>,</div><div class="line">           props:[<span class="string">'name'</span>,<span class="string">'title'</span>,<span class="string">'city'</span>,<span class="string">'content'</span>]</div><div class="line">        &#125;);</div><div class="line"></div><div class="line"> <span class="keyword">var</span> v=<span class="keyword">new</span> Vue(&#123;</div><div class="line">      el:<span class="string">'#vueInstance'</span>,</div><div class="line">      data:&#123;</div><div class="line">          name:<span class="string">'zhang'</span>,</div><div class="line">          title:<span class="string">'this is title'</span>,</div><div class="line">         city:<span class="string">'Beijing'</span>,</div><div class="line">         content:<span class="string">'these are some desc about Blog'</span></div><div class="line">     &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
 <p>如果反过来会报错，因为反过来代表先使用了组件的，但是组件却没注册。</p>
