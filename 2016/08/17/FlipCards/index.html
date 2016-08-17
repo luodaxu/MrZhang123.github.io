@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>CSS3实现翻转卡牌效果 | MrZhang&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="今天在工作中遇到需求，需要用CSS3写一个卡片翻转效果，这个效果看起来简单，但是还是涉及到一些不常用的CSS3中的3D转换的属性以及实现该效果的思路，所以这里总结一下。
+
+项目地址：https://github.com/MrZhang123/Practice/tree/master/FlipCards">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS3实现翻转卡牌效果">
+<meta property="og:url" content="http://mrzhang123.github.io/2016/08/17/FlipCards/index.html">
+<meta property="og:site_name" content="MrZhang's Blog">
+<meta property="og:description" content="今天在工作中遇到需求，需要用CSS3写一个卡片翻转效果，这个效果看起来简单，但是还是涉及到一些不常用的CSS3中的3D转换的属性以及实现该效果的思路，所以这里总结一下。
+
+项目地址：https://github.com/MrZhang123/Practice/tree/master/FlipCards">
+<meta property="og:updated_time" content="2016-08-17T15:39:19.227Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS3实现翻转卡牌效果">
+<meta name="twitter:description" content="今天在工作中遇到需求，需要用CSS3写一个卡片翻转效果，这个效果看起来简单，但是还是涉及到一些不常用的CSS3中的3D转换的属性以及实现该效果的思路，所以这里总结一下。
+
+项目地址：https://github.com/MrZhang123/Practice/tree/master/FlipCards">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.ico" />
+    
+
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/open-sans/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/vendor/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/fancybox/jquery.fancybox.css">
+    
+    
+    
+    
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">MrZhang&#39;s Blog</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.png" />
+            <h2 id="name">zeeCool</h2>
+            <h3 id="title">Web Developer &amp; Designer</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>Beijing, China</span>
+            <a id="follow" target="_blank" href="https://github.com/mrzhang123/">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                22
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                9
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="http://github.com/mrzhang123" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://segmentfault.com/u/fengsdesinian" target="_blank" title="stack-overflow" class=tooltip>
+                            <i class="fa fa-stack-overflow"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="http://weibo.com/2891858001/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank" title="weibo" class=tooltip>
+                            <i class="fa fa-weibo"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://twitter.com/Zhang__Yi" target="_blank" title="twitter" class=tooltip>
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-FlipCards" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            CSS3实现翻转卡牌效果
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2016/08/17/FlipCards/">
+            <time datetime="2016-08-17T15:35:52.000Z" itemprop="datePublished">2016-08-17</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/CSS/">CSS</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/CSS/">CSS</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <blockquote>
+<p>今天在工作中遇到需求，需要用CSS3写一个卡片翻转效果，这个效果看起来简单，但是还是涉及到一些不常用的CSS3中的3D转换的属性以及实现该效果的思路，所以这里总结一下。</p>
+</blockquote>
+<p>项目地址：<a href="https://github.com/MrZhang123/Practice/tree/master/FlipCards" target="_blank" rel="external">https://github.com/MrZhang123/Practice/tree/master/FlipCards</a><br><a id="more"></a></p>
+<h2 id="需要的CSS3属性"><a href="#需要的CSS3属性" class="headerlink" title="需要的CSS3属性"></a>需要的CSS3属性</h2><h3 id="perspective"><a href="#perspective" class="headerlink" title="perspective"></a>perspective</h3><p><strong>目前浏览器都不支持<code>perspective</code>属性</strong></p>
+<p>在chrome和Safari中需要使用<code>-webkit-perspective</code>，而在Firefox中需要使用<code>-moz-perspective</code>来定义。</p>
+<h4 id="定义和用法"><a href="#定义和用法" class="headerlink" title="定义和用法"></a>定义和用法</h4><p><code>perspective</code>属性定义3D元素距视图的距离，以像素计。该属性允许改变查看3D元素的视图。当为元素定义</p>
+<p><code>perspective</code>属时，其子元素会获得透视效果，而不是元素本身。换句话说，设置这个元素是为了给该元素的子元素用。</p>
+<h4 id="值"><a href="#值" class="headerlink" title="值"></a>值</h4><p>number：元素距离视图的距离，以像素计</p>
+<p>none：<strong>默认值</strong>，与0相同。不设置透视</p>
+<h3 id="transform-style"><a href="#transform-style" class="headerlink" title="transform-style"></a>transform-style</h3><p>Firefox支持<code>transfrom-style</code>属性。</p>
+<p>Chrome、Safari和Opera支持代替的<code>-webkit-transform-style</code>属性。</p>
+<h4 id="定义和用法-1"><a href="#定义和用法-1" class="headerlink" title="定义和用法"></a>定义和用法</h4><p><code>transform-style</code>属性固定如何在3D空间中呈现被嵌套的元素。一般给父元素设置让其所有子元素跟着父元素一起位置移动，一般会设置。</p>
+<h4 id="值-1"><a href="#值-1" class="headerlink" title="值"></a>值</h4><p>flat：子元素将不保留其3D位置（默认值）</p>
+<p>perserve-3d：子元素将保留其3D位置</p>
+<h3 id="transition"><a href="#transition" class="headerlink" title="transition"></a>transition</h3><p>IE10+、Firefox、Opera、Chrome均支持<code>transition</code>属性。Safari支持替代的<code>-webkit-transition</code>属性。但是IE9-不支持该属性。</p>
+<h4 id="定义和用法-2"><a href="#定义和用法-2" class="headerlink" title="定义和用法"></a>定义和用法</h4><p><code>transition</code>属性是一个简写属性，用于设置四个过渡属性：</p>
+<ul>
+<li>transiton-property：规定设置过渡效果的CSS属性的名称</li>
+<li>transiton-duration：规定完成过渡效果需要多少秒或毫秒</li>
+<li>transiton-timing-funciton：规定速度效果的速度曲线</li>
+<li>transition-delay：规定过渡效果何时开始</li>
+</ul>
+<p><strong><code>transiton-duration</code>必须设置，否则时长为0 ，不会有过渡效果</strong></p>
+<h3 id="backface-visibility"><a href="#backface-visibility" class="headerlink" title="backface-visibility"></a>backface-visibility</h3><p>只有IE10+和Firefox支持<code>backface-visibility</code>，Opera15+、Safari和Chrome支持替代的<code>-webkit-backface-visibility</code></p>
+<h4 id="定义和用法-3"><a href="#定义和用法-3" class="headerlink" title="定义和用法"></a>定义和用法</h4><p><code>backface-visibility</code>属性定义当前元素不面向屏幕时是否可见，如果元素在旋转后不希望看到背面，则可以使用。</p>
+<p>visible：背面是可见的（默认值）</p>
+<p>hidden：背面是不可见的</p>
+<h2 id="实现的思路"><a href="#实现的思路" class="headerlink" title="实现的思路"></a>实现的思路</h2><p>要实现类似的翻牌效果，首先我们需要有一张可以翻的牌，这张牌由两个元素重叠组成，位于上层正面我们看到，而位于下层的背面我们看不到并且本身是绕Y轴旋转过的，这样，当鼠标移动上去后，同时让正面和背面执行旋转就可以实现翻牌效果。</p>
+<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>基本结构代码如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"content"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">li</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"#"</span> &gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">div</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">h3</span>&gt;</span>测试正面1<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">p</span>&gt;</span>文字文字文字文字文字文字文字文字文字文字文字<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">div</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">h3</span>&gt;</span>测试背面1<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">p</span>&gt;</span>文字文字文字文字文字文字文字文字文字文字文字<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">li</span>&gt;</span>        </div><div class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">ul</span>,<span class="selector-tag">li</span> &#123;</div><div class="line">    <span class="attribute">margin</span>:<span class="number">0</span>;</div><div class="line">    <span class="attribute">padding</span>:<span class="number">0</span>;</div><div class="line">    <span class="attribute">list-style</span>:none;</div><div class="line">&#125;</div><div class="line"><span class="selector-id">#content</span> <span class="selector-tag">ul</span> <span class="selector-tag">li</span>&#123;</div><div class="line">    <span class="attribute">width</span>: <span class="number">225px</span>;</div><div class="line">    <span class="attribute">height</span>: <span class="number">180px</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-id">#content</span> <span class="selector-tag">ul</span> <span class="selector-tag">li</span> <span class="selector-tag">a</span>&#123;</div><div class="line">    <span class="attribute">position</span>: relative;</div><div class="line">    <span class="attribute">display</span>: block;</div><div class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">height</span>: <span class="number">100%</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-id">#content</span> <span class="selector-tag">ul</span> <span class="selector-tag">li</span> <span class="selector-tag">a</span> &gt; <span class="selector-tag">div</span>&#123;</div><div class="line">    <span class="attribute">position</span>: absolute;</div><div class="line">    <span class="attribute">left</span>: <span class="number">0</span>;</div><div class="line">    <span class="attribute">height</span>: <span class="number">0</span>;</div><div class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">height</span>: <span class="number">100%</span>;</div><div class="line">    <span class="attribute">color</span>: <span class="number">#fff</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-id">#content</span> <span class="selector-tag">ul</span> <span class="selector-tag">li</span> <span class="selector-tag">a</span> <span class="selector-tag">div</span><span class="selector-pseudo">:first-child</span>&#123;</div><div class="line">    <span class="attribute">background-color</span>: <span class="built_in">rgb</span>(255, 64, 129);</div><div class="line">    <span class="attribute">z-index</span>:<span class="number">2</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-id">#content</span> <span class="selector-tag">ul</span> <span class="selector-tag">li</span> <span class="selector-tag">a</span> <span class="selector-tag">div</span><span class="selector-pseudo">:last-child</span>&#123;</div><div class="line">    <span class="attribute">background</span>:<span class="built_in">rgb</span>(0, 188, 212);</div><div class="line">    <span class="attribute">z-index</span>:<span class="number">1</span>;</div><div class="line">&#125;</div><div class="line"><span class="selector-id">#content</span> <span class="selector-tag">ul</span> <span class="selector-tag">li</span> <span class="selector-tag">a</span> <span class="selector-tag">div</span> <span class="selector-tag">h3</span>&#123;</div><div class="line">    <span class="attribute">margin</span>: <span class="number">0</span> auto <span class="number">15px</span>;</div><div class="line">    <span class="attribute">padding</span>: <span class="number">15px</span> <span class="number">0</span>;</div><div class="line">    <span class="attribute">width</span>: <span class="number">200px</span>;</div><div class="line">    <span class="attribute">height</span>: <span class="number">16px</span>;</div><div class="line">    <span class="attribute">line-height</span>: <span class="number">16px</span>;</div><div class="line">    <span class="attribute">font-size</span>: <span class="number">14px</span>;</div><div class="line">    <span class="attribute">text-align</span>: center;</div><div class="line">    <span class="attribute">border-bottom</span>: <span class="number">1px</span> <span class="number">#fff</span> dashed;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="selector-id">#content</span> <span class="selector-tag">ul</span> <span class="selector-tag">li</span> <span class="selector-tag">a</span> <span class="selector-tag">div</span> <span class="selector-tag">p</span>&#123;</div><div class="line">    <span class="attribute">padding</span>: <span class="number">0</span> <span class="number">10px</span>;</div><div class="line">    <span class="attribute">font-size</span>: <span class="number">12px</span>;</div><div class="line">    <span class="attribute">text-indent</span>: <span class="number">2em</span>;</div><div class="line">    <span class="attribute">line-height</span>: <span class="number">18px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样就让两个div叠在一起了，但是如果要进行翻转的话，首先是需要将背面本身就翻过去，当鼠标放上去之后翻转过来，让我们看到，所以我们需要给背面添加翻转180°的属性，鼠标放上去之后让它翻转到0°，同时为保证每个浏览器渲染统一，给正面加一个翻转0°，鼠标移动上去之后翻转-180°，并且是一个动画，所以要添加过渡。所以给正面背面添加CSS如下： </p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="selector-id">#content</span> <span class="selector-tag">ul</span> <span class="selector-tag">li</span> <span class="selector-tag">a</span> &gt; <span class="selector-tag">div</span>&#123;</div><div class="line">    <span class="attribute">-webkit-transition</span>:.<span class="number">8s</span> ease-in-out;</div><div class="line">    <span class="attribute">-moz-transition</span>:.<span class="number">8s</span> ease-in-out;</div><div class="line">&#125;</div><div class="line"><span class="selector-id">#content</span> <span class="selector-tag">ul</span> <span class="selector-tag">li</span> <span class="selector-tag">a</span> <span class="selector-tag">div</span><span class="selector-pseudo">:first-child</span>&#123;</div><div class="line">    <span class="attribute">-webkit-transform</span>:<span class="built_in">rotateY</span>(0);</div><div class="line">    <span class="attribute">-moz-transform</span>:<span class="built_in">rotateY</span>(0);</div><div class="line">&#125;</div><div class="line"><span class="selector-id">#content</span> <span class="selector-tag">ul</span> <span class="selector-tag">li</span> <span class="selector-tag">a</span> <span class="selector-tag">div</span><span class="selector-pseudo">:last-child</span>&#123;</div><div class="line">    <span class="attribute">-webkit-transform</span>:<span class="built_in">rotateY</span>(180deg);</div><div class="line">    <span class="attribute">-moz-transform</span>:<span class="built_in">rotateY</span>(180deg);</div><div class="line">&#125;</div><div class="line"><span class="selector-id">#content</span> <span class="selector-tag">ul</span> <span class="selector-tag">li</span> <span class="selector-tag">a</span><span class="selector-pseudo">:hover</span> <span class="selector-tag">div</span><span class="selector-pseudo">:first-child</span>&#123;</div><div class="line">    <span class="attribute">-webkit-transform</span>:<span class="built_in">rotateY</span>(-180deg);</div><div class="line">    <span class="attribute">-moz-transform</span>:<span class="built_in">rotateY</span>(-180deg);</div><div class="line">&#125;</div><div class="line"><span class="selector-id">#content</span> <span class="selector-tag">ul</span> <span class="selector-tag">li</span> <span class="selector-tag">a</span><span class="selector-pseudo">:hover</span> <span class="selector-tag">div</span><span class="selector-pseudo">:last-child</span>&#123;</div><div class="line">    <span class="attribute">-webkit-transform</span>:<span class="built_in">rotateY</span>(0);</div><div class="line">    <span class="attribute">-moz-transform</span>:<span class="built_in">rotateY</span>(0);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在添加这些CSS3属性后，可以实现翻转，但是发现只看到正面，没有看到背面，这又是为什么呢，前面提到有一个属性<code>backface-visibility</code>，这个属性用于控制在翻转后，元素的背面是否可见，默认是可见的，所以就会挡着背面那个元素，我们需要手动设置元素翻转后背面不可见，所以需要设置：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="selector-id">#content</span> <span class="selector-tag">ul</span> <span class="selector-tag">li</span> <span class="selector-tag">a</span> &gt; <span class="selector-tag">div</span>&#123;</div><div class="line">     <span class="attribute">-webkit-backface-visibility</span>: hidden;</div><div class="line">     <span class="attribute">-moz-backface-visibility</span>: hidden;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样设置之后，由于正面的元素在翻转后背面不可见，我们就可以看到背面的元素了。</p>
+<p>但是，仔细观察会发现这个翻转似乎并不是那么立体，似乎在两条平行线之间实现了翻转，所以我们需要设置一个观察点距离视图的距离，这时候就需要给父元素添加<code>perspective</code>属性，这个属性的值一般为800px ~ 1000px，这个范围内的值会看上去合理。所以给父元素添加：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="selector-id">#content</span> <span class="selector-tag">ul</span> <span class="selector-tag">li</span> <span class="selector-tag">a</span>&#123;</div><div class="line">    <span class="attribute">-webkit-perspective</span>: <span class="number">800px</span>;</div><div class="line">    <span class="attribute">-moz-perspective</span>: <span class="number">800px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>至此，就实现了一个翻转卡牌的效果，但是这里需要解决一个问题，因为<code>perspective</code>属性不被IE支持（Microsoft Edge支持），所以需要进行降级，我的做法是直接显示隐藏。那么如何识别IE9+浏览器呢？在<a href="http://stackoverflow.com/" target="_blank" rel="external">stackoverflow</a>中我找到了答案：</p>
+<h2 id="附：CSS中识别各类IE的方法"><a href="#附：CSS中识别各类IE的方法" class="headerlink" title="附：CSS中识别各类IE的方法"></a>附：CSS中识别各类IE的方法</h2><h2 id="IE6"><a href="#IE6" class="headerlink" title="IE6"></a>IE6</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">* <span class="selector-tag">html</span> <span class="selector-class">.ie6</span>&#123;</div><div class="line">    <span class="attribute">property</span>:value;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>or</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">html</span> <span class="selector-class">.ie6</span>&#123;</div><div class="line">    <span class="attribute">_property</span>:value;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="IE7"><a href="#IE7" class="headerlink" title="IE7"></a>IE7</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">*+<span class="selector-tag">html</span> <span class="selector-class">.ie7</span>&#123;</div><div class="line">    <span class="attribute">property</span>:value;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>or</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">*<span class="selector-pseudo">:first-child+html</span> <span class="selector-tag">ie7</span>&#123;</div><div class="line">    <span class="attribute">property</span>:value;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="IE6-and-IE7"><a href="#IE6-and-IE7" class="headerlink" title="IE6 and IE7"></a>IE6 and IE7</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">media</span> screen\<span class="number">9</span>&#123;</div><div class="line">    <span class="selector-tag">ie67</span>&#123;<span class="attribute">property</span>:value;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>or</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">.ie67&#123; *property:value;&#125;</div></pre></td></tr></table></figure>
+<p>or</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">.ie67&#123; #property:value;&#125;</div></pre></td></tr></table></figure>
+<h2 id="IE6-7-and-8"><a href="#IE6-7-and-8" class="headerlink" title="IE6,7 and 8"></a>IE6,7 and 8</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">media</span> \<span class="number">0s</span>creen\,screen\<span class="number">9</span>&#123;</div><div class="line">    <span class="selector-tag">ie678</span>&#123;<span class="attribute">property</span>:value;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="IE8"><a href="#IE8" class="headerlink" title="IE8"></a>IE8</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">html</span>&gt;<span class="comment">/**/</span><span class="selector-tag">body</span> <span class="selector-class">.ie8</span>&#123;<span class="attribute">property</span>:value;&#125;</div></pre></td></tr></table></figure>
+<p>or</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">media</span> \<span class="number">0s</span>creen&#123;</div><div class="line">    <span class="selector-tag">ie8</span>&#123;<span class="attribute">property</span>:value;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="只在IE8标准模式"><a href="#只在IE8标准模式" class="headerlink" title="只在IE8标准模式"></a>只在IE8标准模式</h2><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">.ie8&#123;property/*\**/:value\9;&#125;</div></pre></td></tr></table></figure>
+<h2 id="IE8-9-and-10"><a href="#IE8-9-and-10" class="headerlink" title="IE8,9 and 10"></a>IE8,9 and 10</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">media</span> screen\<span class="number">0</span>&#123;</div><div class="line">    <span class="selector-tag">ie8910</span>&#123;<span class="attribute">property</span>:value;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="IE9-only"><a href="#IE9-only" class="headerlink" title="IE9 only"></a>IE9 only</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">media</span> screen and (min-width:<span class="number">0</span>\<span class="number">0</span>) and (min-resolution: .<span class="number">001dpcm</span>)&#123;</div><div class="line">    <span class="comment">/*IE9 CSS*/</span></div><div class="line">    <span class="selector-class">.ie9</span>&#123;<span class="attribute">property</span>:value;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="IE9"><a href="#IE9" class="headerlink" title="IE9+"></a>IE9+</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">media</span> screen and (min-width:<span class="number">0</span>\<span class="number">0</span>) and (min-resolution: +<span class="number">72dpi</span>)&#123;</div><div class="line">    <span class="comment">/*IE9+ CSS*/</span></div><div class="line">    <span class="selector-class">.ie9up</span>&#123;<span class="attribute">property</span>:value;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="IE9-and-10"><a href="#IE9-and-10" class="headerlink" title="IE9 and 10"></a>IE9 and 10</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">media</span> screen and (min-width:<span class="number">0</span>)&#123;</div><div class="line">    <span class="selector-class">.ie910</span>&#123;<span class="attribute">property</span>:value;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="IE10-only"><a href="#IE10-only" class="headerlink" title="IE10 only"></a>IE10 only</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">_<span class="selector-pseudo">:-ms-lang(x)</span>, <span class="selector-tag">ie10</span> &#123;<span class="attribute">property</span>:value;&#125;</div></pre></td></tr></table></figure>
+<h2 id="IE10"><a href="#IE10" class="headerlink" title="IE10+"></a>IE10+</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">_<span class="selector-pseudo">:-ms-lang(x)</span>, <span class="selector-tag">ie10up</span>&#123;<span class="attribute">property</span>:value;&#125;</div></pre></td></tr></table></figure>
+<p>or</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">@<span class="keyword">media</span> all and (-ms-high-contrast:none),(-ms-high-contrast:active)&#123;</div><div class="line">    <span class="selector-class">.ie10up</span>&#123;<span class="attribute">property</span>:value;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="IE11"><a href="#IE11" class="headerlink" title="IE11+"></a>IE11+</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">_<span class="selector-pseudo">:-ms-fullscreen</span>, <span class="selector-pseudo">:root</span> <span class="selector-class">.ie11up</span>&#123;<span class="attribute">property</span>:value;&#125;</div></pre></td></tr></table></figure>
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+            
+    
+        <a href="http://mrzhang123.github.io/2016/08/17/FlipCards/#comments" class="article-comment-link ds-thread-count" data-thread-key="http://mrzhang123.github.io/2016/08/17/FlipCards/">评论</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2016/08/14/js-String/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">Javascript中字符串方法总结</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div class="ds-thread" data-thread-key="2016/08/17/FlipCards/" data-title="CSS3实现翻转卡牌效果" data-url="http://mrzhang123.github.io/2016/08/17/FlipCards/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+
+    
+    </section>
+
+</section>
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/08/17/FlipCards/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/CSS/">CSS</a></p>
+                            <p class="item-title"><a href="/2016/08/17/FlipCards/" class="title">CSS3实现翻转卡牌效果</a></p>
+                            <p class="item-date"><time datetime="2016-08-17T15:35:52.000Z" itemprop="datePublished">2016-08-17</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/08/14/js-String/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Javascript/">Javascript</a></p>
+                            <p class="item-title"><a href="/2016/08/14/js-String/" class="title">Javascript中字符串方法总结</a></p>
+                            <p class="item-date"><time datetime="2016-08-14T08:48:34.000Z" itemprop="datePublished">2016-08-14</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/08/03/js-position/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Javascript/">Javascript</a></p>
+                            <p class="item-title"><a href="/2016/08/03/js-position/" class="title">JS中的位置与大小</a></p>
+                            <p class="item-date"><time datetime="2016-08-02T16:06:31.000Z" itemprop="datePublished">2016-08-03</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/08/03/js-Array/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Javascript/">Javascript</a></p>
+                            <p class="item-title"><a href="/2016/08/03/js-Array/" class="title">Javascript中Array方法的总结</a></p>
+                            <p class="item-date"><time datetime="2016-08-02T16:01:05.000Z" itemprop="datePublished">2016-08-03</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/07/14/summarize-vue/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Vue/">Vue</a></p>
+                            <p class="item-title"><a href="/2016/07/14/summarize-vue/" class="title">Vuejs的一些总结</a></p>
+                            <p class="item-date"><time datetime="2016-07-13T16:07:45.000Z" itemprop="datePublished">2016-07-14</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CSS/">CSS</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/HTML/">HTML</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Javascript/">Javascript</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jQuery/">jQuery</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端工具/">前端工具</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活/">生活</a><span class="category-list-count">3</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">6</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/H5-file，canvas/">H5 file，canvas</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML5/">HTML5</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Javascript/">Javascript</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp/">gulp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery/">jQuery</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">3</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/CSS/" style="font-size: 17.5px;">CSS</a> <a href="/tags/H5-file，canvas/" style="font-size: 12.5px;">H5 file，canvas</a> <a href="/tags/HTML5/" style="font-size: 10px;">HTML5</a> <a href="/tags/Javascript/" style="font-size: 17.5px;">Javascript</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/gulp/" style="font-size: 10px;">gulp</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/vue/" style="font-size: 20px;">vue</a> <a href="/tags/生活/" style="font-size: 15px;">生活</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="http://gold.xitu.io/">掘金</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://segmentfault.com/">segmentfault</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://www.v2ex.com/?tab=tech">V2EX</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://leetcode.com/">leetcode</a>
+                    </li>
+                
+                    <li>
+                        <a href="http://jsbin.com/">jsbin</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2016 ZhangYi<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'mrzhang123'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/vendor/fancybox/jquery.fancybox.pack.js"></script>
+    
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
