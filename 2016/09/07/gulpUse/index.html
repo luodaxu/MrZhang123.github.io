@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://mrzhang123.github.io/2016/09/07/gulpUse/index.html">
 <meta property="og:site_name" content="MrZhang's Blog">
 <meta property="og:description" content="上个月月底在公司提出关于前后端分离的想法，并且开始研究关于前后端分离，前端工程化，模块化的一些东西，上周开始我准备自己开始写基于Gulp流的前端工程文件，这两天有时间，着手开始实现这个想法，但是写的过程中，遇到了一些问题，正是因为这些问题的解决让我对Gulp的流式处理有了更深的理解，写下这篇文章，分享一下这俩天我在写Gulp的时候学到的一些东西。">
-<meta property="og:updated_time" content="2016-09-07T15:30:11.937Z">
+<meta property="og:updated_time" content="2016-09-07T16:06:09.466Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于Gulp的前端自动化工程搭建">
 <meta name="twitter:description" content="上个月月底在公司提出关于前后端分离的想法，并且开始研究关于前后端分离，前端工程化，模块化的一些东西，上周开始我准备自己开始写基于Gulp流的前端工程文件，这两天有时间，着手开始实现这个想法，但是写的过程中，遇到了一些问题，正是因为这些问题的解决让我对Gulp的流式处理有了更深的理解，写下这篇文章，分享一下这俩天我在写Gulp的时候学到的一些东西。">
@@ -312,6 +312,14 @@ var _hmt = _hmt || [];
 <p>但是这里就出现问题了，runSequence不管用了，找插件的说明和gulp官方文档，原来异步任务，像setTimeout，readFile等，需要添加一个callback的执行，这里的callback()就会返回一个promise的resolve()，告诉后面的任务，当前任务已经完成，后面可以继续执行了，所以在task a里面执行callback。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">gulp.task(<span class="string">'a'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">cb</span>)</span>&#123;</div><div class="line">    setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="number">1</span>);</div><div class="line">        cb();</div><div class="line">    &#125;,<span class="number">30</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
 <p>那为什么前面写的那些任务不需要添加一个callback呢？由于gulp的pipe流让每一个task中的小任务（每一个pipe）顺序执行，从而整个pipe流是同步的，并不是异步任务，所以并不需要手动让其返回promise，run-sequence会自动帮我们管理。</p>
+<h2 id="gulpfile的分离"><a href="#gulpfile的分离" class="headerlink" title="gulpfile的分离"></a>gulpfile的分离</h2><p>在前面我们将dev和build写在了一个叫gulpfile的文件中，虽然可以执行，但是当我们的工程越来越大的时候，会导致gulpfile可维护性降低，那能否让dev和build分别写在两个文件中呢？答案是可以的，我们可以新建两个文件，分别为gulpfile-dev.js和gulpfile-build.js，其实我们在运行gulp build的时候，其实是运行了gulp –gulpfile gulpfile.js build，前者相当于后者的缩写，所以在运行gulp的时候在命令中输入如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">gulp --gulpfile gulpfile-dev.js</div><div class="line"></div><div class="line">gulp --gulpfile gulpfile-build.js</div></pre></td></tr></table></figure>
+<p>就可以在gulp运行时候指定gulpfile。这样我们再原来的task中的buil和dev改成default就可以直接运行以上命令达到预期效果。</p>
+<p>但是每次敲这么长的命令很烦，怎么办呢？我们可以在package.json的scripts中添加如下json：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">"dev": "gulp --gulpfile gulpfile-dev.js"</div><div class="line">"build": "gulp --gulpfile gulpfile-build.js"</div></pre></td></tr></table></figure>
+<p>这样，我们在运行的时候，直接在命令行输入：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">npm run dev</div><div class="line">npm run build</div></pre></td></tr></table></figure>
+<p>就可以实现打包了，是不是很酸爽，哈哈！</p>
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>至此，我们就完成了一个简易的基于gulp的前端工程的搭建，很多东西确实，想着并不难，做起来会出现各种各样意想不到的问题，gulp很早就知道，都是单个任务在写，然后用哪个执行哪个命令，直到自己写完这个这个简单的工程，才对gulp有了更深入的理解。</p>
 
         
