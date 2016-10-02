@@ -3,26 +3,18 @@
 <head>
     <meta charset="utf-8">
     
-    <title>Webpack初探 | MrZhang&#39;s Blog</title>
+    <title>Linux日常使用总结 | MrZhang&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="很早就听说webpack包管理工具，但是一直没有机会学习，这次又看到掘金上面有关于vue+webpack的初级文章，而且最近公司没什么事儿做，决定搞一下。在搞的过程中，虽然按照文章中写的去做，但是还是有很多问题，所以写下本文，总结下我遇到的问题以及解决办法。
-
-包管理工具—webpackWebpack 是当下最热门的前端资源模块化管理和打包工具。它可以将许多松散的模块按照依赖和规则打包成符合生产">
+    <meta name="description" content="自己一直对linux充满好奇，这次换了新的工作后，由于使用Mac OS和linux，所以国庆回来，给自己的电脑装了ubuntu来熟悉linux。在安装完成后遇到一些问题，经过谷歌都一一解决了，写这篇博文分享给大家。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Webpack初探">
-<meta property="og:url" content="http://mrzhang123.github.io/2016/05/31/webpack-1/index.html">
+<meta property="og:title" content="Linux日常使用总结">
+<meta property="og:url" content="http://mrzhang123.github.io/2016/10/02/linux-study/index.html">
 <meta property="og:site_name" content="MrZhang's Blog">
-<meta property="og:description" content="很早就听说webpack包管理工具，但是一直没有机会学习，这次又看到掘金上面有关于vue+webpack的初级文章，而且最近公司没什么事儿做，决定搞一下。在搞的过程中，虽然按照文章中写的去做，但是还是有很多问题，所以写下本文，总结下我遇到的问题以及解决办法。
-
-包管理工具—webpackWebpack 是当下最热门的前端资源模块化管理和打包工具。它可以将许多松散的模块按照依赖和规则打包成符合生产">
-<meta property="og:image" content="http://mrzhang123.github.io/img/webpack/what-is-webpack.jpg">
-<meta property="og:updated_time" content="2016-06-07T17:17:02.691Z">
+<meta property="og:description" content="自己一直对linux充满好奇，这次换了新的工作后，由于使用Mac OS和linux，所以国庆回来，给自己的电脑装了ubuntu来熟悉linux。在安装完成后遇到一些问题，经过谷歌都一一解决了，写这篇博文分享给大家。">
+<meta property="og:updated_time" content="2016-10-02T15:44:59.526Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Webpack初探">
-<meta name="twitter:description" content="很早就听说webpack包管理工具，但是一直没有机会学习，这次又看到掘金上面有关于vue+webpack的初级文章，而且最近公司没什么事儿做，决定搞一下。在搞的过程中，虽然按照文章中写的去做，但是还是有很多问题，所以写下本文，总结下我遇到的问题以及解决办法。
-
-包管理工具—webpackWebpack 是当下最热门的前端资源模块化管理和打包工具。它可以将许多松散的模块按照依赖和规则打包成符合生产">
-<meta name="twitter:image" content="http://mrzhang123.github.io/img/webpack/what-is-webpack.jpg">
+<meta name="twitter:title" content="Linux日常使用总结">
+<meta name="twitter:description" content="自己一直对linux充满好奇，这次换了新的工作后，由于使用Mac OS和linux，所以国庆回来，给自己的电脑装了ubuntu来熟悉linux。在安装完成后遇到一些问题，经过谷歌都一一解决了，写这篇博文分享给大家。">
     
 
     
@@ -210,7 +202,7 @@ var _hmt = _hmt || [];
 </aside>
 
             
-            <section id="main"><article id="post-webpack-1" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-linux-study" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -219,7 +211,7 @@ var _hmt = _hmt || [];
                 
     
         <h1 class="article-title" itemprop="name">
-            Webpack初探
+            Linux日常使用总结
         </h1>
     
 
@@ -228,8 +220,8 @@ var _hmt = _hmt || [];
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2016/05/31/webpack-1/">
-            <time datetime="2016-05-31T13:02:20.000Z" itemprop="datePublished">2016-05-31</time>
+        <a href="/2016/10/02/linux-study/">
+            <time datetime="2016-10-02T15:33:47.000Z" itemprop="datePublished">2016-10-02</time>
         </a>
     </div>
 
@@ -237,13 +229,13 @@ var _hmt = _hmt || [];
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Vue/">Vue</a>
+        <a class="article-category-link" href="/categories/linux/">linux</a>
     </div>
 
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/vue/">vue</a>
+        <a class="tag-link" href="/tags/linux/">linux</a>
     </div>
 
                     </div>
@@ -254,20 +246,45 @@ var _hmt = _hmt || [];
         
             
             <blockquote>
-<p>很早就听说webpack包管理工具，但是一直没有机会学习，这次又看到<a href="http://gold.xitu.io/#/" target="_blank" rel="external">掘金</a>上面有关于vue+webpack的初级文章，而且最近公司没什么事儿做，决定搞一下。在搞的过程中，虽然按照文章中写的去做，但是还是有很多问题，所以写下本文，总结下我遇到的问题以及解决办法。</p>
+<p>自己一直对linux充满好奇，这次换了新的工作后，由于使用Mac OS和linux，所以国庆回来，给自己的电脑装了ubuntu来熟悉linux。在安装完成后遇到一些问题，经过谷歌都一一解决了，写这篇博文分享给大家。</p>
 </blockquote>
-<h3 id="包管理工具—webpack"><a href="#包管理工具—webpack" class="headerlink" title="包管理工具—webpack"></a>包管理工具—webpack</h3><p>Webpack 是当下最热门的前端资源模块化管理和打包工具。它可以将许多松散的模块按照依赖和规则打包成符合生产环境部署的前端资源。还可以将按需加载的模块进行代码分隔，等到实际需要的时候再异步加载。通过 <code>loader</code>的转换，任何形式的资源都可以视作模块，比如 CommonJs 模块、 AMD 模块、 ES6 模块、CSS、图片、 JSON、Coffeescript、 LESS 等。<br><a id="more"></a><br><img src="/img/webpack/what-is-webpack.jpg" alt="webpack官方解释图"><br><a href="http://webpack.github.io/" target="_blank" rel="external">官网：http://webpack.github.io/</a><br>对应各种不同文件类型的资源, Webpack 有对应的模块 loader比如 CoffeeScript 用的是coffee-loader, 其他还有很多:<a href="http://webpack.github.io/docs/list-of-loaders.html" target="_blank" rel="external">http://webpack.github.io/docs/list-of-loaders.html</a></p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><blockquote>
-<p>webpack的安装其实其实Google一搜一大把，但是为了完整性，还是写写吧。</p>
-</blockquote>
-<p>webpack同样基于nodejs，所以我们需要先安装nodejs，然后再利用npm安装，webpack需要nodejs v0.6以上支持，建议使用最新的nodejs。<br>首先全局安装webpack：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install webpack -g</div></pre></td></tr></table></figure></p>
-<p>或者将webpack安装到项目依赖中:<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"># 进入项目目录</div><div class="line"># 确定已有package.json，没有就通过npm init创建</div><div class="line"># 安装webpack依赖</div><div class="line">$ npm install webpack --save-dev</div></pre></td></tr></table></figure></p>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>首先创建一个静态页面index.html和一个JS入口文件entry.js：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"bundle.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//entry.js</span></div><div class="line"><span class="built_in">document</span>.write(<span class="string">'It works.'</span>);</div></pre></td></tr></table></figure>
-<p>然后编译entry.js并打包到bundle.js：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ webpack entry.js bundle.js</div></pre></td></tr></table></figure></p>
-<p>然后用浏览器打开<code>index.html</code>就可以看到<code>It works.</code><br>接下来添加一个模块module.js并修改入口entry.js：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//module.js</span></div><div class="line"><span class="built_in">module</span>.exports=<span class="string">'It work from module.js.'</span>;</div><div class="line"><span class="comment">//entry.js</span></div><div class="line"><span class="built_in">document</span>.write(<span class="string">'It works.'</span>);</div><div class="line"><span class="built_in">document</span>.write(<span class="built_in">require</span>(<span class="string">'./module.js'</span>));<span class="comment">//添加模块</span></div></pre></td></tr></table></figure></p>
-<p>重新运行打包命令后就可以看到<code>It work from module.js.</code><br>这里我们用到了commonjs的模块写法：<code>exports</code>，<code>require</code>；前面已经说过，webpack作为打包工具，可以为commonjs，AMD，ES6模块打包。<br>Webpack    会分析入口文件，解析包含依赖关系的各个文件。这些文件（模块）都打包到bundle.js    。Webpack会给每个模块分配一个唯一的id并通过这个id索引和访问模块。在页面启动时，会先执行entry.js中的代码，其它模块会在运行require的时候再执行。<br>这就是最基本的webpack的用法，当我第一次看到这个功能的时候，终于解决了曾经我对在页面中引用JS的一个困惑，即js文件a如何引用js文件b中的东西，webpack非常方便让我们做到了这一点。下一节，会结合Vuejs进行模块化开发，那时会用到更多的webpack的东西，并且会讲到关于ES6模块儿化的一些东西，加油！</p>
+<a id="more"></a>
+<h2 id="1．设置获取root权限"><a href="#1．设置获取root权限" class="headerlink" title="1．设置获取root权限"></a>1．设置获取root权限</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo password root <span class="comment">//设置root密码</span></div></pre></td></tr></table></figure>
+<p>然后输入当前系统账户的密码并设置新的UNIX密码，密码更新成功后在终端输入<code>su</code>然后输入刚刚设置好的新的UNIX密码，即可进入root权限，如果想退出，输入<code>exit</code>。</p>
+<h2 id="２．在linux下如何安装shadowsocks"><a href="#２．在linux下如何安装shadowsocks" class="headerlink" title="２．在linux下如何安装shadowsocks"></a>２．在linux下如何安装shadowsocks</h2><p>因为自己是搞开发的，而且非常喜欢谷歌，所以就需要一个自由的网络环境，博主用的是shadowsocks，在windows下，有客户端，但是现在装了linux，既然装了linux，能用命令行搞定的就尽量用命令行，所以我选择在终端安装shadowsocks客户端，步骤如下：</p>
+<h4 id="安装shadowsocks客户端"><a href="#安装shadowsocks客户端" class="headerlink" title="安装shadowsocks客户端"></a>安装shadowsocks客户端</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo apt-get update </div><div class="line">sudo apt-get install python-gevent python-pip</div><div class="line">pip install shadowsocks</div></pre></td></tr></table></figure>
+<h4 id="建立配置文件"><a href="#建立配置文件" class="headerlink" title="建立配置文件"></a>建立配置文件</h4><p>打开终端，运行<code>vim /etc/ss.json</code>，然后写入json</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	"server" : "you server",</div><div class="line">	"server_port" : 0000,</div><div class="line">	"local_address" : "127.0.0.1",</div><div class="line">	"local_port" : 1080,</div><div class="line">	"password" : "you password",</div><div class="line">	"method" : "aes-256-cfb",   //shadowsocks的加密方式</div><div class="line">	"fast_open" : false</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="开启shadowsocks"><a href="#开启shadowsocks" class="headerlink" title="开启shadowsocks"></a>开启shadowsocks</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">sslocal -c /etc/ss.json</div><div class="line"></div><div class="line"><span class="comment">// 开启后显示以下内容，代表开启成功：</span></div><div class="line"><span class="comment">// INFO  loading libcrypto from libcrypto.so.1.0.0</span></div><div class="line"><span class="comment">// INFO  starting local at 127.0.0.1:1080</span></div></pre></td></tr></table></figure>
+<h4 id="设置开机启动"><a href="#设置开机启动" class="headerlink" title="设置开机启动"></a>设置开机启动</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 打开图形化开机启动项管理界面</span></div><div class="line">gnome-session-properties</div><div class="line"><span class="comment">// 添加(Add) -&gt; 名称(name)和描述(comment)随便填，命令(Command)填写如下： </span></div><div class="line">sslocal -c /etc/ss.json</div></pre></td></tr></table></figure>
+<h4 id="火狐浏览器配置"><a href="#火狐浏览器配置" class="headerlink" title="火狐浏览器配置"></a>火狐浏览器配置</h4><p>设置→首选项→高级→网络→链接→设置→手动配置代理→socks主机：127.0.0.1 端口：1080→确定</p>
+<h4 id="chrome配置"><a href="#chrome配置" class="headerlink" title="chrome配置"></a>chrome配置</h4><p>在终端中输入如下命令：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">chromium-browser --proxy-server=socks5:<span class="comment">//127.0.0.1:1080</span></div></pre></td></tr></table></figure>
+<p>进入后安装SwitchyOmega，然后配置此插件：</p>
+<p>情景模式→删除原有的情景模式，新建情景模式（原有的情景模式无socks代理）→手动配置→SOCKS代理：127.0.0.1 端口1080→保存 →ok</p>
+<h5 id="note"><a href="#note" class="headerlink" title="note:"></a>note:</h5><p>我在这里运行这个命令后依然无法进入，不清楚是怎么回事儿，所以我直接找了个host进行了替换，关于host，我推荐<a href="https://laod.cn/hosts/2016-google-hosts.html" target="_blank" rel="external">老d博客中提供的</a>，具体用法他博客中有写。然后才进入的应用商店下载好。</p>
+<h2 id="３．安装相应的软件"><a href="#３．安装相应的软件" class="headerlink" title="３．安装相应的软件"></a>３．安装相应的软件</h2><h4 id="安装Gdebi软件包安装程序"><a href="#安装Gdebi软件包安装程序" class="headerlink" title="安装Gdebi软件包安装程序"></a>安装Gdebi软件包安装程序</h4><p>在ubuntu中有自己的软件中心，但是有些软件在里面找不到，需要自己去官网下载客户端然后安装（比如网易云音乐，搜狗拼音等），下载好的安装包大部分都是<code>.deb</code>文件，查阅了需要资料，安装这个用<code>gdebi</code>比较方便，在软件中心搜索<code>Gdebi软件包安装程序</code>安装就好，但是，既然用linux了，就用一下它强大的终端，所以我说一下在终端如何安装</p>
+<p>在终端输入</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install gdebi</div></pre></td></tr></table></figure>
+<p>但是我在这里输入后，提示我缺少相应的依赖，并让我运行</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install -f</div></pre></td></tr></table></figure>
+<p>运行完成这个命令后，相应的依赖就被安装好了，这里的这个命令主要是修复依赖关系（depends）的命令，之后重新运行<code>sudo apt-get install gdebi</code>即可。</p>
+<h4 id="安装对应的软件"><a href="#安装对应的软件" class="headerlink" title="安装对应的软件"></a>安装对应的软件</h4><p>在安装完成这个后，安装软件就方便很多，我比如安装chrome浏览器，直接进入下载好文件的目录，运行</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo gdebi chrome.deb <span class="comment">//这里是你要安装包的名字</span></div></pre></td></tr></table></figure>
+<p>完成后去搜索即可。<font color="red">在安装时候我发现有的软件在安装完成后需要重启下电脑才会有。</font></p>
+<h4 id="安装node"><a href="#安装node" class="headerlink" title="安装node"></a>安装node</h4><p>做前端开发，node是必不可少的，所以需要安装一下，在windows下都是直接下载安装包安装，我本来也在linux下下了个安装包安装了，但是查了一下发现用nvm安装node的比较多，而且那天在公司老大也说在mac下推荐使用nvm安装，所以自己决定试下。</p>
+<h5 id="1-安装-nvm-之后最好先删除下已安装的-node-和全局-node-模块："><a href="#1-安装-nvm-之后最好先删除下已安装的-node-和全局-node-模块：" class="headerlink" title="1.安装 nvm 之后最好先删除下已安装的 node 和全局 node 模块："></a>1.安装 nvm 之后最好先删除下已安装的 node 和全局 node 模块：</h5><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">npm ls -g --depth=0 //查看已经安装在全局的模块，以便删除这些全局模块后再按照不同的 node 版本重新进行全局安装</div><div class="line">sudo rm -rf /usr/local/lib/node_modules //删除全局 node_modules 目录</div><div class="line">sudo rm /usr/local/bin/node //删除 node</div><div class="line">cd  /usr/local/bin &amp;&amp; ls -l | grep "../lib/node_modules/" | awk '&#123;print $9&#125;'| xargs rm //删除全局 node 模块注册的软链</div></pre></td></tr></table></figure>
+<p>话说最后一条命令运行会报rm使用错误，不知道怎么弄…</p>
+<h5 id="2-安装nvm"><a href="#2-安装nvm" class="headerlink" title="2.安装nvm"></a>2.安装<a href="https://github.com/creationix/nvm" target="_blank" rel="external">nvm</a></h5><p>运行以下两条命令之一</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">curl -o- https:<span class="comment">//raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh | bash</span></div><div class="line"><span class="comment">//or</span></div><div class="line">wget -qO- https:<span class="comment">//raw.githubusercontent.com/creationix/nvm/v0.32.0/install.sh | bash</span></div></pre></td></tr></table></figure>
+<p>然后进入(~/.bash_profile, ~/.zshrc, ~/.profile, or ~/.bashrc)这些文件，看哪个文件有，在最后一行添加.</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> NVM_DIR=<span class="string">"$HOME/.nvm"</span></div><div class="line">[ -s <span class="string">"$NVM_DIR/nvm.sh"</span> ] &amp;&amp; . <span class="string">"$NVM_DIR/nvm.sh"</span> # This loads nvm</div></pre></td></tr></table></figure>
+<p>这里如果不太会改这个的话，可以设置终端从而达到效果，在终端打开<code>编辑→配置文件首选项→命令</code>中勾选<code>以登录shell方式运行命令</code>。在ubuntu中没有<code>执行命令时更新登录登录记录</code>，如果有，一起勾选，然后在终端输入</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nvm</div></pre></td></tr></table></figure>
+<p>即可看到帮助，之后运行</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nvm install node</div></pre></td></tr></table></figure>
+<p>就可以安装到最新版本的node，更多关于nvm的用法可参考<a href="https://segmentfault.com/a/1190000004404505" target="_blank" rel="external">node版本管理工具nvm-Mac下安装及使用</a></p>
+<p>至此，linux下常用的软件就安装完成…</p>
 
         
         </div>
@@ -331,7 +348,7 @@ var _hmt = _hmt || [];
 
             
     
-        <a href="http://mrzhang123.github.io/2016/05/31/webpack-1/#comments" class="article-comment-link ds-thread-count" data-thread-key="http://mrzhang123.github.io/2016/05/31/webpack-1/">评论</a>
+        <a href="http://mrzhang123.github.io/2016/10/02/linux-study/#comments" class="article-comment-link ds-thread-count" data-thread-key="http://mrzhang123.github.io/2016/10/02/linux-study/">评论</a>
     
 
         </footer>
@@ -340,19 +357,10 @@ var _hmt = _hmt || [];
         
 <nav id="article-nav">
     
-        <a href="/2016/05/31/webpack-vue-2/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">上一篇</strong>
-            <div class="article-nav-title">
-                
-                    webpack与vue起步
-                
-            </div>
-        </a>
     
-    
-        <a href="/2016/05/23/vertical-align-1/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2016/09/24/thoughts/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">慕课网---深入理解vertical-align总结</div>
+            <div class="article-nav-title">北京的这一年，写在离开的这一天</div>
         </a>
     
 </nav>
@@ -366,7 +374,7 @@ var _hmt = _hmt || [];
     <section id="comments">
     
         
-    <div class="ds-thread" data-thread-key="2016/05/31/webpack-1/" data-title="Webpack初探" data-url="http://mrzhang123.github.io/2016/05/31/webpack-1/"></div>
+    <div class="ds-thread" data-thread-key="2016/10/02/linux-study/" data-title="Linux日常使用总结" data-url="http://mrzhang123.github.io/2016/10/02/linux-study/"></div>
     <style>
         #ds-thread #ds-reset .ds-textarea-wrapper {
             background: none;
