@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://mrzhang123.github.io/2016/10/02/linux-study/index.html">
 <meta property="og:site_name" content="MrZhang's Blog">
 <meta property="og:description" content="自己一直对linux充满好奇，这次换了新的工作后，由于使用Mac OS和linux，所以国庆回来，给自己的电脑装了ubuntu来熟悉linux。在安装完成后遇到一些问题，经过谷歌都一一解决了，写这篇博文分享给大家。">
-<meta property="og:updated_time" content="2016-10-02T15:44:59.526Z">
+<meta property="og:updated_time" content="2016-10-08T14:26:38.074Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux日常使用总结">
 <meta name="twitter:description" content="自己一直对linux充满好奇，这次换了新的工作后，由于使用Mac OS和linux，所以国庆回来，给自己的电脑装了ubuntu来熟悉linux。在安装完成后遇到一些问题，经过谷歌都一一解决了，写这篇博文分享给大家。">
@@ -249,7 +249,7 @@ var _hmt = _hmt || [];
 <p>自己一直对linux充满好奇，这次换了新的工作后，由于使用Mac OS和linux，所以国庆回来，给自己的电脑装了ubuntu来熟悉linux。在安装完成后遇到一些问题，经过谷歌都一一解决了，写这篇博文分享给大家。</p>
 </blockquote>
 <a id="more"></a>
-<h2 id="1．设置获取root权限"><a href="#1．设置获取root权限" class="headerlink" title="1．设置获取root权限"></a>1．设置获取root权限</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo password root <span class="comment">//设置root密码</span></div></pre></td></tr></table></figure>
+<h2 id="1．设置获取root权限"><a href="#1．设置获取root权限" class="headerlink" title="1．设置获取root权限"></a>1．设置获取root权限</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo passwd root <span class="comment">//设置root密码</span></div></pre></td></tr></table></figure>
 <p>然后输入当前系统账户的密码并设置新的UNIX密码，密码更新成功后在终端输入<code>su</code>然后输入刚刚设置好的新的UNIX密码，即可进入root权限，如果想退出，输入<code>exit</code>。</p>
 <h2 id="２．在linux下如何安装shadowsocks"><a href="#２．在linux下如何安装shadowsocks" class="headerlink" title="２．在linux下如何安装shadowsocks"></a>２．在linux下如何安装shadowsocks</h2><p>因为自己是搞开发的，而且非常喜欢谷歌，所以就需要一个自由的网络环境，博主用的是shadowsocks，在windows下，有客户端，但是现在装了linux，既然装了linux，能用命令行搞定的就尽量用命令行，所以我选择在终端安装shadowsocks客户端，步骤如下：</p>
 <h4 id="安装shadowsocks客户端"><a href="#安装shadowsocks客户端" class="headerlink" title="安装shadowsocks客户端"></a>安装shadowsocks客户端</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo apt-get update </div><div class="line">sudo apt-get install python-gevent python-pip</div><div class="line">pip install shadowsocks</div></pre></td></tr></table></figure>
@@ -272,6 +272,8 @@ var _hmt = _hmt || [];
 <h4 id="安装对应的软件"><a href="#安装对应的软件" class="headerlink" title="安装对应的软件"></a>安装对应的软件</h4><p>在安装完成这个后，安装软件就方便很多，我比如安装chrome浏览器，直接进入下载好文件的目录，运行</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo gdebi chrome.deb <span class="comment">//这里是你要安装包的名字</span></div></pre></td></tr></table></figure>
 <p>完成后去搜索即可。<font color="red">在安装时候我发现有的软件在安装完成后需要重启下电脑才会有。</font></p>
+<h4 id="卸载apt-get安装的东西"><a href="#卸载apt-get安装的东西" class="headerlink" title="卸载apt-get安装的东西"></a>卸载apt-get安装的东西</h4><p>有时候需要卸载一些<code>apt-get</code>安装的东西，需要命令为</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get remove XXX <span class="comment">//XXX为要卸载的东西</span></div></pre></td></tr></table></figure>
 <h4 id="安装node"><a href="#安装node" class="headerlink" title="安装node"></a>安装node</h4><p>做前端开发，node是必不可少的，所以需要安装一下，在windows下都是直接下载安装包安装，我本来也在linux下下了个安装包安装了，但是查了一下发现用nvm安装node的比较多，而且那天在公司老大也说在mac下推荐使用nvm安装，所以自己决定试下。</p>
 <h5 id="1-安装-nvm-之后最好先删除下已安装的-node-和全局-node-模块："><a href="#1-安装-nvm-之后最好先删除下已安装的-node-和全局-node-模块：" class="headerlink" title="1.安装 nvm 之后最好先删除下已安装的 node 和全局 node 模块："></a>1.安装 nvm 之后最好先删除下已安装的 node 和全局 node 模块：</h5><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">npm ls -g --depth=0 //查看已经安装在全局的模块，以便删除这些全局模块后再按照不同的 node 版本重新进行全局安装</div><div class="line">sudo rm -rf /usr/local/lib/node_modules //删除全局 node_modules 目录</div><div class="line">sudo rm /usr/local/bin/node //删除 node</div><div class="line">cd  /usr/local/bin &amp;&amp; ls -l | grep "../lib/node_modules/" | awk '&#123;print $9&#125;'| xargs rm //删除全局 node 模块注册的软链</div></pre></td></tr></table></figure>
 <p>话说最后一条命令运行会报rm使用错误，不知道怎么弄…</p>
