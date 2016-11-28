@@ -3,21 +3,18 @@
 <head>
     <meta charset="utf-8">
     
-    <title>文件上传（二）---新XMLHttpRequest实现带进度条文件上传 | MrZhang&#39;s Blog</title>
+    <title>Nodejs之npm&amp;package.json | MrZhang&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="前几天搞得那个文件上传，最近工作不太忙，又开始完善。这次主要添加了文件上传的进度部分，主要用到的则是XMLHttpRequest2的progress，由于我读的是《javascript高级程序设计》（第三版），这里我遇到一个关于progeress事件的坑，后面详细解答。
-创建XMLHttpRequest对象首先说说XMLHttpRequest，在IE7+浏览器中，只需要new一个XMLHttpRe">
+    <meta name="description" content="一直以来，作为前端开发，在公司都是先写好页面，然后再跟后端合作，将数据填入前端页面中，但是偶尔自己闲来无事，也会看一些框架什么的，然后利用框架做个单页面应用啊，app什么的，这时候页面的数据总是一些假数据，而关于数据请求的部分就没办法做（因为没有后台嘛）。所以我感觉是时候学习一下node了，这对于我以后要学的webpack，前端工程化等也有一定帮助。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="文件上传（二）---新XMLHttpRequest实现带进度条文件上传">
-<meta property="og:url" content="http://mrzhang123.github.io/2016/04/14/fileupload2/index.html">
+<meta property="og:title" content="Nodejs之npm&package.json">
+<meta property="og:url" content="http://mrzhang123.github.io/2016/11/28/node-npm-package/index.html">
 <meta property="og:site_name" content="MrZhang's Blog">
-<meta property="og:description" content="前几天搞得那个文件上传，最近工作不太忙，又开始完善。这次主要添加了文件上传的进度部分，主要用到的则是XMLHttpRequest2的progress，由于我读的是《javascript高级程序设计》（第三版），这里我遇到一个关于progeress事件的坑，后面详细解答。
-创建XMLHttpRequest对象首先说说XMLHttpRequest，在IE7+浏览器中，只需要new一个XMLHttpRe">
-<meta property="og:updated_time" content="2016-08-02T16:37:17.931Z">
+<meta property="og:description" content="一直以来，作为前端开发，在公司都是先写好页面，然后再跟后端合作，将数据填入前端页面中，但是偶尔自己闲来无事，也会看一些框架什么的，然后利用框架做个单页面应用啊，app什么的，这时候页面的数据总是一些假数据，而关于数据请求的部分就没办法做（因为没有后台嘛）。所以我感觉是时候学习一下node了，这对于我以后要学的webpack，前端工程化等也有一定帮助。">
+<meta property="og:updated_time" content="2016-11-28T14:29:38.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="文件上传（二）---新XMLHttpRequest实现带进度条文件上传">
-<meta name="twitter:description" content="前几天搞得那个文件上传，最近工作不太忙，又开始完善。这次主要添加了文件上传的进度部分，主要用到的则是XMLHttpRequest2的progress，由于我读的是《javascript高级程序设计》（第三版），这里我遇到一个关于progeress事件的坑，后面详细解答。
-创建XMLHttpRequest对象首先说说XMLHttpRequest，在IE7+浏览器中，只需要new一个XMLHttpRe">
+<meta name="twitter:title" content="Nodejs之npm&package.json">
+<meta name="twitter:description" content="一直以来，作为前端开发，在公司都是先写好页面，然后再跟后端合作，将数据填入前端页面中，但是偶尔自己闲来无事，也会看一些框架什么的，然后利用框架做个单页面应用啊，app什么的，这时候页面的数据总是一些假数据，而关于数据请求的部分就没办法做（因为没有后台嘛）。所以我感觉是时候学习一下node了，这对于我以后要学的webpack，前端工程化等也有一定帮助。">
     
 
     
@@ -205,7 +202,7 @@ var _hmt = _hmt || [];
 </aside>
 
             
-            <section id="main"><article id="post-fileupload2" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-node-npm-package" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -214,7 +211,7 @@ var _hmt = _hmt || [];
                 
     
         <h1 class="article-title" itemprop="name">
-            文件上传（二）---新XMLHttpRequest实现带进度条文件上传
+            Nodejs之npm&amp;package.json
         </h1>
     
 
@@ -223,8 +220,8 @@ var _hmt = _hmt || [];
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2016/04/14/fileupload2/">
-            <time datetime="2016-04-14T15:10:58.000Z" itemprop="datePublished">2016-04-14</time>
+        <a href="/2016/11/28/node-npm-package/">
+            <time datetime="2016-11-28T14:25:36.000Z" itemprop="datePublished">2016-11-28</time>
         </a>
     </div>
 
@@ -232,13 +229,13 @@ var _hmt = _hmt || [];
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Javascript/">Javascript</a>
+        <a class="article-category-link" href="/categories/Node/">Node</a>
     </div>
 
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/H5-file，canvas/">H5 file，canvas</a>
+        <a class="tag-link" href="/tags/Node/">Node</a>
     </div>
 
                     </div>
@@ -248,51 +245,54 @@ var _hmt = _hmt || [];
         <div class="article-entry" itemprop="articleBody">
         
             
-            <p>前几天搞得那个文件上传，最近工作不太忙，又开始完善。这次主要添加了文件上传的进度部分，主要用到的则是XMLHttpRequest2的progress，由于我读的是《javascript高级程序设计》（第三版），这里我遇到一个关于progeress事件的坑，后面详细解答。</p>
-<h2 id="创建XMLHttpRequest对象"><a href="#创建XMLHttpRequest对象" class="headerlink" title="创建XMLHttpRequest对象"></a>创建XMLHttpRequest对象</h2><p>首先说说XMLHttpRequest，在IE7+浏览器中，只需要new一个XMLHttpRequest对象即可：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> xhr=<span class="keyword">new</span> XMLHttpRequest();</div></pre></td></tr></table></figure></p>
-<p>由于现在淘宝都不再支持IE6以及7，所以这里不考虑IE7及以下浏览器关于xhr的创建方法。<br><a id="more"></a></p>
-<h3 id="open-方法"><a href="#open-方法" class="headerlink" title="open()方法"></a>open()方法</h3><p>在使用XHR对象时候，第一个方法是open()方法，它接受3个参数：</p>
-<ul>
-<li>要发送的请求的类型（”get”、”post”等）；</li>
-<li>请求的URL；</li>
-<li>是否异步发送请求的布尔值。<br>例如：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> xhr=<span class="keyword">new</span> XMLHttpRequest();</div><div class="line">xhr.open(<span class="string">'get'</span>,<span class="string">'example.php'</span>,<span class="literal">false</span>);</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>以上代码会启动一个针对example.php的GET请求。这里需要注意两点：</p>
-<ul>
-<li>URL相对于执行代码的当前页面；</li>
-<li>调用open()方法并不会真正发送请求，只是启动一个请求以备发送</li>
-</ul>
-<h3 id="sned-方法"><a href="#sned-方法" class="headerlink" title="sned()方法"></a>sned()方法</h3><p>send()方法接收一个参数，即要作为请求主题发送的数据。如果不需要通过请求主题发送数据，则传入null。在发送数据收到响应后，响应的数据会自动填充XHR对象的属性，相关属性如下：</p>
-<ul>
-<li>responseText：作为响应主题被返回的文本；</li>
-<li>responseXML：如果响应的内容类型是”text/xml”或者”application/xml”，则这个属性中将保存包含着响应数据的XML DOM文档；</li>
-<li>status：响应HTTP状态；</li>
-<li>statusText：响应HTTP状态的说明。</li>
-</ul>
-<p>在接收到响应后，第一步是检查 status 属性，以确定响应已经成功返回。一般来说，可以将 HTTP状态代码为 200作为成功的标志。此时，responseText 属性的内容已经就绪，而且在内容类型正确的情况下，responseXML也应该能够访问了。此外，状态代码为304 表示请求的资源并没有被修改，可以直接使用浏览器中缓存的版本。由于我们用XHR对象常常是为了异步传输，所以—可以检测 XHR 对象的readyState 属性，该属性表示请求/响应过程的当前活动阶段。这个属性可取的值如下：</p>
-<ul>
-<li>0：未初始化。尚未调用 open()方法。 </li>
-<li>1：启动。已经调用 open()方法，但尚未调用 send()方法。 </li>
-<li>2：发送。已经调用 send()方法，但尚未接收到响应。 </li>
-<li>3：接收。已经接收到部分响应数据。 </li>
-<li>4：完成。已经接收到全部响应数据，而且已经可以在客户端使用了。</li>
-</ul>
-<p><font color="red">必须在调用 open()之前指定 onreadystatechange事件处理程序才能确保跨浏览器兼容性。</font>所以，实现代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"> <span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</div><div class="line"><span class="comment">//必须在open之前指定onreadystatechange才能保证跨浏览器兼容性！！！！</span></div><div class="line">xhr.onreadystatechange=<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span>(xhr.readyState==<span class="number">4</span>)&#123;</div><div class="line">        <span class="keyword">if</span>((xhr.status&gt;=<span class="number">200</span>&amp;&amp;xhr.status&lt;<span class="number">300</span>)||xhr.status==<span class="number">304</span>)&#123;</div><div class="line">            alert(xhr.responseText);</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            alert(<span class="string">'请求失败'</span>+xhr.status);</div><div class="line">        &#125;                    </div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
-<p>所以利用以上代码就可以实现文件是上传成功还是失败。</p>
-<h2 id="XMLHttpRequest2级的进度事件"><a href="#XMLHttpRequest2级的进度事件" class="headerlink" title="XMLHttpRequest2级的进度事件"></a>XMLHttpRequest2级的进度事件</h2><p>XHR2有如下6个进度事件：</p>
-<ul>
-<li>loadstart：在接收到响应数据的第一个字节时触发。 </li>
-<li>progress：在接收响应期间持续不断地触发。 </li>
-<li>error：在请求发生错误时触发。 </li>
-<li>abort：在因为调用 abort()方法而终止连接时触发。 </li>
-<li>load：在接收到完整的响应数据时触发。 </li>
-<li>loadend：在通信完成或者触发 error、abort 或 load 事件后触发。</li>
-</ul>
-<p>以上事件触发顺序如下：<br>laodstart =&gt; progress =&gt; error =&gt; abort/load =&gt; loadend</p>
-<h3 id="关于progress事件中上传与下载的事件"><a href="#关于progress事件中上传与下载的事件" class="headerlink" title="关于progress事件中上传与下载的事件"></a>关于progress事件中上传与下载的事件</h3><p>这里就是我遇到的坑，在《javascript高级程序设计》中并没有说清楚，让我感到困惑，在原书中581页这么描写：“onprogress事件处理程序会接收到一个 event 对象，其 target 属性是 XHR 对象，但包含着三个额外的属性：lengthComputable、position 和 totalSize。其中，lengthComputable 是一个表示进度信息是否可用的布尔值，position 表示已经接收的字节数，totalSize 表示根据Content-Length 响应头部确定的预期字节数。”而实际上表示<font color="red">总字节数的属性是total，表示已经传输的字节数是load属性。</font><br>XHR2传输数据有一个progress事件，用来返回进度信息，它分成上传和下载两种情况，<font color="red">下载的progress事件属于XMLHttpRequest对象，而上传的progress事件属于XMLHttpRequest.upload对象</font>。<br>首先定义传输文件的函数：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">percentFun</span>(<span class="params">event</span>)</span>&#123;</div><div class="line">    <span class="keyword">if</span> (event.lengthComputable) &#123;</div><div class="line">        <span class="comment">/*event.total是需要传输的总字节数，event.load是已经传输的字节数，如果event.lengthComputable!=true,则event.total=0*/</span>       </div><div class="line">　　　　 <span class="keyword">var</span> percent = event.loaded / event.total;</div><div class="line">　　&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>如果需要显示进度，则分别如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*下载的进度*/</span></div><div class="line">xhr.onprogress = percentFun;</div><div class="line"><span class="comment">/*上传的进度*/</span></div><div class="line">xhr.upload.onprogress = percentFun;</div></pre></td></tr></table></figure></p>
-<p>基于以上几点，实现了上传进度显示，具体代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">addEvent(button,<span class="string">'click'</span>,<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span>(filesArray.length!=<span class="number">0</span>)&#123;</div><div class="line">        <span class="keyword">var</span> data=<span class="keyword">new</span> FormData();</div><div class="line">        <span class="keyword">var</span> i=<span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span>(i&lt;filesLen)&#123;</div><div class="line">            data.append(<span class="string">'file'</span>+i,filesArray[i]);</div><div class="line">            i++;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</div><div class="line">        <span class="comment">//必须在open之前指定onreadystatechange才能保证跨浏览器兼容性！！！！</span></div><div class="line">        xhr.onreadystatechange=<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="keyword">if</span>(xhr.readyState==<span class="number">4</span>)&#123;</div><div class="line">                <span class="keyword">if</span>((xhr.status&gt;=<span class="number">200</span>&amp;&amp;xhr.status&lt;<span class="number">300</span>)||xhr.status==<span class="number">304</span>)&#123;</div><div class="line">                    <span class="comment">//console.log(xhr.responseText);</span></div><div class="line">                &#125;<span class="keyword">else</span>&#123;</div><div class="line">                    alert(<span class="string">'请求失败'</span>+xhr.status);</div><div class="line">                &#125;                    </div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line">        xhr.upload.onprogress=<span class="function"><span class="keyword">function</span> (<span class="params">event</span>) </span>&#123;</div><div class="line">            <span class="keyword">var</span> e=event||<span class="built_in">window</span>.event;</div><div class="line">            <span class="keyword">var</span> percentComplete = <span class="built_in">Math</span>.ceil((e.loaded / e.total)*<span class="number">100</span>);</div><div class="line">            <span class="keyword">var</span> progressFont=<span class="built_in">document</span>.querySelectorAll(<span class="string">'.progress-font'</span>);</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;filesArray.length;i++)&#123;</div><div class="line">                ThumbnailArray[i].innerHTML=percentComplete +<span class="string">'%'</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">/*上传完成后滞空数组，保证下次上传不会重复上传*/</span></div><div class="line">        xhr.upload.onload=<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">            filesArray=[];</div><div class="line">            ThumbnailArray=[];</div><div class="line">            alert(<span class="string">'上传完成，数组置空'</span>);                </div><div class="line">        &#125;</div><div class="line">        xhr.open(<span class="string">'post'</span>,<span class="string">'uploader.php'</span>,<span class="literal">true</span>); </div><div class="line">        xhr.send(data);</div><div class="line">    &#125;        </div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+            <blockquote>
+<p>一直以来，作为前端开发，在公司都是先写好页面，然后再跟后端合作，将数据填入前端页面中，但是偶尔自己闲来无事，也会看一些框架什么的，然后利用框架做个单页面应用啊，app什么的，这时候页面的数据总是一些假数据，而关于数据请求的部分就没办法做（因为没有后台嘛）。所以我感觉是时候学习一下node了，这对于我以后要学的webpack，前端工程化等也有一定帮助。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="如何开始学习node"><a href="#如何开始学习node" class="headerlink" title="如何开始学习node"></a>如何开始学习node</h2><p>首先介绍几个我入门的教程：</p>
+<p>七天学会nodejs：<a href="https://nqdeng.github.io/7-days-nodejs/" target="_blank" rel="external">https://nqdeng.github.io/7-days-nodejs/</a></p>
+<p>菜鸟教程-nodejs教程：<a href="http://www.runoob.com/nodejs/nodejs-tutorial.html" target="_blank" rel="external">http://www.runoob.com/nodejs/nodejs-tutorial.html</a></p>
+<p>这两个教程相对比较简单，所以看完这两个教程后，对nodejs就会也只会有一个大致的了解</p>
+<p>然后可以看看止水大神的node教程（<font color="red">需梯子</font>还在更新中…）</p>
+<p>node.js高级编程：<a href="https://www.youtube.com/watch?v=5YpYvrvVJ6Y&amp;list=PLsdWTv8SAAr7_ufM68jgykoOc5WvK97kb" target="_blank" rel="external">https://www.youtube.com/watch?v=5YpYvrvVJ6Y&amp;list=PLsdWTv8SAAr7_ufM68jgykoOc5WvK97kb</a></p>
+<p>当初我问很多人如何开始学习nodejs，很多人推荐朴灵的《深入浅出Node.js》，不过说实话，这本书并不适合入门看，难度还是有的，因为这本书会讲到node的很多原理，比较细，所以个人觉得可以配合着看。因为目前我自己也在摸索着学习，所以关于学习node先说到这里。</p>
+<p>作为前端，因为经常用到gulp，webpack等工具，所以我们最常见到的是npm和package.json，所以先总结一下它们俩。</p>
+<h2 id="npm"><a href="#npm" class="headerlink" title="npm"></a>npm</h2><h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ npm init</div><div class="line">or</div><div class="line">$ npm init --y</div></pre></td></tr></table></figure>
+<p>在做前端开发的时候，我们经常会用到构建工具，例如gulp，webpack等，为了让别人也可以参与进来，我们需要告诉别人项目有些什么依赖包，然后让别人也安装同样的依赖包，而<code>npm init</code>产生的package.json就是用来记录我们项目中的依赖的，同样的，在做node开发的时候，也会用刀依赖包，同样需要package.json记录。</p>
+<p>在终端输入<code>npm init</code>会询问package.json的各种信息，从而确认。如果<strong>全部使用默认值</strong>，可以直接在终端输入<code>npm init --y</code>快速生成package.json。</p>
+<h4 id="安装依赖包"><a href="#安装依赖包" class="headerlink" title="安装依赖包"></a>安装依赖包</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$ npm install &lt;package name&gt; &lt;package name&gt; ...</div><div class="line"></div><div class="line">$ npm install &lt;package name&gt; -g</div><div class="line"></div><div class="line">$ npm install &lt;package name&gt; --save</div><div class="line"></div><div class="line">$ npm install &lt;package name&gt; --save-dev</div><div class="line"></div><div class="line">$ npm install &lt;pacakage name&gt;  --O //--save-optional  -B: --save-bundle  -E: --save-exact</div></pre></td></tr></table></figure>
+<p><code>npm install &lt;package name&gt; -g</code> 表示全局安装，需要注意的是全局模式并不是将一个模块安装包安装为一个全局包的意思，它并不意味着可以从任何地方通过<code>require()</code>来引用，<code>-g</code>的含义是将一个包安装为全局可用的可执行命令。这意味着，所有通过<code>-g</code>安装的包都可以在终端以命令方式运行，例如gulp，webpack等。</p>
+<p><code>--save</code>与<code>--save-dev</code>的区别在于前者是<strong>生产环境中</strong>项目运行需要的依赖，安装后被记录在package.json中的dependencies关键字下；而后者是<strong>开发</strong>时候需要的依赖，安装后被记录在devDependencies关键字下。</p>
+<p>同样<code>--O/B/E</code>分别会被记录到对应的关键字下。</p>
+<h4 id="更新依赖包"><a href="#更新依赖包" class="headerlink" title="更新依赖包"></a>更新依赖包</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ npm update</div><div class="line"></div><div class="line">$ npm update  -g</div><div class="line"></div><div class="line">$ npm outdated</div><div class="line"></div><div class="line">$ npm outdated -g</div></pre></td></tr></table></figure>
+<p>在项目目录下运行<code>npm update</code>可以升级项目中所用依赖到最新版本，而<code>npm update -g</code>则可以升级全局安装的依赖包到最新版。</p>
+<p><code>npm outdated</code>用于<strong>检查</strong>模块是否过时并列出。</p>
+<h4 id="卸载依赖"><a href="#卸载依赖" class="headerlink" title="卸载依赖"></a>卸载依赖</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ npm uninstall &lt;package name&gt; &lt;package name&gt; ...</div><div class="line"></div><div class="line">$ npm uninstall &lt;package name&gt; -g</div><div class="line"></div><div class="line">$ npm uninstall &lt;package name&gt; --save</div><div class="line"></div><div class="line">$ npm uninstall &lt;package name&gt; --save-dev</div></pre></td></tr></table></figure>
+<p>使用<code>npm uninstall</code>可以卸载依赖，但是卸载后，在package.json中的纪录并不会被删除，要想在卸载依赖的同时删除在package.json中的纪录，需要在卸载的时候使用安装时的所有的选项，例如，如果安装时候使用了<code>npm install &lt;package name&gt; --save</code>则卸载的时候，同样使用<code>npm uninstall &lt;pacakage name&gt; --save</code>，而如果使用了<code>--save-dev</code>，卸载时候也需要加相同的选项。</p>
+<h4 id="使用自定义npm命令"><a href="#使用自定义npm命令" class="headerlink" title="使用自定义npm命令"></a>使用自定义npm命令</h4><p>在package.json中，有一个<code>scripts</code>关键字，只需要在该关键字内写入自定义命令以及对应执行的实际命令即可。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">"scripts":&#123;</div><div class="line">    "test": "nonde ./test.js",</div><div class="line">    "dev": "gulp --gulpfile gulpfile-dev.js",</div><div class="line">    "build": "gulp --gulpfile gulpfile-build.js"</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面的配置中，只要我们在终端运行<code>npm dev</code>就是运行了<code>gulp --gulpfile gulpfile-dev.js</code>，这样就省去了我们在终端输入很长的一段命令，非常方便。</p>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><p><code>npm view &lt;pacakage name&gt;</code>可以查看包的package.json文件，如果只是看包的某个特性，在后面加上相应的key即可，例如<code>npm v zepto version</code>就是查看当前安装的zepto的版本，v是view的简写。</p>
+<p><code>npm ls</code>可以分析出当前当前项目下能够通过模块路径找到的所有包，并生成依赖树。</p>
+<p><code>npm doc &lt;package name&gt;</code>可以打开该依赖包的官网，其实就是打开了package.json中的homepage。</p>
+<h2 id="package-json文件"><a href="#package-json文件" class="headerlink" title="package.json文件"></a>package.json文件</h2><p>在运行<code>npm init</code>后会生成package.json文件，该文件用于记录项目中所用到的依赖以及项目的配置信息（比如名称、版本、许可证等）。<code>npm install</code>命令根据这个配置文件自动下载项目运行和开发所需要的依赖。</p>
+<p>一个比较完整的package.json文件如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">	<span class="attr">"name"</span>: <span class="string">"project"</span>,</div><div class="line">	<span class="attr">"version"</span>: <span class="string">"1.0.0"</span>,</div><div class="line">	<span class="attr">"author"</span>: <span class="string">"张三"</span>,</div><div class="line">	<span class="attr">"description"</span>: <span class="string">"第一个node.js程序"</span>,</div><div class="line">	<span class="attr">"keywords"</span>:[<span class="string">"node.js"</span>,<span class="string">"javascript"</span>],</div><div class="line">	<span class="attr">"repository"</span>: &#123;</div><div class="line">		<span class="attr">"type"</span>: <span class="string">"git"</span>,</div><div class="line">		<span class="attr">"url"</span>: <span class="string">"https://path/to/url"</span></div><div class="line">	&#125;,</div><div class="line">	<span class="attr">"license"</span>:<span class="string">"MIT"</span>,</div><div class="line">	<span class="attr">"engines"</span>: &#123;<span class="attr">"node"</span>: <span class="string">"0.10.x"</span>&#125;,</div><div class="line">	<span class="attr">"bugs"</span>:&#123;<span class="attr">"url"</span>:<span class="string">"http://path/to/bug"</span>,<span class="attr">"email"</span>:<span class="string">"bug@example.com"</span>&#125;,</div><div class="line">	<span class="attr">"contributors"</span>:[&#123;<span class="attr">"name"</span>:<span class="string">"李四"</span>,<span class="attr">"email"</span>:<span class="string">"lisi@example.com"</span>&#125;],</div><div class="line">	<span class="attr">"scripts"</span>: &#123;</div><div class="line">		<span class="attr">"start"</span>: <span class="string">"node index.js"</span></div><div class="line">	&#125;,</div><div class="line">	<span class="attr">"dependencies"</span>: &#123;</div><div class="line">		<span class="attr">"express"</span>: <span class="string">"latest"</span>,</div><div class="line">		<span class="attr">"mongoose"</span>: <span class="string">"~3.8.3"</span></div><div class="line">	&#125;,</div><div class="line">	<span class="attr">"devDependencies"</span>: &#123;</div><div class="line">		<span class="attr">"grunt"</span>: <span class="string">"~0.4.1"</span>,</div><div class="line">		<span class="attr">"grunt-contrib-concat"</span>: <span class="string">"~0.3.0"</span></div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在package.json中一些关键字的含义：</p>
+<p>1.name：包名</p>
+<p>2.version：版本号</p>
+<p>3.description：包的描述</p>
+<p>4.homepage：包的官网url</p>
+<p>5.autor：包的作者名字</p>
+<p>6.contributors：包的其他贡献者</p>
+<p>7.dependencies：依赖包的列表，使用<code>npm install</code>可以安装依赖包到node_medule目录下</p>
+<p>8.repository：包代码存放的地方，可以是git或者svn</p>
+<p>9.keywords：关键字</p>
+<p>10.scripts：脚本说明对象。它主要被包管理器用来安装、编译、测试和卸载包，示例如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">"scripts":&#123;</div><div class="line"></div><div class="line">    “install”:"install.js",</div><div class="line"></div><div class="line">    "test":"test.js"</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>11.main：模块引入方法require()在引入包时，会优先检查这个字段，并将其作为包中其余模块的入口，如果该字段不存在，则node会检查目录下的index.js，index.node，index.json作为默认入口。</p>
+<p>12.devDependencies：一些模块只在开发时需要依赖，配置这个属性，可以提示包的后续开发者安装依赖包</p>
+<p>以上就是关于node中npm和package.json的总结。最后在写本文的时候发现阮一峰老师的一个关于js的教程<a href="http://javascript.ruanyifeng.com/" target="_blank" rel="external">JavaScript 标准参考教程</a>，应该是阮一峰老师最新的关于js的教程，里面有关于node的讲解，可以看看。</p>
 
         
         </div>
@@ -356,7 +356,7 @@ var _hmt = _hmt || [];
 
             
     
-        <a href="http://mrzhang123.github.io/2016/04/14/fileupload2/#comments" class="article-comment-link ds-thread-count" data-thread-key="http://mrzhang123.github.io/2016/04/14/fileupload2/">评论</a>
+        <a href="http://mrzhang123.github.io/2016/11/28/node-npm-package/#comments" class="article-comment-link ds-thread-count" data-thread-key="http://mrzhang123.github.io/2016/11/28/node-npm-package/">评论</a>
     
 
         </footer>
@@ -365,19 +365,10 @@ var _hmt = _hmt || [];
         
 <nav id="article-nav">
     
-        <a href="/2016/04/26/file-rem/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">上一篇</strong>
-            <div class="article-nav-title">
-                
-                    利用CSS3新单位rem实现响应
-                
-            </div>
-        </a>
     
-    
-        <a href="/2016/04/11/es6-Practice/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2016/11/13/gitandgithub/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">初探ES6——轮播图实践总结</div>
+            <div class="article-nav-title">Git连接Github总结</div>
         </a>
     
 </nav>
@@ -391,7 +382,7 @@ var _hmt = _hmt || [];
     <section id="comments">
     
         
-    <div class="ds-thread" data-thread-key="2016/04/14/fileupload2/" data-title="文件上传（二）---新XMLHttpRequest实现带进度条文件上传" data-url="http://mrzhang123.github.io/2016/04/14/fileupload2/"></div>
+    <div class="ds-thread" data-thread-key="2016/11/28/node-npm-package/" data-title="Nodejs之npm&amp;package.json" data-url="http://mrzhang123.github.io/2016/11/28/node-npm-package/"></div>
     <style>
         #ds-thread #ds-reset .ds-textarea-wrapper {
             background: none;
