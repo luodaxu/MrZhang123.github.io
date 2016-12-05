@@ -3,18 +3,20 @@
 <head>
     <meta charset="utf-8">
     
-    <title>利用CSS3新单位rem实现响应 | MrZhang&#39;s Blog</title>
+    <title>Promise－－优雅解决回调嵌套（一） | MrZhang&#39;s Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <meta name="description" content="做移动端的响应方法有很多，但是我喜欢用CSS3的新单位rem，这个单位非常好用（有个比它还好用的单位vh，不过兼容性太差，不考虑了），根据不同屏幕，设置不同的基准值，从而实现适配各个屏幕尺寸的移动设备。慕课网有一套非常不错的讲关于rem的视频，这里推荐给大家http://www.imooc.com/learn/494。rem—-CSS3中新增的单位，兼容性还不错，常用于移动端实现字体的响应，与em">
+    <meta name="description" content="最近一直在用空余时间研究node，当我写了一个简单的复制一个文件夹中的文件到另一个位置的时候，我看到了所谓的回调地狱，虽然只是四五个回调嵌套，但是这已经让我感到害怕，我写这么简单的一个小demo就写成这样，那稍微复杂点儿还了得？记得在看ES6的时候，里面提到过一种新的解决回调的方式－－－Promise，而且在node中也常用这个解决大量嵌套，所以这几天花了点儿时间看了看Promise，让我对Pr">
 <meta property="og:type" content="article">
-<meta property="og:title" content="利用CSS3新单位rem实现响应">
-<meta property="og:url" content="http://mrzhang123.github.io/2016/04/26/file-rem/index.html">
+<meta property="og:title" content="Promise－－优雅解决回调嵌套（一）">
+<meta property="og:url" content="http://mrzhang123.github.io/2016/12/05/promise-1/index.html">
 <meta property="og:site_name" content="MrZhang's Blog">
-<meta property="og:description" content="做移动端的响应方法有很多，但是我喜欢用CSS3的新单位rem，这个单位非常好用（有个比它还好用的单位vh，不过兼容性太差，不考虑了），根据不同屏幕，设置不同的基准值，从而实现适配各个屏幕尺寸的移动设备。慕课网有一套非常不错的讲关于rem的视频，这里推荐给大家http://www.imooc.com/learn/494。rem—-CSS3中新增的单位，兼容性还不错，常用于移动端实现字体的响应，与em">
-<meta property="og:updated_time" content="2016-08-02T16:37:01.221Z">
+<meta property="og:description" content="最近一直在用空余时间研究node，当我写了一个简单的复制一个文件夹中的文件到另一个位置的时候，我看到了所谓的回调地狱，虽然只是四五个回调嵌套，但是这已经让我感到害怕，我写这么简单的一个小demo就写成这样，那稍微复杂点儿还了得？记得在看ES6的时候，里面提到过一种新的解决回调的方式－－－Promise，而且在node中也常用这个解决大量嵌套，所以这几天花了点儿时间看了看Promise，让我对Pr">
+<meta property="og:image" content="http://mrzhang123.github.io/img/promise-states.png">
+<meta property="og:updated_time" content="2016-12-05T14:30:14.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="利用CSS3新单位rem实现响应">
-<meta name="twitter:description" content="做移动端的响应方法有很多，但是我喜欢用CSS3的新单位rem，这个单位非常好用（有个比它还好用的单位vh，不过兼容性太差，不考虑了），根据不同屏幕，设置不同的基准值，从而实现适配各个屏幕尺寸的移动设备。慕课网有一套非常不错的讲关于rem的视频，这里推荐给大家http://www.imooc.com/learn/494。rem—-CSS3中新增的单位，兼容性还不错，常用于移动端实现字体的响应，与em">
+<meta name="twitter:title" content="Promise－－优雅解决回调嵌套（一）">
+<meta name="twitter:description" content="最近一直在用空余时间研究node，当我写了一个简单的复制一个文件夹中的文件到另一个位置的时候，我看到了所谓的回调地狱，虽然只是四五个回调嵌套，但是这已经让我感到害怕，我写这么简单的一个小demo就写成这样，那稍微复杂点儿还了得？记得在看ES6的时候，里面提到过一种新的解决回调的方式－－－Promise，而且在node中也常用这个解决大量嵌套，所以这几天花了点儿时间看了看Promise，让我对Pr">
+<meta name="twitter:image" content="http://mrzhang123.github.io/img/promise-states.png">
     
 
     
@@ -202,7 +204,7 @@ var _hmt = _hmt || [];
 </aside>
 
             
-            <section id="main"><article id="post-file-rem" class="article article-type-post" itemscope itemprop="blogPost">
+            <section id="main"><article id="post-promise-1" class="article article-type-post" itemscope itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -211,7 +213,7 @@ var _hmt = _hmt || [];
                 
     
         <h1 class="article-title" itemprop="name">
-            利用CSS3新单位rem实现响应
+            Promise－－优雅解决回调嵌套（一）
         </h1>
     
 
@@ -220,8 +222,8 @@ var _hmt = _hmt || [];
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/2016/04/26/file-rem/">
-            <time datetime="2016-04-26T14:49:25.000Z" itemprop="datePublished">2016-04-26</time>
+        <a href="/2016/12/05/promise-1/">
+            <time datetime="2016-12-05T14:21:47.000Z" itemprop="datePublished">2016-12-05</time>
         </a>
     </div>
 
@@ -229,13 +231,13 @@ var _hmt = _hmt || [];
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/CSS/">CSS</a>
+        <a class="article-category-link" href="/categories/Javascript/">Javascript</a>
     </div>
 
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/CSS/">CSS</a>
+        <a class="tag-link" href="/tags/Javascript/">Javascript</a>
     </div>
 
                     </div>
@@ -245,24 +247,67 @@ var _hmt = _hmt || [];
         <div class="article-entry" itemprop="articleBody">
         
             
-            <p>做移动端的响应方法有很多，但是我喜欢用CSS3的新单位rem，这个单位非常好用（有个比它还好用的单位vh，不过兼容性太差，不考虑了），根据不同屏幕，设置不同的基准值，从而实现适配各个屏幕尺寸的移动设备。慕课网有一套非常不错的讲关于rem的视频，这里推荐给大家<a href="http://www.imooc.com/learn/494" target="_blank" rel="external">http://www.imooc.com/learn/494</a>。<br>rem—-CSS3中新增的单位，兼容性还不错，常用于移动端实现字体的响应，与em不同，rem根据根元素的font-size计算，所以要利用rem实现适配各个屏幕的大小，就需要根据不同的屏幕设置根元素不同的font-size的值。所以我们需要做下面的一些工作。</p>
-<h3 id="1-获取浏览器的宽高（对于移动设备就是设备的宽度）"><a href="#1-获取浏览器的宽高（对于移动设备就是设备的宽度）" class="headerlink" title="1.获取浏览器的宽高（对于移动设备就是设备的宽度）"></a>1.获取浏览器的宽高（对于移动设备就是设备的宽度）</h3><p>代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> pageWidth=<span class="built_in">window</span>.innerWidth;</div><div class="line"><span class="keyword">var</span> pageHeight=<span class="built_in">window</span>.innerHeight;</div><div class="line"><span class="keyword">if</span>(<span class="keyword">typeof</span> pageWidth !==<span class="string">'number'</span>)&#123;</div><div class="line">	<span class="keyword">if</span>(<span class="built_in">document</span>.compatMode===<span class="string">'CSS1Compat'</span>)&#123;</div><div class="line">		pageWidt=<span class="built_in">document</span>.documentElement.clientWidth;</div><div class="line">		pageHeight=<span class="built_in">document</span>.documentElement.clientHeight;</div><div class="line">	&#125;<span class="keyword">else</span>&#123;</div><div class="line">		pageWidt=<span class="built_in">document</span>.body.clientWidth;</div><div class="line">		pageHeight=<span class="built_in">document</span>.body.clientHeight;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+            <blockquote>
+<p>最近一直在用空余时间研究node，当我写了一个简单的复制一个文件夹中的文件到另一个位置的时候，我看到了所谓的回调地狱，虽然只是四五个回调嵌套，但是这已经让我感到害怕，我写这么简单的一个小demo就写成这样，那稍微复杂点儿还了得？记得在看ES6的时候，里面提到过一种新的解决回调的方式－－－Promise，而且在node中也常用这个解决大量嵌套，所以这几天花了点儿时间看了看Promise，让我对Promise的认识更加清晰，所以写一些东西总结一下。</p>
+</blockquote>
 <a id="more"></a>
-<h4 id="1-1-window-innerWidth与document-documentElement-clientWidth"><a href="#1-1-window-innerWidth与document-documentElement-clientWidth" class="headerlink" title="1.1 window.innerWidth与document.documentElement.clientWidth"></a>1.1 window.innerWidth与document.documentElement.clientWidth</h4><p>通过测试发现，在IE9+，chrome，firefox下利用window.innerWidth与document.documentElement.clientWidth都可以获取到浏览器的宽高，但是他们有区别：</p>
+<h2 id="Promise状态的理解"><a href="#Promise状态的理解" class="headerlink" title="Promise状态的理解"></a>Promise状态的理解</h2><p>用<code>new Promise</code>实例化的Promise对象有三个状态：</p>
 <ul>
-<li>window.innerWidth获取到的宽度是把右侧滚动条<font color="red">算在内</font>的宽度</li>
-<li>document.documentElement.clientWidth获取到的宽度是把右侧滚动条的宽度<font color="red">不算在内</font>的宽度</li>
+<li><p>“has-resolution” - Fulfilled</p>
+<ul>
+<li>reslove(成功时)，调用<code>onFulfilled</code></li>
 </ul>
-<p>但是，window.innerWidth支持的是IE9+，到IE8以前就会输出undefined，而document.documentElement.clientWidth可以支持IE7（在IE模拟器中，没有IE6，到IE5就只能输出0了），在《javascript高级程序设计》（第三版）中这样写道：“在 IE6 中，这些属性必须在标准模式下才有效；如果是混杂模式，就必须通过 document.body.clientWidth 和 document.body. clientHeight 取得相同信息。”所以document.body.clientWidth;用于混杂模式，在标准模式下只需要document.documentElement.clientWidth即可。</p>
-<h4 id="1-2-如何判断浏览器处于什么模式？"><a href="#1-2-如何判断浏览器处于什么模式？" class="headerlink" title="1.2 如何判断浏览器处于什么模式？"></a>1.2 如何判断浏览器处于什么模式？</h4><p>Javascript提供了方法<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(<span class="built_in">document</span>.compatMode===<span class="string">'CSS1Compat'</span>)&#123;</div><div class="line">    alert(<span class="string">'标准模式'</span>);</div><div class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">document</span>.compatMode===<span class="string">'BackCompat'</span>)&#123;</div><div class="line">    alert(<span class="string">'混杂模式'</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<h3 id="2-计算rem基准值"><a href="#2-计算rem基准值" class="headerlink" title="2.计算rem基准值"></a>2.计算rem基准值</h3><p>通过上面代码可以拿到浏览器窗口（也就是document）的宽度，这样就可以计算根元素的基准值了，计算公式如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> fontSize=pageWidth / <span class="number">20</span>;</div><div class="line"><span class="keyword">var</span> html=<span class="built_in">document</span>.querySelectorAll(<span class="string">'html'</span>)[<span class="number">0</span>];</div><div class="line">html.style.fontSize=fontSize;</div></pre></td></tr></table></figure></p>
-<p>通过以上代码就实现了给根元素设置基准fontSize。</p>
-<h3 id="3-将PSD中测量出的值换算成rem"><a href="#3-将PSD中测量出的值换算成rem" class="headerlink" title="3.将PSD中测量出的值换算成rem"></a>3.将PSD中测量出的值换算成rem</h3><p>公司设计师给的PSD的基准宽度为720px,所以我在布局的时候常常使用nexus 5作为移动端设备去测试，因为它的宽度是360px，与720px刚好是2倍的关系，根据这个2倍的关系，所以换算步骤如下：</p>
-<ol>
-<li>PSD设计图中测量出来的尺寸为m px，则放在我移动设备中需要写的尺寸为m/2 px</li>
-<li>将px换算为rem，由于在360px的移动设备下，font-size基准值为360 / 20 = 18px，所以px=&gt;rem过程为：rem = m / 2 / 18 = m / 36;</li>
+</li>
+<li><p>“has-rejection” - Rejected</p>
+<ul>
+<li>reject(失败时)。调用<code>Rejected</code></li>
+</ul>
+</li>
+<li><p>“unresolve” - Pending</p>
+<ul>
+<li>既不是resolve也不是reject状态，也就是Promise刚刚被创建后的初始化状态。</li>
+</ul>
+</li>
+</ul>
+<p><img src="/img/promise-states.png" alt="icon"></p>
+<h4 id="note"><a href="#note" class="headerlink" title="note:"></a><strong>note:</strong></h4><ol>
+<li><p>在Chrome中输出<code>resolve</code>可以得到<code>Promise {[[PromiseStatus]]: &quot;pending&quot;, [[PromiseValue]]: undefined}</code>，可以看出<code>[[PromiseStatus]]</code>中存储的就是Promise的状态，但是并没有公开访问<code>[[PromiseStatus]]</code>的用户API，所以暂时还无法查询其内部状态。</p>
+</li>
+<li><p>Promise中的<code>then</code>的回调只会被调用一次，因为Promise的状态只会从Pending变为Fulfilled或者Rejected，不可逆。</p>
+</li>
 </ol>
-<p>通过以上计算就将PSD中的px转换为移动设备中的rem，这样就可以实现对各个移动设备的适配。</p>
+<h2 id="Promise的使用"><a href="#Promise的使用" class="headerlink" title="Promise的使用"></a>Promise的使用</h2><p>在使用Promise实现有序执行异步的基本格式如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//defined Promise async function</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">asyncFun</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">reslove,reject</span>)=&gt;</span>&#123;</div><div class="line">        <span class="keyword">if</span>(reslove)&#123;</div><div class="line">            reslove(<span class="comment">/*reslove parameter*/</span>);</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            reject(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="comment">/*Error*/</span>));</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//use Promise&amp;then</span></div><div class="line">asyncFun().then(<span class="comment">/*function*/</span>).then(<span class="comment">/*function*/</span>)...</div></pre></td></tr></table></figure>
+<p><code>reslove</code>方法的参数就是要传给回调函数的参数，即<code>resolve</code>将运行得到的结果传出来，而<code>then</code>接受该参数给回调继续执行后面的，如果这个<code>then</code>的中的函数还会返回Promise，则会重复执行该步骤直到结束。</p>
+<p><code>reject</code>方法的参数一般是包含了reject原因的Error对象。<code>reject</code>和<code>resolve</code>一样，也会将自己的参数传出去，接收该参数的是<code>then</code>的第二个fun或者是<code>catch</code>。其实<code>.catch</code>只是<code>Promise.then(onFulfilled,onRejected)</code>的别名而已。</p>
+<h2 id="快捷创建Promise"><a href="#快捷创建Promise" class="headerlink" title="快捷创建Promise"></a>快捷创建Promise</h2><p>一般情况下我们会使用<code>new Promise</code>来创建prmise对象，除此之外我们也可以使用<code>Promise.reslove</code>和<code>Promise.reject</code>来直接创建，例如<code>Promise.resolve(42)</code>可以认为是以下代码的语法糖</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">reslove</span>)=&gt;</span>&#123;</div><div class="line">    reslove(<span class="number">42</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>这段代码可以让这个Promise对象立即进入resolve状态，并将42传递给后面then里所指定的<code>onFulfilled</code>函数。此外<code>Promise.resolve</code>还有一个作用，就是将非Promise对象转换为Promise对象。</p>
+<p><code>Promise.reject(value)</code>与之类似。</p>
+<h2 id="Promise-then-的异步调用带来的思考"><a href="#Promise-then-的异步调用带来的思考" class="headerlink" title="Promise.then()的异步调用带来的思考"></a>Promise.then()的异步调用带来的思考</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"inner promise"</span>); <span class="comment">// 1</span></div><div class="line">    resolve(<span class="number">42</span>);</div><div class="line">&#125;);</div><div class="line">promise.then(<span class="function"><span class="keyword">function</span>(<span class="params">value</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(value); <span class="comment">// 3</span></div><div class="line">&#125;);</div><div class="line"><span class="built_in">console</span>.log(<span class="string">"outer promise"</span>); <span class="comment">// 2</span></div><div class="line"></div><div class="line"><span class="comment">/*输出：</span></div><div class="line">"inner promise"</div><div class="line">"outer promise"</div><div class="line">42</div><div class="line">*/</div></pre></td></tr></table></figure>
+<p>从以上的这段代码我们可以看出<code>Promise.then()</code>是异步调用的，这也是Promise设计上规定的，其原因在于<strong>同步调用和异步调用同时存在会导致混乱</strong>。</p>
+<p>以上那段代码如果在<strong>调用onReady之前DOM已经载入的话</strong>，对回调函数进行<strong>同步</strong>调用，如果在<strong>调用onReady之前DOM还没有载入的话</strong>，通过注册<code>DOMContentLoader</code>事件监听器来对回调进行<strong>异步</strong>调用。这会导致该代码在源文件中不同位置输出不同的结果，关于这个现象，有如下几点：</p>
+<ul>
+<li>绝对不能对异步函数（即使在数据已经就绪）进行同步调用</li>
+<li>如果对异步回调函数进行同步调用，处理顺序可能会与预期不符，带来意外的结果</li>
+<li>对异步回调函数进行同步调用，还可能导致栈溢出或者异常处理错乱等问题</li>
+<li>如果想在将来的某个时刻调用异步回调，可以使用<code>setTimeout</code>等异步API</li>
+</ul>
+<p>所以以上代码应该使用<code>setTimeout(fn, 0)</code>进行调用。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">onReady</span>(<span class="params">fn</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> readyState = <span class="built_in">document</span>.readyState;</div><div class="line">    <span class="keyword">if</span> (readyState === <span class="string">'interactive'</span> || readyState === <span class="string">'complete'</span>) &#123;</div><div class="line">        setTimeout(fn, <span class="number">0</span>);</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="built_in">window</span>.addEventListener(<span class="string">'DOMContentLoaded'</span>, fn);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">onReady(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'DOM fully loaded and parsed'</span>);</div><div class="line">&#125;);</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'==Starting=='</span>);</div></pre></td></tr></table></figure>
+<p>所以在Promise中<code>then</code>是异步的。</p>
+<h2 id="关于Promise链式调用"><a href="#关于Promise链式调用" class="headerlink" title="关于Promise链式调用"></a>关于Promise链式调用</h2><p>如果想实现Promise的链式调用，要求每次链式调用都返回Promise。而then()方法返回就会返回一个Promise，所以只需要给then传入两个回调即可，这两个回调分别在Promise的success和faliure情况下执行。所以现在问题的关键就是如何在第一次调用函数后就返回Promise，方法有两种：</p>
+<ul>
+<li>直接返回一个Promise</li>
+<li>利用我们前面提到过的<code>Promise.reslove()</code>语法糖。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//直接返回Promise</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">pro1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">reslove,reject</span>)=&gt;</span>&#123;</div><div class="line">        <span class="keyword">if</span>(reslove)&#123;</div><div class="line">            reslove(setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;<span class="built_in">console</span>.log(<span class="number">1000</span>)&#125;,<span class="number">1000</span>));</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">pro2</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;<span class="built_in">console</span>.log(<span class="number">2000</span>)&#125;,<span class="number">2000</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">pro3</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;<span class="built_in">console</span>.log(<span class="number">3000</span>)&#125;,<span class="number">3000</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line">pro1().then(pro2()).then(pro3());</div><div class="line"></div><div class="line"><span class="comment">//使用Promise.reslove()</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">pro1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;<span class="built_in">console</span>.log(<span class="number">1000</span>)&#125;,<span class="number">1000</span>);</div><div class="line">&#125;</div><div class="line"><span class="comment">//这里的pro2，pro3与上面一样</span></div><div class="line"><span class="built_in">Promise</span>.resolve().then(pro1).then(pro2).then(pro3);</div></pre></td></tr></table></figure>
+<h4 id="note-1"><a href="#note-1" class="headerlink" title="note:"></a><strong>note:</strong></h4><ol>
+<li><code>reslove</code>函数的作用是将Promise对象的状态从“未完成”变为“成功”（即从Pending变为Resolved），在异步操作成功时调用，并将<strong>异步操作的结果作为参数传递出去</strong>；</li>
+<li><code>reject</code>函数的作用是将Promise对象状态从“未完成”变为“失败”（即从Pending变为Rejected），在异步操作失败时候调用，并将异步操作报出的错误作为参数传递出去；</li>
+</ol>
+<p>而想要<code>then()</code>里的第一个参数执行，需要Promise是resolve状态，所以需要在启动Promise的时候，如果到达resolve，则给resolve传入要执行的函数，这样，传递。</p>
+<h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p><a href="http://liubin.org/promises-book/#introduction" target="_blank" rel="external">JavaScript Promise迷你书（中文版）</a><br><a href="http://es6.ruanyifeng.com/#docs/promise" target="_blank" rel="external">ECMAScript 6 入门—Promise对象</a></p>
 
         
         </div>
@@ -326,7 +371,7 @@ var _hmt = _hmt || [];
 
             
     
-        <a href="http://mrzhang123.github.io/2016/04/26/file-rem/#comments" class="article-comment-link ds-thread-count" data-thread-key="http://mrzhang123.github.io/2016/04/26/file-rem/">评论</a>
+        <a href="http://mrzhang123.github.io/2016/12/05/promise-1/#comments" class="article-comment-link ds-thread-count" data-thread-key="http://mrzhang123.github.io/2016/12/05/promise-1/">评论</a>
     
 
         </footer>
@@ -335,19 +380,10 @@ var _hmt = _hmt || [];
         
 <nav id="article-nav">
     
-        <a href="/2016/05/11/text-algin/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">上一篇</strong>
-            <div class="article-nav-title">
-                
-                    text-algin:justify实现文本两端对齐
-                
-            </div>
-        </a>
     
-    
-        <a href="/2016/04/14/fileupload2/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/2016/11/28/node-npm-package/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">文件上传（二）---新XMLHttpRequest实现带进度条文件上传</div>
+            <div class="article-nav-title">Nodejs之npm&amp;package.json</div>
         </a>
     
 </nav>
@@ -361,7 +397,7 @@ var _hmt = _hmt || [];
     <section id="comments">
     
         
-    <div class="ds-thread" data-thread-key="2016/04/26/file-rem/" data-title="利用CSS3新单位rem实现响应" data-url="http://mrzhang123.github.io/2016/04/26/file-rem/"></div>
+    <div class="ds-thread" data-thread-key="2016/12/05/promise-1/" data-title="Promise－－优雅解决回调嵌套（一）" data-url="http://mrzhang123.github.io/2016/12/05/promise-1/"></div>
     <style>
         #ds-thread #ds-reset .ds-textarea-wrapper {
             background: none;
