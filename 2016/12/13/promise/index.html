@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Promise－－优雅解决回调嵌套 | MrZhang&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="最近一直在用空余时间研究node，当我写了一个简单的复制一个文件夹中的文件到另一个位置的时候，我看到了所谓的回调地狱，虽然只是四五个回调嵌套，但是这已经让我感到害怕，我写这么简单的一个小demo就写成这样，那稍微复杂点儿还了得？记得在看ES6的时候，里面提到过一种新的解决回调的方式－－－Promise，而且在node中也常用这个解决大量嵌套，所以这几天花了点儿时间看了看Promise，让我对Pr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Promise－－优雅解决回调嵌套">
+<meta property="og:url" content="http://mrzhang123.github.io/2016/12/13/promise/index.html">
+<meta property="og:site_name" content="MrZhang's Blog">
+<meta property="og:description" content="最近一直在用空余时间研究node，当我写了一个简单的复制一个文件夹中的文件到另一个位置的时候，我看到了所谓的回调地狱，虽然只是四五个回调嵌套，但是这已经让我感到害怕，我写这么简单的一个小demo就写成这样，那稍微复杂点儿还了得？记得在看ES6的时候，里面提到过一种新的解决回调的方式－－－Promise，而且在node中也常用这个解决大量嵌套，所以这几天花了点儿时间看了看Promise，让我对Pr">
+<meta property="og:image" content="http://mrzhang123.github.io/img/promise/promise-states.png">
+<meta property="og:image" content="http://mrzhang123.github.io/img/promise/then_catch.png">
+<meta property="og:updated_time" content="2016-12-13T14:47:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Promise－－优雅解决回调嵌套">
+<meta name="twitter:description" content="最近一直在用空余时间研究node，当我写了一个简单的复制一个文件夹中的文件到另一个位置的时候，我看到了所谓的回调地狱，虽然只是四五个回调嵌套，但是这已经让我感到害怕，我写这么简单的一个小demo就写成这样，那稍微复杂点儿还了得？记得在看ES6的时候，里面提到过一种新的解决回调的方式－－－Promise，而且在node中也常用这个解决大量嵌套，所以这几天花了点儿时间看了看Promise，让我对Pr">
+<meta name="twitter:image" content="http://mrzhang123.github.io/img/promise/promise-states.png">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.ico" />
+    
+
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/open-sans/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/vendor/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/fancybox/jquery.fancybox.css">
+    
+    
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?5efd05054ba8c5d775364cdee324e35f";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">MrZhang&#39;s Blog</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.png" />
+            <h2 id="name">zeeCool</h2>
+            <h3 id="title">Web Developer &amp; Designer</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>Beijing, China</span>
+            <a id="follow" target="_blank" href="https://github.com/mrzhang123/">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                28
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                14
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="http://github.com/mrzhang123" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://segmentfault.com/u/fengsdesinian" target="_blank" title="stack-overflow" class=tooltip>
+                            <i class="fa fa-stack-overflow"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="http://weibo.com/2891858001/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank" title="weibo" class=tooltip>
+                            <i class="fa fa-weibo"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://twitter.com/Zhang__Yi" target="_blank" title="twitter" class=tooltip>
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-promise" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Promise－－优雅解决回调嵌套
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2016/12/13/promise/">
+            <time datetime="2016-12-13T14:34:16.000Z" itemprop="datePublished">2016-12-13</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Javascript/">Javascript</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Javascript/">Javascript</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <blockquote>
+<p>最近一直在用空余时间研究node，当我写了一个简单的复制一个文件夹中的文件到另一个位置的时候，我看到了所谓的回调地狱，虽然只是四五个回调嵌套，但是这已经让我感到害怕，我写这么简单的一个小demo就写成这样，那稍微复杂点儿还了得？记得在看ES6的时候，里面提到过一种新的解决回调的方式－－－Promise，而且在node中也常用这个解决大量嵌套，所以这几天花了点儿时间看了看Promise，让我对Promise的认识更加清晰，所以写一些东西总结一下。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="Promise状态的理解"><a href="#Promise状态的理解" class="headerlink" title="Promise状态的理解"></a>Promise状态的理解</h2><p>用<code>new Promise</code>实例化的Promise对象有三个状态：</p>
+<ul>
+<li>“has-resolution” - Fulfilled</li>
+</ul>
+<ul>
+<li>reslove(成功时)，调用<code>onFulfilled</code></li>
+</ul>
+<ul>
+<li>“has-rejection” - Rejected</li>
+</ul>
+<ul>
+<li>reject(失败时)。调用<code>Rejected</code></li>
+</ul>
+<ul>
+<li>“unresolve” - Pending</li>
+</ul>
+<ul>
+<li>既不是resolve也不是reject状态，也就是Promise刚刚被创建后的初始化状态。</li>
+</ul>
+<p><img src="/img/promise/promise-states.png" alt="图１"></p>
+<ol>
+<li><p>在Chrome中输出<code>resolve</code>可以得到<code>Promise {[[PromiseStatus]]: &quot;pending&quot;, [[PromiseValue]]: undefined}</code>，可以看出<code>[[PromiseStatus]]</code>中存储的就是Promise的状态，但是并没有公开访问<code>[[PromiseStatus]]</code>的用户API，所以暂时还无法查询其内部状态。</p>
+</li>
+<li><p>Promise中的<code>then</code>的回调只会被调用一次，因为Promise的状态只会从Pending变为Fulfilled或者Rejected，不可逆。</p>
+</li>
+</ol>
+<h2 id="Promise的使用"><a href="#Promise的使用" class="headerlink" title="Promise的使用"></a>Promise的使用</h2><p>在使用Promise实现有序执行异步的基本格式如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//defined Promise async function</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">asyncFun</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">reslove,reject</span>)=&gt;</span>&#123;</div><div class="line">        <span class="keyword">if</span>(reslove)&#123;</div><div class="line">            reslove(<span class="comment">/*reslove parameter*/</span>);</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            reject(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="comment">/*Error*/</span>));</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//use Promise&amp;then</span></div><div class="line">asyncFun().then(<span class="comment">/*function*/</span>).then(<span class="comment">/*function*/</span>)...</div></pre></td></tr></table></figure>
+<p><code>reslove</code>方法的参数就是要传给回调函数的参数，即<code>resolve</code>将运行得到的结果传出来，而<code>then</code>接受该参数给回调继续执行后面的，如果这个<code>then</code>的中的函数还会返回Promise，则会重复执行该步骤直到结束。</p>
+<p><code>reject</code>方法的参数一般是包含了reject原因的Error对象。<code>reject</code>和<code>resolve</code>一样，也会将自己的参数传出去，接收该参数的是<code>then</code>的第二个fun或者是<code>catch</code>。其实<code>.catch</code>只是<code>Promise.then(onFulfilled,onRejected)</code>的别名而已。</p>
+<h2 id="快捷创建Promise"><a href="#快捷创建Promise" class="headerlink" title="快捷创建Promise"></a>快捷创建Promise</h2><p>一般情况下我们会使用<code>new Promise</code>来创建prmise对象，除此之外我们也可以使用<code>Promise.reslove</code>和<code>Promise.reject</code>来直接创建，例如<code>Promise.resolve(42)</code>可以认为是以下代码的语法糖</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">reslove</span>)=&gt;</span>&#123;</div><div class="line">    reslove(<span class="number">42</span>);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>这段代码可以让这个Promise对象立即进入resolve状态，并将42传递给后面then里所指定的<code>onFulfilled</code>函数。此外<code>Promise.resolve</code>还有一个作用，就是将非Promise对象转换为Promise对象。</p>
+<p><code>Promise.reject(value)</code>与之类似。</p>
+<h2 id="Promise-then-异步调用带来的思考"><a href="#Promise-then-异步调用带来的思考" class="headerlink" title="Promise.then()异步调用带来的思考"></a>Promise.then()异步调用带来的思考</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"inner promise"</span>); <span class="comment">// 1</span></div><div class="line">    resolve(<span class="number">42</span>);</div><div class="line">&#125;);</div><div class="line">promise.then(<span class="function"><span class="keyword">function</span>(<span class="params">value</span>)</span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(value); <span class="comment">// 3</span></div><div class="line">&#125;);</div><div class="line"><span class="built_in">console</span>.log(<span class="string">"outer promise"</span>); <span class="comment">// 2</span></div><div class="line"></div><div class="line"><span class="comment">/*输出：</span></div><div class="line">"inner promise"</div><div class="line">"outer promise"</div><div class="line">42</div><div class="line">*/</div></pre></td></tr></table></figure>
+<p>从以上的这段代码我们可以看出<code>Promise.then()</code>是异步调用的，这也是Promise设计上规定的，其原因在于<strong>同步调用和异步调用同时存在会导致混乱</strong>。</p>
+<p>以上那段代码如果在<strong>调用onReady之前DOM已经载入的话</strong>，对回调函数进行<strong>同步</strong>调用，如果在<strong>调用onReady之前DOM还没有载入的话</strong>，通过注册<code>DOMContentLoader</code>事件监听器来对回调进行<strong>异步</strong>调用。这会导致该代码在源文件中不同位置输出不同的结果，关于这个现象，有如下几点：</p>
+<ul>
+<li>绝对不能对异步函数（即使在数据已经就绪）进行同步调用</li>
+<li>如果对异步回调函数进行同步调用，处理顺序可能会与预期不符，带来意外的结果</li>
+<li>对异步回调函数进行同步调用，还可能导致栈溢出或者异常处理错乱等问题</li>
+<li>如果想在将来的某个时刻调用异步回调，可以使用<code>setTimeout</code>等异步API</li>
+</ul>
+<p>所以以上代码应该使用<code>setTimeout(fn, 0)</code>进行调用。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">onReady</span>(<span class="params">fn</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> readyState = <span class="built_in">document</span>.readyState;</div><div class="line">    <span class="keyword">if</span> (readyState === <span class="string">'interactive'</span> || readyState === <span class="string">'complete'</span>) &#123;</div><div class="line">        setTimeout(fn, <span class="number">0</span>);</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="built_in">window</span>.addEventListener(<span class="string">'DOMContentLoaded'</span>, fn);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">onReady(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'DOM fully loaded and parsed'</span>);</div><div class="line">&#125;);</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'==Starting=='</span>);</div></pre></td></tr></table></figure>
+<p>所以在Promise中<code>then</code>是异步的。</p>
+<h2 id="Promise链式调用"><a href="#Promise链式调用" class="headerlink" title="Promise链式调用"></a>Promise链式调用</h2><h4 id="各个Task相互独立"><a href="#各个Task相互独立" class="headerlink" title="各个Task相互独立"></a>各个Task相互独立</h4><p>如果想实现Promise的链式调用，要求每次链式调用都返回Promise。而then()方法返回就会返回一个Promise，所以只需要给then传入两个回调即可，这两个回调分别在Promise的success和faliure情况下执行。所以现在问题的关键就是如何在第一次调用函数后就返回Promise，方法有两种：</p>
+<ul>
+<li>直接返回一个Promise</li>
+<li>利用我们前面提到过的<code>Promise.reslove()</code>语法糖。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//直接返回Promise</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">pro1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">reslove,reject</span>)=&gt;</span>&#123;</div><div class="line">        <span class="keyword">if</span>(reslove)&#123;</div><div class="line">            setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;<span class="built_in">console</span>.log(<span class="number">1000</span>)&#125;,<span class="number">1000</span>);</div><div class="line">            reslove();</div><div class="line">        &#125;</div><div class="line">    &#125;)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">pro2</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;<span class="built_in">console</span>.log(<span class="number">2000</span>)&#125;,<span class="number">2000</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">pro3</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;<span class="built_in">console</span>.log(<span class="number">3000</span>)&#125;,<span class="number">3000</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line">pro1().then(pro2).then(pro3);</div><div class="line"></div><div class="line"><span class="comment">//使用Promise.reslove()</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">pro1</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;<span class="built_in">console</span>.log(<span class="number">1000</span>)&#125;,<span class="number">1000</span>);</div><div class="line">&#125;</div><div class="line"><span class="comment">//这里的pro2，pro3与上面一样</span></div><div class="line"><span class="built_in">Promise</span>.resolve().then(pro1).then(pro2).then(pro3);</div></pre></td></tr></table></figure>
+<p>想要<code>then()</code>里的第一个参数执行，需要Promise是resolve状态，所以需要在启动Promise的时候，如果到达resolve，则给resolve传入要执行的函数，这样，传递。</p>
+<h4 id="各个Task需要参数的传递"><a href="#各个Task需要参数的传递" class="headerlink" title="各个Task需要参数的传递"></a>各个Task需要参数的传递</h4><p>在Promise的链式调用中，有可能各个task之间存在相互依赖，例如TaskA想给TaskB传递一个参数，像下面这样：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/*例1.使用Promise.resolve()启动*/</span></div><div class="line"><span class="keyword">let</span> task1 = <span class="function">(<span class="params">value1</span>)=&gt;</span>value1+<span class="number">1</span>;</div><div class="line"><span class="keyword">let</span> task2 = <span class="function">(<span class="params">value2</span>)=&gt;</span>value2+<span class="number">2</span>;</div><div class="line"><span class="keyword">let</span> task3 = <span class="function">(<span class="params">value3</span>)=&gt;</span>&#123;<span class="built_in">console</span>.log(value3+<span class="number">3</span>)&#125;;</div><div class="line"></div><div class="line"><span class="built_in">Promise</span>.resolve(<span class="number">1</span>).then(task1).then(task2).then(task3);<span class="comment">//console =&gt; 7</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">/*例2.普通的返回一个Promise*/</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">task1</span>(<span class="params">value1</span>)</span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</div><div class="line">    <span class="keyword">if</span>(resolve)&#123;</div><div class="line">      resolve(value1+<span class="number">1</span>);</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"throw Error @ task1"</span>);</div><div class="line">    &#125;</div><div class="line">  &#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">task2</span>(<span class="params">value2</span>)</span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</div><div class="line">    <span class="keyword">if</span>(resolve)&#123;</div><div class="line">      resolve(value2+<span class="number">2</span>);</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"throw Error @ task1"</span>);</div><div class="line">    &#125;</div><div class="line">  &#125;);</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">task3</span>(<span class="params">value3</span>)</span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</div><div class="line">    <span class="keyword">if</span>(resolve)&#123;</div><div class="line">      <span class="built_in">console</span>.log(value3+<span class="number">3</span>);</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">"throw Error @ task1"</span>);</div><div class="line">    &#125;</div><div class="line">  &#125;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">task1(<span class="number">1</span>).then(task2).then(task3);<span class="comment">//console =&gt; 7</span></div></pre></td></tr></table></figure>
+<p>关于<code>reslove</code>与<code>reject</code>有以下两点说明：</p>
+<ul>
+<li><p><code>reslove</code>函数的作用是将Promise对象的状态从“未完成”变为“成功”（即从Pending变为Resolved），在异步操作成功时调用，并将<strong>异步操作的结果作为参数传递出去</strong>；</p>
+</li>
+<li><p><code>reject</code>函数的作用是将Promise对象状态从“未完成”变为“失败”（即从Pending变为Rejected），在异步操作失败时候调用，并将<strong>异步操作报出的错误作为参数传递出去</strong>；</p>
+</li>
+</ul>
+<p>所以从上面的例子和它们的用法可以看出，如果想要传递给后面task有两种方法：</p>
+<ul>
+<li><p>如果使用<code>Promise.resolve()</code>启动Promise，则像例1中那样在需要传递的参数前面加<code>return</code>即可。</p>
+</li>
+<li><p>如果是利用Promise包装了任务，则把想要传递给下一个task的参数传入<code>resolve()</code>即可。</p>
+</li>
+</ul>
+<p><strong>特别说明：如果需要<code>resolve()</code>往后传递多个参数，不能直接写<code>resolve(a1,a2,a3)</code>，这样只能拿到第一个要传的参数，需要以数组或对象去传递</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> obj = &#123;<span class="attr">a1</span>:a1,<span class="attr">a2</span>:a2,<span class="attr">a3</span>:a3&#125;;</div><div class="line">resolve(obj)</div><div class="line"><span class="comment">//or</span></div><div class="line"><span class="keyword">let</span> arr =[a1,a2,a3];</div><div class="line">resolve(arr);</div></pre></td></tr></table></figure>
+<h2 id="then与catch返回新的Promise"><a href="#then与catch返回新的Promise" class="headerlink" title="then与catch返回新的Promise"></a><code>then</code>与<code>catch</code>返回新的Promise</h2><p>在Promise中无论是<code>then</code>还是<code>catch</code>方法，都会返回返回一个新的Promise对象。</p>
+<p><img src="/img/promise/then_catch.png" alt="图２"></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> aPromise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve</span>) </span>&#123;</div><div class="line">    resolve(<span class="number">100</span>);</div><div class="line">&#125;);</div><div class="line"><span class="keyword">var</span> thenPromise = aPromise.then(<span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(value);</div><div class="line">&#125;);</div><div class="line"><span class="keyword">var</span> catchPromise = thenPromise.catch(<span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.error(error);</div><div class="line">&#125;);</div><div class="line"><span class="built_in">console</span>.log(aPromise !== thenPromise); <span class="comment">// =&gt; true</span></div><div class="line"><span class="built_in">console</span>.log(thenPromise !== catchPromise);<span class="comment">// =&gt; true</span></div></pre></td></tr></table></figure>
+<p>所以像下面这样将链式调用分开写是不成功的</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1: 对同一个promise对象同时调用 `then` 方法</span></div><div class="line"><span class="keyword">var</span> aPromise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve</span>) </span>&#123;</div><div class="line">    resolve(<span class="number">100</span>);</div><div class="line">&#125;);</div><div class="line">aPromise.then(<span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> value * <span class="number">2</span>;</div><div class="line">&#125;);</div><div class="line">aPromise.then(<span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> value * <span class="number">2</span>;</div><div class="line">&#125;);</div><div class="line">aPromise.then(<span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">"1: "</span> + value); <span class="comment">// =&gt; 100</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>由于每次调用<code>then</code>方法都会返回一个新的Promise，所以导致最终输出100而不是100 <em> 2 </em> 2。</p>
+<h2 id="Promise-all-的使用"><a href="#Promise-all-的使用" class="headerlink" title="Promise.all()的使用"></a>Promise.all()的使用</h2><p>有时候需要多个彼此没有关联的多个异步任务全部执行完成后再执行后面的操作，这时候就需要用到<code>Promise.all()</code>，它接收一个Promise的对象的数组作为参数，当这个数组里的所有Promise对象全部变成resolve或者reject的时候，它才会去调用后面的<code>.then()</code>。</p>
+<p>这里需要说明一点，两个彼此无关的异步操作会同时执行，每个Promise的结果（即每个返回的Promise的resolve或reject时传递的参数）和传递给<code>Promise.all</code>的Promise数组的顺序一致。也就是说，假设有两个异步操作TaskA和TaskB，如果传入顺序为<code>Promise.all([TaskA,TaskB])</code>，则执行完成后传给<code>.then</code>的顺序为[TaskA,TaskB]。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">setTime</span>(<span class="params">time</span>)</span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve</span>)=&gt;</span>&#123;</div><div class="line">    setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>resolve(time),time);</div><div class="line">  &#125;)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> startTime = <span class="built_in">Date</span>.now();</div><div class="line"></div><div class="line"><span class="built_in">Promise</span>.all([setTime(<span class="number">1</span>),setTime(<span class="number">100</span>),setTime(<span class="number">200</span>)])</div><div class="line">       .then(<span class="function">(<span class="params">value</span>)=&gt;</span>&#123;</div><div class="line">         <span class="built_in">console</span>.log(value);    <span class="comment">//[1,100,200]</span></div><div class="line">         <span class="built_in">console</span>.log(<span class="built_in">Date</span>.now() - startTime); <span class="comment">//203</span></div><div class="line">       &#125;);</div></pre></td></tr></table></figure>
+<p>从上面函数的输出值可以看出<code>Promise.all()</code>里的异步操作是同时执行的而且传给<code>.then()</code>的顺序和<code>Promise.all()</code>里的顺序一样。最终执行时间约为200ms，为什么不是200ms，这里涉及到关于<code>setTimeout</code>的精准问题，不在这里讨论。</p>
+<h2 id="Promise-race-的使用"><a href="#Promise-race-的使用" class="headerlink" title="Promise.race()的使用"></a>Promise.race()的使用</h2><p><code>Promise.rance()</code>的用法与<code>Promise.all()</code>类似，不同的地方在于<code>Promise.all()</code>是在接收到的所有Promise都变为FulFilled或者Rejected状态之后才会继续进行后面的处理，而<code>Promise.rance()</code>只要有一个Promise对象进入FullFilled或者Rejected状态，就会继续进行后续处理。这相当于<code>Promise.rance()</code>进行“且”运算而<code>Promise.rance()</code>进行<code>或</code>运算。但是这里有一点需要注意一下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> taskA = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve</span>) </span>&#123;</div><div class="line">        setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">'this is taskA'</span>);</div><div class="line">            resolve(<span class="string">'this is taskA'</span>);</div><div class="line">        &#125;, <span class="number">4</span>);</div><div class="line">    &#125;);</div><div class="line"><span class="keyword">var</span> taskB = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span> (<span class="params">resolve</span>) </span>&#123;</div><div class="line">        setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="string">'this is taskB'</span>);</div><div class="line">            resolve(<span class="string">'this is taskB'</span>);</div><div class="line">        &#125;, <span class="number">1000</span>);</div><div class="line">    &#125;);</div><div class="line"></div><div class="line"><span class="built_in">Promise</span>.race([winnerPromise, loserPromise]).then(<span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(value);</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">/*</span></div><div class="line">输出结果：</div><div class="line">this is taskA</div><div class="line">this is taskA</div><div class="line">this is taskB</div><div class="line">*/</div></pre></td></tr></table></figure>
+<p>从这里可以看出，在第一个Promise变为FulFiled状态运行then里的回调后，后面的Promise并没有停止运行，而是接续执行。也就是说， <code>Promise.race</code> 在第一个promise对象变为Fulfilled之后，并不会取消其他promise对象的执行。</p>
+<h2 id="Promise的reject和异步操作error的理解"><a href="#Promise的reject和异步操作error的理解" class="headerlink" title="Promise的reject和异步操作error的理解"></a>Promise的reject和异步操作error的理解</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">ReadEveryFiles</span>(<span class="params">file</span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span>&#123;</div><div class="line">        <span class="keyword">if</span>(resolve)&#123;</div><div class="line">            fs.readFile(<span class="string">`<span class="subst">$&#123;__dirname&#125;</span>/jQuery/<span class="subst">$&#123;file&#125;</span>`</span>,(err,data)=&gt;&#123;</div><div class="line">                <span class="keyword">if</span>(err)&#123;</div><div class="line">                    <span class="built_in">console</span>.log(err);</div><div class="line">                &#125;<span class="keyword">else</span>&#123;</div><div class="line">                    <span class="keyword">let</span> obj = &#123;<span class="attr">data</span>:data,<span class="attr">file</span>:file&#125;;</div><div class="line">                    resolve(obj);</div><div class="line">                &#125;</div><div class="line">            &#125;);</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            <span class="comment">//promise reject error</span></div><div class="line">        &#125;</div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里的readFile的error和Promise的reject不一样，一个是readFile过程中导致的错误，而另一个是Promise做处理的时候导致的错误，可以这样理解，假设读取文件成功了，但是Promise还需要讲这个异步操作得到的数据拿到处理，在Promise做这些操作的时候可能出错。</p>
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>这几天开始用Promise写了一些东西，发现其实如果用Promise，会使得代码量加大，因为每一个异步都要被Promise封装，但是这样换来的却是更加容易的维护，所以还是值得的，当代码写完后，我们很容易就能看出代码的执行过程，相对于原来用嵌套去写要直观许多，而如果想要解决Promise的代码量过大的问题，我们可以使用Generator函数，另外，在ES7标准中推出了更加牛的异步解决方案<strong>Async/Await</strong>，关于它们，我将会在随后继续深入。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="http://liubin.org/promises-book/#introduction" target="_blank" rel="external">JavaScript Promise迷你书（中文版）</a><br><a href="http://es6.ruanyifeng.com/#docs/promise" target="_blank" rel="external">ECMAScript 6 入门—Promise对象</a></p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+            
+    
+        <a href="http://mrzhang123.github.io/2016/12/13/promise/#comments" class="article-comment-link ds-thread-count" data-thread-key="http://mrzhang123.github.io/2016/12/13/promise/">评论</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+    
+        <a href="/2016/11/28/node-npm-package/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">Nodejs之npm&amp;package.json</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div class="ds-thread" data-thread-key="2016/12/13/promise/" data-title="Promise－－优雅解决回调嵌套" data-url="http://mrzhang123.github.io/2016/12/13/promise/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+
+    
+    </section>
+
+</section>
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/12/13/promise/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Javascript/">Javascript</a></p>
+                            <p class="item-title"><a href="/2016/12/13/promise/" class="title">Promise－－优雅解决回调嵌套</a></p>
+                            <p class="item-date"><time datetime="2016-12-13T14:34:16.000Z" itemprop="datePublished">2016-12-13</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/11/28/node-npm-package/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Node/">Node</a></p>
+                            <p class="item-title"><a href="/2016/11/28/node-npm-package/" class="title">Nodejs之npm&amp;package.json</a></p>
+                            <p class="item-date"><time datetime="2016-11-28T14:25:36.000Z" itemprop="datePublished">2016-11-28</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/11/13/gitandgithub/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/git-github/">git&github</a></p>
+                            <p class="item-title"><a href="/2016/11/13/gitandgithub/" class="title">Git连接Github总结</a></p>
+                            <p class="item-date"><time datetime="2016-11-13T02:54:26.000Z" itemprop="datePublished">2016-11-13</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/10/02/linux-study/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/linux/">linux</a></p>
+                            <p class="item-title"><a href="/2016/10/02/linux-study/" class="title">Linux日常使用总结</a></p>
+                            <p class="item-date"><time datetime="2016-10-02T15:33:47.000Z" itemprop="datePublished">2016-10-02</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/09/24/thoughts/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/感想/">感想</a></p>
+                            <p class="item-title"><a href="/2016/09/24/thoughts/" class="title">北京的这一年，写在离开的这一天</a></p>
+                            <p class="item-date"><time datetime="2016-09-24T01:41:09.000Z" itemprop="datePublished">2016-09-24</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CSS/">CSS</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/HTML/">HTML</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Javascript/">Javascript</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Javascript-Gulp-Nodejs/">Javascript Gulp Nodejs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git-github/">git&github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jQuery/">jQuery</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端工具/">前端工具</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/感想/">感想</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活/">生活</a><span class="category-list-count">3</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">6</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/H5-file，canvas/">H5 file，canvas</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML5/">HTML5</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Javascript/">Javascript</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Javascript-Gulp-Nodejs/">Javascript Gulp Nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node/">Node</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git-github/">git&github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp/">gulp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery/">jQuery</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/感想/">感想</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">3</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/CSS/" style="font-size: 17.5px;">CSS</a> <a href="/tags/H5-file，canvas/" style="font-size: 12.5px;">H5 file，canvas</a> <a href="/tags/HTML5/" style="font-size: 10px;">HTML5</a> <a href="/tags/Javascript/" style="font-size: 20px;">Javascript</a> <a href="/tags/Javascript-Gulp-Nodejs/" style="font-size: 10px;">Javascript Gulp Nodejs</a> <a href="/tags/Node/" style="font-size: 10px;">Node</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/git-github/" style="font-size: 10px;">git&github</a> <a href="/tags/gulp/" style="font-size: 10px;">gulp</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/vue/" style="font-size: 20px;">vue</a> <a href="/tags/感想/" style="font-size: 10px;">感想</a> <a href="/tags/生活/" style="font-size: 15px;">生活</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="https://relign.github.io/">Relign Blog</a>
+                    </li>
+                
+                    <li>
+                        <a href="http://gold.xitu.io/">掘金</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://segmentfault.com/">segmentfault</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://www.v2ex.com/?tab=tech">V2EX</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://leetcode.com/">leetcode</a>
+                    </li>
+                
+                    <li>
+                        <a href="http://jsbin.com/">jsbin</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2016 ZhangYi<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'mrzhang123'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/vendor/fancybox/jquery.fancybox.pack.js"></script>
+    
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
