@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head>
+    <meta charset="utf-8">
+    
+    <title>Vue2.x踩坑与总结 | MrZhang&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="年前就打算学习并总结一下vue2.x，但是因为年前工作比较多，所以进展十分缓慢，现在终于学了一大部分，而且自己在学习开发中也踩了不少坑也总结了不少，所以将自己踩过的坑总结一下分享出来。因为在项目中使用了webpack2.x，所以对于webpack2.x也有一个踩坑总结，点击链接。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue2.x踩坑与总结">
+<meta property="og:url" content="http://mrzhang123.github.io/2017/02/07/vue2/index.html">
+<meta property="og:site_name" content="MrZhang's Blog">
+<meta property="og:description" content="年前就打算学习并总结一下vue2.x，但是因为年前工作比较多，所以进展十分缓慢，现在终于学了一大部分，而且自己在学习开发中也踩了不少坑也总结了不少，所以将自己踩过的坑总结一下分享出来。因为在项目中使用了webpack2.x，所以对于webpack2.x也有一个踩坑总结，点击链接。">
+<meta property="og:image" content="http://mrzhang123.github.io/img/vue2.jpg">
+<meta property="og:updated_time" content="2017-02-07T14:17:11.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue2.x踩坑与总结">
+<meta name="twitter:description" content="年前就打算学习并总结一下vue2.x，但是因为年前工作比较多，所以进展十分缓慢，现在终于学了一大部分，而且自己在学习开发中也踩了不少坑也总结了不少，所以将自己踩过的坑总结一下分享出来。因为在项目中使用了webpack2.x，所以对于webpack2.x也有一个踩坑总结，点击链接。">
+<meta name="twitter:image" content="http://mrzhang123.github.io/img/vue2.jpg">
+    
+
+    
+
+    
+        <link rel="icon" href="/css/images/favicon.ico" />
+    
+
+    <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/vendor/open-sans/styles.css">
+    <link rel="stylesheet" href="/vendor/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script src="/vendor/jquery/2.1.3/jquery.min.js"></script>
+    
+    
+        <link rel="stylesheet" href="/vendor/fancybox/jquery.fancybox.css">
+    
+    
+    
+    
+        <script>
+var _hmt = _hmt || [];
+(function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?5efd05054ba8c5d775364cdee324e35f";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+    
+
+</head>
+
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">MrZhang&#39;s Blog</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/.">Home</a>
+                
+                    <a class="main-nav-link" href="/archives">Archives</a>
+                
+                    <a class="main-nav-link" href="/about">About</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="/css/images/avatar.png" />
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么..." />
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/.">Home</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">Archives</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">About</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索" />
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="/css/images/avatar.png" />
+            <h2 id="name">zeeCool</h2>
+            <h3 id="title">Web Developer &amp; Designer</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>Beijing, China</span>
+            <a id="follow" target="_blank" href="https://github.com/mrzhang123/">关注我</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                32
+                <span>文章</span>
+            </div>
+            <div class="article-info-block">
+                17
+                <span>标签</span>
+            </div>
+        </div>
+        
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="http://github.com/mrzhang123" target="_blank" title="github" class=tooltip>
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://segmentfault.com/u/fengsdesinian" target="_blank" title="stack-overflow" class=tooltip>
+                            <i class="fa fa-stack-overflow"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="http://weibo.com/2891858001/profile?rightmod=1&wvr=6&mod=personnumber&is_all=1" target="_blank" title="weibo" class=tooltip>
+                            <i class="fa fa-weibo"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="https://twitter.com/Zhang__Yi" target="_blank" title="twitter" class=tooltip>
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
+
+            
+            <section id="main"><article id="post-vue2" class="article article-type-post" itemscope itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+        
+            <header class="article-header">
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Vue2.x踩坑与总结
+        </h1>
+    
+
+                
+                    <div class="article-meta">
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/2017/02/07/vue2/">
+            <time datetime="2017-02-07T13:41:02.000Z" itemprop="datePublished">2017-02-07</time>
+        </a>
+    </div>
+
+
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Vue/">Vue</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/vue/">vue</a>
+    </div>
+
+                    </div>
+                
+            </header>
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+            
+            <p><img src="/img/vue2.jpg" alt=""></p>
+<blockquote>
+<p>年前就打算学习并总结一下vue2.x，但是因为年前工作比较多，所以进展十分缓慢，现在终于学了一大部分，而且自己在学习开发中也踩了不少坑也总结了不少，所以将自己踩过的坑总结一下分享出来。因为在项目中使用了webpack2.x，所以对于webpack2.x也有一个踩坑总结，<a href="http://mrzhang123.github.io/2017/02/07/webpack2/">点击链接</a>。</p>
+</blockquote>
+<a id="more"></a>
+<p>项目地址：<a href="https://github.com/MrZhang123/Vue_project/tree/master/vue2.x" target="_blank" rel="external">https://github.com/MrZhang123/Vue_project/tree/master/vue2.x</a></p>
+<h1 id="vue2-x"><a href="#vue2-x" class="headerlink" title="vue2.x"></a>vue2.x</h1><h2 id="1-独立构建vs运行时构建"><a href="#1-独立构建vs运行时构建" class="headerlink" title="1.独立构建vs运行时构建"></a>1.独立构建vs运行时构建</h2><p>在按照vue1.0的配置配置好webpack后，会出现<code>Failed to mount component: template or render function not defined. (found in root instance)</code>的错误，这里涉及到vue2.0与vue1.0的第一个不同的地方。具体区别<a href="https://vuefe.cn/v2/guide/installation.html#独立构建-vs-运行时构建" target="_blank" rel="external">独立构建 vs 运行时构建</a>。解决方法为在webpack配置文件中添加如下配置项：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">resolve: &#123;</div><div class="line">  <span class="attr">alias</span>: &#123;</div><div class="line">    <span class="string">'vue$'</span>: <span class="string">'vue/dist/vue.common.js'</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="2-挂载点的选择"><a href="#2-挂载点的选择" class="headerlink" title="2.挂载点的选择"></a>2.挂载点的选择</h2><p>在原来的vue1.0的项目中我使用<code>body</code>元素作为挂载点，但是在vue2.0中，如果使用<code>body</code>或者<code>html</code>作为挂载点，则会报以下警告：<code>Do not mount Vue to &lt;html&gt; or &lt;body&gt; - mount to normal elements instead.</code></p>
+<font color="red">在vue1.0中允许开发者以<code>body</code>或者<code>html</code>作为根实体的挂载点，但是到了2.0后，只能通过<strong>独立的节点挂载</strong>，例如：div等，否则报警告</font>
+
+<h2 id="3-动态组件渲染（跟1-x类似）"><a href="#3-动态组件渲染（跟1-x类似）" class="headerlink" title="3.动态组件渲染（跟1.x类似）"></a>3.动态组件渲染（跟1.x类似）</h2><p>多个组件可以使用同一个挂载点，然后动态地在它们之间切换。<strong>使用保留的 <component> 元素</component></strong>，动态地绑定到它的 is 特性：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 动态组件由 vm 实例的属性值 `componentId` 控制 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">component</span> <span class="attr">:is</span>=<span class="string">"componentId"</span>&gt;</span><span class="tag">&lt;/<span class="name">component</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- 也能够渲染注册过的组件或 prop 传入的组件 --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">component</span> <span class="attr">:is</span>=<span class="string">"$options.components.child"</span>&gt;</span><span class="tag">&lt;/<span class="name">component</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="keep-alive"><a href="#keep-alive" class="headerlink" title="keep-alive"></a><code>keep-alive</code></h3><p>如果把切换出去的组件保留在内存中，可以保留它的状态或避免重新渲染。为此可以添加一个 <code>keep-alive</code> 指令参数：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">keep-alive</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">component</span> <span class="attr">:is</span>=<span class="string">"currentView"</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- 非活动组件将被缓存！ --&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">component</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">keep-alive</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="4-ref"><a href="#4-ref" class="headerlink" title="4.ref"></a>4.ref</h2><p>有时候需要直接在父组件中访问子组件实例，或者直接操作DOM元素，此时需要使用<code>ref</code>。</p>
+<p><code>ref</code>被用来给元素或子元素注册引用信息。引用信息会根据父组件的<code>$refs</code>对象进行注册。如果在普通的DOM元素上使用，引用信息就是元素，如果用在子组件上，引用信息就是组件实例。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- vm.$refs.p will be the DOM node --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">ref</span>=<span class="string">"p"</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="comment">&lt;!-- vm.$refs.child will be the child comp instance --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">child-comp</span> <span class="attr">ref</span>=<span class="string">"child"</span>&gt;</span><span class="tag">&lt;/<span class="name">child-comp</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>当 <code>v-for</code> 用于元素或组件的时候，引用信息将是包含DOM节点或组件实例数组。</p>
+<p>关于ref注册时间的重要说明: 因为ref本身是作为渲染结果被创建的，在初始渲染的时候你不能访问它们 - 它们还不存在！<strong><code>$refs</code> 也不是响应式的</strong>，因此你不应该试图用它在模版中做数据绑定。</p>
+<h2 id="5-自定义事件"><a href="#5-自定义事件" class="headerlink" title="5.自定义事件"></a>5.自定义事件</h2><p>在vue自定义事件使用<code>$on</code>与<code>$emit</code>，前者用于触发监听，后者用于触发，监听可以有两种方式</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--使用v-on在html中监听--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">my-component</span> <span class="attr">v-on:test</span>=<span class="string">"callbackFun"</span>&gt;</span><span class="tag">&lt;/<span class="name">my-component</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="javascript"></span></div><div class="line">  <span class="comment">//直接用$on监听</span></div><div class="line">  vm.$on(<span class="string">'text'</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;)</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="6-组件命名的约定"><a href="#6-组件命名的约定" class="headerlink" title="6.组件命名的约定"></a>6.组件命名的约定</h2><p>当注册组件（或者 props）时，可以使用 kebab-case ，camelCase ，或 TitleCase </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 在组件定义中</span></div><div class="line">components: &#123;</div><div class="line">  <span class="comment">// 使用 kebab-case 形式注册</span></div><div class="line">  <span class="string">'kebab-cased-component'</span>: &#123; <span class="comment">/* ... */</span> &#125;,</div><div class="line">  <span class="comment">// register using camelCase</span></div><div class="line">  <span class="string">'camelCasedComponent'</span>: &#123; <span class="comment">/* ... */</span> &#125;,</div><div class="line">  <span class="comment">// register using TitleCase</span></div><div class="line">  <span class="string">'TitleCasedComponent'</span>: &#123; <span class="comment">/* ... */</span> &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在 HTML 模版中，只能使用 kebab-case 形式：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 在HTML模版中始终使用 kebab-case --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">kebab-cased-component</span>&gt;</span><span class="tag">&lt;/<span class="name">kebab-cased-component</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">camel-cased-component</span>&gt;</span><span class="tag">&lt;/<span class="name">camel-cased-component</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">title-cased-component</span>&gt;</span><span class="tag">&lt;/<span class="name">title-cased-component</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>当使用<strong>字符串模式</strong>时可以使用 camelCase 、 TitleCase 或者 kebab-case 来引用：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!-- 在字符串模版中可以用任何你喜欢的方式! --&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">my-component</span>&gt;</span><span class="tag">&lt;/<span class="name">my-component</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">myComponent</span>&gt;</span><span class="tag">&lt;/<span class="name">myComponent</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">MyComponent</span>&gt;</span><span class="tag">&lt;/<span class="name">MyComponent</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="7-子组件中使用this"><a href="#7-子组件中使用this" class="headerlink" title="7.子组件中使用this"></a>7.子组件中使用<code>this</code></h2><p>有时候子组件简单，可以在父组件中直接注册，此时在子组件内使用<code>this</code>就是子组件实例并不是父组件，例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="keyword">default</span>&#123;</div><div class="line">    data()&#123;</div><div class="line">        <span class="keyword">return</span>&#123;</div><div class="line">            <span class="attr">parentMsg</span>:<span class="string">'hello!'</span></div><div class="line">        &#125;</div><div class="line">    &#125;,</div><div class="line">    <span class="attr">components</span>:&#123;</div><div class="line">        <span class="attr">child</span>:&#123;</div><div class="line">            <span class="attr">props</span>:[<span class="string">'inputMessage'</span>],</div><div class="line">            <span class="attr">template</span>:<span class="string">'&lt;span&gt;&#123;&#123;inputMessage&#125;&#125;&lt;/span&gt;'</span></div><div class="line">        &#125;,</div><div class="line">        <span class="string">'child-secound'</span>:&#123;</div><div class="line">            <span class="attr">props</span>:[<span class="string">'inputMessage'</span>],</div><div class="line">            <span class="attr">template</span>:<span class="string">'&lt;span&gt;&#123;&#123;upperCase&#125;&#125;&lt;/span&gt;'</span>,</div><div class="line">            <span class="attr">computed</span>:&#123;</div><div class="line">                upperCase()&#123;</div><div class="line">                    <span class="keyword">return</span> <span class="keyword">this</span>.inputMessage.toUpperCase();</div><div class="line">                &#125;</div><div class="line">            &#125;    </div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="8-key的使用"><a href="#8-key的使用" class="headerlink" title="8.key的使用"></a>8.<code>key</code>的使用</h2><p>一般情况下，vue在渲染完成后，如果数据发生变化，只会重新渲染数据，不会重新渲染整个元素，但是有时候我们需要元素被重新渲染，此时就需要使用<code>key</code>关键字，使用<code>v-bind</code>绑定<code>key</code>关键字，可以实现在数据发生变化时候重新渲染整个元素。<strong>注：</strong>同一父级元素下所有子元素如果都要在数据变化后重新渲染元素，则需要被绑定的<code>key</code></p>
+<h2 id="9-v-move的使用"><a href="#9-v-move的使用" class="headerlink" title="9.v-move的使用"></a>9.<code>v-move</code>的使用</h2><p>在使用<code>&lt;transition-group&gt;</code>时候，不仅可以定义进入离开动画，还可以使用新增的<code>v-move</code>特性，与过渡一样，默认为<code>v-move</code>，可以用<code>name</code>进行自定义前缀，也可以用<code>move-class</code>属性手动设定。用了这个之后就可以实现移动过程中的动画。</p>
+<h2 id="10-跳过css检测"><a href="#10-跳过css检测" class="headerlink" title="10.跳过css检测"></a>10.跳过css检测</h2><p>对于只使用js过度的元素使用<code>v-bind:css=&quot;false&quot;</code>跳过vue对css的检测。</p>
+<h2 id="render函数的使用"><a href="#render函数的使用" class="headerlink" title="render函数的使用"></a>render函数的使用</h2><p>createElement接受三个参数：</p>
+<ul>
+<li><p>{String | Object | Function}即一个HTML标签 | 组件选项 | 一个函数，必须返回上述其中一个</p>
+</li>
+<li><p>{Object}一个对应HTML标签属性的数据对象（可选）</p>
+</li>
+<li><p>{String | Array}子节点（VNode）（可选）</p>
+</li>
+</ul>
+<p>⚠️ 关于第三个参数的说明</p>
+<ul>
+<li>createElement第三个参数，如果是String，则类似于innerHTML，如果是Array，则可以写入一个执行函数，这个函数用于创建另一个DOM结构（而且这里如果想写入一个执行函数，必须是数组！！）</li>
+<li>每个createElement只能创建一个元素，所以如果是创建多个元素相互嵌套，需要多个createElement函数相互嵌套，最后再render，这个跟原生js创建DOM元素类似</li>
+<li>如果需要同时渲染多个元素，则需要在第三个参数的数组中，分别写入需要渲染的元素，此时Vue会按照数组中<strong>顺序</strong>进行渲染</li>
+</ul>
+<p>完整数据对象：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="comment">// 和`v-bind:class`一样的 API</span></div><div class="line">  <span class="string">'class'</span>: &#123;</div><div class="line">    <span class="attr">foo</span>: <span class="literal">true</span>,</div><div class="line">    <span class="attr">bar</span>: <span class="literal">false</span></div><div class="line">  &#125;,</div><div class="line">  <span class="comment">// 和`v-bind:style`一样的 API</span></div><div class="line">  style: &#123;</div><div class="line">    <span class="attr">color</span>: <span class="string">'red'</span>,</div><div class="line">    <span class="attr">fontSize</span>: <span class="string">'14px'</span></div><div class="line">  &#125;,</div><div class="line">  <span class="comment">// 正常的 HTML 特性</span></div><div class="line">  attrs: &#123;</div><div class="line">    <span class="attr">id</span>: <span class="string">'foo'</span></div><div class="line">  &#125;,</div><div class="line">  <span class="comment">// 组件 props</span></div><div class="line">  props: &#123;</div><div class="line">    <span class="attr">myProp</span>: <span class="string">'bar'</span></div><div class="line">  &#125;,</div><div class="line">  <span class="comment">// DOM 属性</span></div><div class="line">  domProps: &#123;</div><div class="line">    <span class="attr">innerHTML</span>: <span class="string">'baz'</span></div><div class="line">  &#125;,</div><div class="line">  <span class="comment">// 事件监听器基于 "on"</span></div><div class="line">  <span class="comment">// 所以不再支持如 v-on:keyup.enter 修饰器</span></div><div class="line">  <span class="comment">// 需要手动匹配 keyCode。</span></div><div class="line">  on: &#123;</div><div class="line">    <span class="attr">click</span>: <span class="keyword">this</span>.clickHandler</div><div class="line">  &#125;,</div><div class="line">  <span class="comment">// 仅对于组件，用于监听原生事件，而不是组件使用 vm.$emit 触发的事件。</span></div><div class="line">  nativeOn: &#123;</div><div class="line">    <span class="attr">click</span>: <span class="keyword">this</span>.nativeClickHandler</div><div class="line">  &#125;,</div><div class="line">  <span class="comment">// 自定义指令. 注意事项：不能对绑定的旧值设值</span></div><div class="line">  <span class="comment">// Vue 会为您持续追踨</span></div><div class="line">  directives: [</div><div class="line">    &#123;</div><div class="line">      <span class="attr">name</span>: <span class="string">'my-custom-directive'</span>,</div><div class="line">      <span class="attr">value</span>: <span class="string">'2'</span></div><div class="line">      expression: <span class="string">'1 + 1'</span>,</div><div class="line">      <span class="attr">arg</span>: <span class="string">'foo'</span>,</div><div class="line">      <span class="attr">modifiers</span>: &#123;</div><div class="line">        <span class="attr">bar</span>: <span class="literal">true</span></div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  ],</div><div class="line">  <span class="comment">// Scoped slots in the form of</span></div><div class="line">  <span class="comment">// &#123; name: props =&gt; VNode | Array&lt;VNode&gt; &#125;</span></div><div class="line">  scopedSlots: &#123;</div><div class="line">    <span class="attr">default</span>: <span class="function"><span class="params">props</span> =&gt;</span> h(<span class="string">'span'</span>, props.text)</div><div class="line">  &#125;,</div><div class="line">  <span class="comment">// 如果子组件有定义 slot 的名称</span></div><div class="line">  slot: <span class="string">'name-of-slot'</span></div><div class="line">  <span class="comment">// 其他特殊顶层属性</span></div><div class="line">  key: <span class="string">'myKey'</span>,</div><div class="line">  <span class="attr">ref</span>: <span class="string">'myRef'</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h1 id="vue-router2-x"><a href="#vue-router2-x" class="headerlink" title="vue-router2.x"></a>vue-router2.x</h1><h2 id="1-router-view"><a href="#1-router-view" class="headerlink" title="1.router-view"></a>1.router-view</h2><p>在vue-router2中<code>&lt;router-view&gt;</code>是最顶层的出口，渲染最高级路由匹配到组件。同样地，一个被渲染组件同样可以包含自己的嵌套<code>&lt;router-view&gt;</code>。</p>
+<h2 id="2-挂载"><a href="#2-挂载" class="headerlink" title="2.挂载"></a>2.挂载</h2><p>在router1.0中，挂载节点的方式为<code>router.start()</code>而在router2.0中使用vue自己的<code>$mount</code>手动挂载</p>
+<h2 id="3-给link添加事件"><a href="#3-给link添加事件" class="headerlink" title="3.给link添加事件"></a>3.给link添加事件</h2><p>在vue-router1中使用<code>v-link</code>写入路由，但是在vue-router2中要使用<code>router-link</code>写入路由，在浏览器渲染的时候会把<code>router-link</code>渲染成<code>a</code>。</p>
+<p>有时候需要为<code>router-link</code>注册事件，对于一般的html元素，直接使用<code>@click=&quot;eventFun&quot;</code>即可，但是对于<code>router-link</code>，像普通html元素那样注册事件后并不管用，<strong>需要添加<code>.native</code>才会成功注册</strong>。</p>
+<p>事实上给<strong>组件绑定原生事件</strong>就需要<code>.native</code>修饰<code>v-on</code>，否则无法注册成功。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">my-component</span> <span class="attr">v-on:click.native</span>=<span class="string">"doTheThing"</span>&gt;</span><span class="tag">&lt;/<span class="name">my-component</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="4-利用vue-router做导航"><a href="#4-利用vue-router做导航" class="headerlink" title="4.利用vue-router做导航"></a>4.利用vue-router做导航</h2><p>在利用vue-router做导航的时候，需要用到<code>redirect</code>关键字的重定向功能，具体写法如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123;</div><div class="line">    <span class="attr">routes</span> : [</div><div class="line">        &#123;<span class="attr">path</span>:<span class="string">'/'</span>,<span class="attr">redirect</span>:<span class="string">'/ZY'</span>&#125;,</div><div class="line">        &#123;<span class="attr">path</span>:<span class="string">'/ZY'</span>,<span class="attr">component</span>:ZY&#125;</div><div class="line">    ]</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="5-路由嵌套"><a href="#5-路由嵌套" class="headerlink" title="5.路由嵌套"></a>5.路由嵌套</h2><p>vue-router的路由嵌套指的是<strong>子组件会在父组件中渲染出来</strong>，必须是子组件的父组件，祖先不可以实现，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">/user/foo/profile                     /user/foo/posts</div><div class="line">+------------------+                  +-----------------+</div><div class="line">| User             |                  | User            |</div><div class="line">| +--------------+ |                  | +-------------+ |</div><div class="line">| | Profile      | |  +------------&gt;  | | Posts       | |</div><div class="line">| |              | |                  | |             | |</div><div class="line">| +--------------+ |                  | +-------------+ |</div><div class="line">+------------------+                  +-----------------+</div></pre></td></tr></table></figure>
+<h1 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h1><p><a href="https://cn.vuejs.org/v2/guide/" target="_blank" rel="external">Vue.js官方文档</a></p>
+<p><a href="http://router.vuejs.org/zh-cn/index.html" target="_blank" rel="external">vue-router 2官方文档</a></p>
+
+        
+        </div>
+        <footer class="article-footer">
+            <div class="share-container">
+
+    <div class="jiathis_style">
+    <span class="jiathis_txt">分享到：</span>
+    <a class="jiathis_button_qzone">QQ空间</a>
+    <a class="jiathis_button_tsina">新浪微博</a>
+    <a class="jiathis_button_tqq">腾讯微博</a>
+    <a class="jiathis_button_weixin">微信</a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+    <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<style>
+    .jiathis_style div:first-child:not(.jiadiv_01) {
+        width: auto !important;
+        border: none !important;
+    }
+    .jiathis_style .jiadiv_01 {
+        margin: 10px 0;
+        border-radius: 4px;
+        border: #e1e1e1 solid 1px;
+    }
+    .jiathis_style .jiadiv_01 div:first-child {
+        display: none;
+    }
+    .jiathis_style .jiadiv_02 {
+        padding: 7px 0 !important;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle {
+        width: 85px;
+        border: none;
+        height: auto;
+        margin: 3px 10px;
+        padding: 6px 10px;
+        border-radius: 4px;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:hover {
+        border: none;
+    }
+    .jiathis_style .jiadiv_02 .jiatitle:nth-child(even) {
+        margin-left: 0;
+    }
+    .jiathis_style .jtico:hover {
+        opacity: 1;
+    }
+    .jiathis_style .ckepopBottom,
+    .jiathis_style .centerBottom {
+        width: auto !important;
+        padding: 5px;
+        background: #f7f7f7;
+    }
+</style>
+
+
+
+</div>
+
+            
+    
+        <a href="http://mrzhang123.github.io/2017/02/07/vue2/#comments" class="article-comment-link ds-thread-count" data-thread-key="http://mrzhang123.github.io/2017/02/07/vue2/">评论</a>
+    
+
+        </footer>
+    </div>
+    
+        
+<nav id="article-nav">
+    
+        <a href="/2017/02/07/webpack2/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    Webpack2.x踩坑与总结
+                
+            </div>
+        </a>
+    
+    
+        <a href="/2017/01/06/iframe-POST/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">iframe跨域POST提交</div>
+        </a>
+    
+</nav>
+
+
+    
+</article>
+
+
+    
+    <section id="comments">
+    
+        
+    <div class="ds-thread" data-thread-key="2017/02/07/vue2/" data-title="Vue2.x踩坑与总结" data-url="http://mrzhang123.github.io/2017/02/07/vue2/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+
+    
+    </section>
+
+</section>
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">最新文章</h3>
+        <div class="widget">
+            <ul id="recent-post" class="">
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/02/07/webpack2/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/webpack/">webpack</a></p>
+                            <p class="item-title"><a href="/2017/02/07/webpack2/" class="title">Webpack2.x踩坑与总结</a></p>
+                            <p class="item-date"><time datetime="2017-02-07T14:41:09.000Z" itemprop="datePublished">2017-02-07</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/02/07/vue2/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Vue/">Vue</a></p>
+                            <p class="item-title"><a href="/2017/02/07/vue2/" class="title">Vue2.x踩坑与总结</a></p>
+                            <p class="item-date"><time datetime="2017-02-07T13:41:02.000Z" itemprop="datePublished">2017-02-07</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2017/01/06/iframe-POST/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Javascript/">Javascript</a></p>
+                            <p class="item-title"><a href="/2017/01/06/iframe-POST/" class="title">iframe跨域POST提交</a></p>
+                            <p class="item-date"><time datetime="2017-01-06T15:07:16.000Z" itemprop="datePublished">2017-01-06</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/12/31/hello-2017/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/总结/">总结</a></p>
+                            <p class="item-title"><a href="/2016/12/31/hello-2017/" class="title">再见，2016；你好，2017</a></p>
+                            <p class="item-date"><time datetime="2016-12-31T15:28:51.000Z" itemprop="datePublished">2016-12-31</time></p>
+                        </div>
+                    </li>
+                
+                    <li>
+                        
+                        <div class="item-thumbnail">
+                            <a href="/2016/12/13/promise/" class="thumbnail">
+    
+    
+        <span class="thumbnail-image thumbnail-none"></span>
+    
+</a>
+
+                        </div>
+                        
+                        <div class="item-inner">
+                            <p class="item-category"><a class="article-category-link" href="/categories/Javascript/">Javascript</a></p>
+                            <p class="item-title"><a href="/2016/12/13/promise/" class="title">Promise－－优雅解决回调嵌套</a></p>
+                            <p class="item-date"><time datetime="2016-12-13T14:34:16.000Z" itemprop="datePublished">2016-12-13</time></p>
+                        </div>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">分类</h3>
+        <div class="widget">
+            <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/CSS/">CSS</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/HTML/">HTML</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Javascript/">Javascript</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Javascript-Gulp-Nodejs/">Javascript Gulp Nodejs</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Node/">Node</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Vue/">Vue</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/git-github/">git&github</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/jQuery/">jQuery</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/linux/">linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webpack/">webpack</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端工具/">前端工具</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/总结/">总结</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/感想/">感想</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活/">生活</a><span class="category-list-count">3</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">归档</h3>
+        <div class="widget">
+            <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">一月 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">十月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/08/">八月 2016</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">七月 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/06/">六月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">五月 2016</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">四月 2016</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">三月 2016</a><span class="archive-list-count">6</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签</h3>
+        <div class="widget">
+            <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CSS/">CSS</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/H5-file，canvas/">H5 file，canvas</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/HTML5/">HTML5</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Javascript/">Javascript</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Javascript-Gulp-Nodejs/">Javascript Gulp Nodejs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Node/">Node</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/canvas/">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git-github/">git&github</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/gulp/">gulp</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jQuery/">jQuery</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/javascript-iframe-POST-form/">javascript,iframe,POST,form</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vue/">vue</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webpack/">webpack</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/感想/">感想</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/新年/">新年</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/生活/">生活</a><span class="tag-list-count">3</span></li></ul>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap">
+        <h3 class="widget-title">标签云</h3>
+        <div class="widget tagcloud">
+            <a href="/tags/CSS/" style="font-size: 16px;">CSS</a> <a href="/tags/H5-file，canvas/" style="font-size: 12px;">H5 file，canvas</a> <a href="/tags/HTML5/" style="font-size: 10px;">HTML5</a> <a href="/tags/Javascript/" style="font-size: 18px;">Javascript</a> <a href="/tags/Javascript-Gulp-Nodejs/" style="font-size: 10px;">Javascript Gulp Nodejs</a> <a href="/tags/Node/" style="font-size: 10px;">Node</a> <a href="/tags/canvas/" style="font-size: 10px;">canvas</a> <a href="/tags/git-github/" style="font-size: 10px;">git&github</a> <a href="/tags/gulp/" style="font-size: 10px;">gulp</a> <a href="/tags/jQuery/" style="font-size: 10px;">jQuery</a> <a href="/tags/javascript-iframe-POST-form/" style="font-size: 10px;">javascript,iframe,POST,form</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/vue/" style="font-size: 20px;">vue</a> <a href="/tags/webpack/" style="font-size: 10px;">webpack</a> <a href="/tags/感想/" style="font-size: 10px;">感想</a> <a href="/tags/新年/" style="font-size: 10px;">新年</a> <a href="/tags/生活/" style="font-size: 14px;">生活</a>
+        </div>
+    </div>
+
+    
+        
+    <div class="widget-wrap widget-list">
+        <h3 class="widget-title">链接</h3>
+        <div class="widget">
+            <ul>
+                
+                    <li>
+                        <a href="https://relign.github.io/">Relign Blog</a>
+                    </li>
+                
+                    <li>
+                        <a href="http://gold.xitu.io/">掘金</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://segmentfault.com/">segmentfault</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://www.v2ex.com/?tab=tech">V2EX</a>
+                    </li>
+                
+                    <li>
+                        <a href="https://leetcode.com/">leetcode</a>
+                    </li>
+                
+                    <li>
+                        <a href="http://jsbin.com/">jsbin</a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            &copy; 2017 ZhangYi<br>
+            Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>. Theme by <a href="http://github.com/ppoffice">PPOffice</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'mrzhang123'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/vendor/fancybox/jquery.fancybox.pack.js"></script>
+    
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
+</html>
